@@ -1,0 +1,58 @@
+{
+  "name": "regl-vj-presentation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo slides.js -s index.js --live --open -- -t [ babelify --presets [ es2015 react ] ] -t brfs -t glslify",
+    "final": "budo webgl-examples/final/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "sound": "budo webgl-examples/7_sound/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "batch": "budo webgl-examples/6_batch/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "lighting": "budo webgl-examples/5_lighting/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "glslify": "budo webgl-examples/4_glslify/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "multiple": "budo webgl-examples/3_multiple/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "camera": "budo webgl-examples/2_camera/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "tower": "budo webgl-examples/1_tower/index.js -s index.js --live --open --title \"REGL VJ\" -- -t [ babelify --presets [ es2015 ] ] -t brfs -t glslify",
+    "build": "browserify slides.js -o index.js -t [ babelify --presets [ es2015 react ] ] -t brfs -t glslify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mollerse/regl-vj-presentation.git"
+  },
+  "keywords": ["presentation"],
+  "bugs": {
+    "url": "https://github.com/mollerse/regl-vj-presentation/issues"
+  },
+  "homepage": "https://github.com/mollerse/regl-vj-presentation#readme",
+  "author": "Stian Møllersen <stian.moellersen@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-react": "6.24.1",
+    "babelify": "7.3.0",
+    "brfs": "1.4.3",
+    "brfs-babel": "1.0.0",
+    "browserify": "14.4.0",
+    "budo": "10.0.4",
+    "eslint": "4.5.0",
+    "eslint-plugin-react": "7.3.0",
+    "glslify": "6.1.0"
+  },
+  "babel": {
+    "plugins": ["transform-object-rest-spread"]
+  },
+  "dependencies": {
+    "getusermedia": "2.0.1",
+    "gl-mat4": "1.1.4",
+    "glsl-random": "0.0.5",
+    "prismjs": "1.6.0",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "regl": "1.3.0",
+    "soundcloud-badge": "1.1.0",
+    "spectacle": "1.2.5",
+    "spectacle-code-slide": "0.4.0",
+    "web-audio-analyser": "2.0.1"
+  }
+}
