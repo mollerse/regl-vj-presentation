@@ -19,7 +19,9 @@
     "type": "git",
     "url": "git+https://github.com/mollerse/regl-vj-presentation.git"
   },
-  "keywords": ["presentation"],
+  "keywords": [
+    "presentation"
+  ],
   "bugs": {
     "url": "https://github.com/mollerse/regl-vj-presentation/issues"
   },
@@ -40,7 +42,9 @@
     "glslify": "6.1.0"
   },
   "babel": {
-    "plugins": ["transform-object-rest-spread"]
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
   },
   "dependencies": {
     "getusermedia": "2.0.1",

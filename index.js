@@ -73321,12 +73321,180 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               SmallHeading,
               null,
-              'Stian Veum M\xF8llersen / @mollerse'
+              'Stian Veum M\xF8llersen'
             ),
             _react2.default.createElement(
               SmallText,
               null,
               'Content warnings: Motion'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
+              '\xA0WebGL\xA0'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'The story begins.'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'Duh. Det er f\xF8rste slide.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center hack' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              { className: 'attribution' },
+              'CitiBike Commute av Taylor Baldwin'
+            ),
+            _react2.default.createElement('iframe', {
+              height: '100%',
+              width: '100%',
+              style: {
+                border: 'none'
+              },
+              src: 'https://tbaldw.in/citibike-trips/'
+            })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL er en metode for \xE5 vise avansert grafikk i nettleseren.'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'Unreal Engine, wooo!'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL er nettleserens interface mot grafikkortet.'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'There be dangers.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Gj\xF8r GPUens massive beregningskrefter tilgjengelig i nettlesern, for \xE5 lage grafikk som f\xF8r var forbeholdt desktop.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Real talk: WebGL er komplisert, annerledes og kravstort.'
+            )
+          ),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "var cubeRotation = 0.0;\n\nmain();\nfunction main() {\n  const canvas = document.querySelector('#glcanvas');\n  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');\n\n  if (!gl) {\n    alert('Unable to initialize WebGL. Your browser or machine may not support it.');\n    return;\n  }\n\n  const vsSource = `\n    attribute vec4 aVertexPosition;\n    attribute vec4 aVertexColor;\n\n    uniform mat4 uModelViewMatrix;\n    uniform mat4 uProjectionMatrix;\n\n    varying lowp vec4 vColor;\n\n    void main(void) {\n      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;\n      vColor = aVertexColor;\n    }\n  `;\n\n  const fsSource = `\n    varying lowp vec4 vColor;\n\n    void main(void) {\n      gl_FragColor = vColor;\n    }\n  `;\n  const shaderProgram = initShaderProgram(gl, vsSource, fsSource);\n  const programInfo = {\n    program: shaderProgram,\n    attribLocations: {\n      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),\n      vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),\n    },\n    uniformLocations: {\n      projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),\n      modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),\n    },\n  };\n  const buffers = initBuffers(gl);\n\n  var then = 0;\n  function render(now) {    const deltaTime = now - then;\n    then = now;\n\n    drawScene(gl, programInfo, buffers, deltaTime);\n\n    requestAnimationFrame(render);\n  }\n  requestAnimationFrame(render);\n}\nfunction initBuffers(gl) {\n\n  const positionBuffer = gl.createBuffer();\n\n  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);\n\n  const positions = [    -1.0, -1.0,  1.0,\n     1.0, -1.0,  1.0,\n     1.0,  1.0,  1.0,\n    -1.0,  1.0,  1.0,\n    -1.0, -1.0, -1.0,\n    -1.0,  1.0, -1.0,\n     1.0,  1.0, -1.0,\n     1.0, -1.0, -1.0,\n    -1.0,  1.0, -1.0,\n    -1.0,  1.0,  1.0,\n     1.0,  1.0,  1.0,\n     1.0,  1.0, -1.0,\n    -1.0, -1.0, -1.0,\n     1.0, -1.0, -1.0,\n     1.0, -1.0,  1.0,\n    -1.0, -1.0,  1.0,\n     1.0, -1.0, -1.0,\n     1.0,  1.0, -1.0,\n     1.0,  1.0,  1.0,\n     1.0, -1.0,  1.0,\n    -1.0, -1.0, -1.0,\n    -1.0, -1.0,  1.0,\n    -1.0,  1.0,  1.0,\n    -1.0,  1.0, -1.0,\n  ];\n\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);\n\n  const faceColors = [  ];\n\n  var colors = [];\n\n  for (var j = 0; j < faceColors.length; ++j) {\n    const c = faceColors[j];\n    colors = colors.concat(c, c, c, c);\n  }\n\n  const colorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);\n\n  const indexBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);\n\n  const indices = [  ];\n\n  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,\n      new Uint16Array(indices), gl.STATIC_DRAW);\n\n  return {\n    position: positionBuffer,\n    color: colorBuffer,\n    indices: indexBuffer,\n  };\n}\nfunction drawScene(gl, programInfo, buffers, deltaTime) {\n  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);\n  const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;\n  const zNear = 0.1;\n  const zFar = 100.0;\n  const projectionMatrix = mat4.create();\n  mat4.perspective(projectionMatrix,\n                   fieldOfView,\n                   aspect,\n                   zNear,\n                   zFar);\n  const modelViewMatrix = mat4.create();\n  {\n    const numComponents = 3;\n    const type = gl.FLOAT;\n    const normalize = false;\n    const stride = 0;\n    const offset = 0;\n    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);\n    gl.vertexAttribPointer(\n        programInfo.attribLocations.vertexPosition,\n        numComponents,\n        type,\n        normalize,\n        stride,\n        offset);\n    gl.enableVertexAttribArray(\n        programInfo.attribLocations.vertexPosition);\n  }\n  {\n    const numComponents = 4;\n    const type = gl.FLOAT;\n    const normalize = false;\n    const stride = 0;\n    const offset = 0;\n    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);\n    gl.vertexAttribPointer(\n        programInfo.attribLocations.vertexColor,\n        numComponents,\n        type,\n        normalize,\n        stride,\n        offset);\n    gl.enableVertexAttribArray(\n        programInfo.attribLocations.vertexColor);\n  }\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);\n\n  gl.useProgram(programInfo.program);\n\n  gl.uniformMatrix4fv(\n      programInfo.uniformLocations.projectionMatrix,\n      false,\n      projectionMatrix);\n  gl.uniformMatrix4fv(\n      programInfo.uniformLocations.modelViewMatrix,\n      false,\n      modelViewMatrix);\n\n  {\n    const vertexCount = 36;\n    const type = gl.UNSIGNED_SHORT;\n    const offset = 0;\n    gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);\n  }\n\n  cubeRotation += deltaTime;\n}\nfunction initShaderProgram(gl, vsSource, fsSource) {\n  const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);\n  const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);\n\n  const shaderProgram = gl.createProgram();\n  gl.attachShader(shaderProgram, vertexShader);\n  gl.attachShader(shaderProgram, fragmentShader);\n  gl.linkProgram(shaderProgram);\n\n  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {\n    alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));\n    return null;\n  }\n\n  return shaderProgram;\n}\nfunction loadShader(gl, type, source) {\n  const shader = gl.createShader(type);\n\n  gl.shaderSource(shader, source);\n\n  gl.compileShader(shader);\n\n  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {\n    alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));\n    gl.deleteShader(shader);\n    return null;\n  }\n\n  return shader;\n}\n",
+            ranges: [{ loc: [3, 12] }, { loc: [12, 26] }, { loc: [27, 34] }, { loc: [34, 46] }, { loc: [187, 203] }, { loc: [203, 218] }, { loc: [187, 203] }, { loc: [34, 46] }, { loc: [58, 65] }, { loc: [101, 113] }, { loc: [119, 136] }, { loc: [136, 146] }, { loc: [146, 156] }, { loc: [156, 166] }, { loc: [166, 176] }, { loc: [176, 187] }]
+          }),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center center' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: 'https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Creating_3D_objects_using_WebGL' },
+                'Creating 3D objects using WebGL fra Mozilla Developer Network'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Men, hvordan?'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'Dette var mye greier.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.BlockQuote,
+              null,
+              _react2.default.createElement(
+                _spectacle.Quote,
+                null,
+                'Det er enklere \xE5 l\xE6re seg noe n\xE5r du har det g\xF8y.'
+              ),
+              _react2.default.createElement(
+                _spectacle.Cite,
+                null,
+                'Noen'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center center' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Utforsk ny teknologi gjennom kreativitet, blottet for praktiske form\xE5l.'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'Skal sies at kreativitet i seg selv er en utrolig viktig egenskap for utviklere, men det er en annen talk.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Det betyr at veien til mestring er full av g\xF8yale og frustrerende opplevelser.'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Du m\xE5 bare starte et sted.'
+              )
             )
           ),
           _react2.default.createElement(
@@ -73363,6 +73531,24 @@ var Slides = function (_Component) {
                 _spectacle.Cite,
                 null,
                 'Wikiepdia'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Musikk er lyd, og lyd er signaler'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                '...og signaler kan vi prosessere!'
               )
             )
           ),
@@ -73424,61 +73610,58 @@ var Slides = function (_Component) {
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
+            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
             _react2.default.createElement(
-              SmallHeading,
+              _spectacle.Text,
               null,
-              'Men, hvorfor?'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'De som har h\xF8rt meg prate f\xF8r blir antageligvis ikke overaska n\xE5.'
+              '3D + penn & papir = <3'
             )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
             _react2.default.createElement(
-              _spectacle.BlockQuote,
+              SmallHeading,
               null,
+              'Rammeverk'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Mer verk enn ramme?'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Hvis du vil ',
               _react2.default.createElement(
-                _spectacle.Quote,
+                'i',
                 null,
-                'Det er enklere \xE5 l\xE6re seg noe n\xE5r du har det g\xF8y.'
+                'l\xE6re'
               ),
-              _react2.default.createElement(
-                _spectacle.Cite,
-                null,
-                'Noen'
-              )
+              ' deg noe er det greit \xE5 velge noe fikser f\xE6rre ting for deg.'
             )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center center' }),
+            defaultSlideProps,
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Utforsk ny teknologi gjennom kreativitet, blottet for praktiske form\xE5l.'
+              'regl er et biblotek for \xE5 jobbe med WebGL.'
             ),
             _react2.default.createElement(
               SmallText,
               null,
-              'Skal sies at kreativitet i seg selv er en utrolig viktig egenskap for utviklere, men det er en annen talk.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center flex-start' }),
-            _react2.default.createElement(
-              SmallHeading,
-              null,
-              '\xA0WebGL\xA0'
-            ),
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Hva og hvorfor?'
+              'Ligger liksom litt i navnet.'
             )
           ),
           _react2.default.createElement(
@@ -73487,89 +73670,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'WebGL er en metode for \xE5 vise avansert grafikk i nettleseren.'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'Unreal Engine, wooo!'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center hack' }),
-            _react2.default.createElement(
-              _spectacle.Text,
-              { className: 'attribution' },
-              'CitiBike Commute av Taylor Baldwin'
-            ),
-            _react2.default.createElement('iframe', {
-              height: '100%',
-              width: '100%',
-              style: {
-                border: 'none'
-              },
-              src: 'https://tbaldw.in/citibike-trips/'
-            })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'WebGL er nettleserens interface mot grafikkortet.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Gj\xF8r GPUens massive beregningskrefter tilgjengelig i nettlesern, for \xE5 lage grafikk som f\xF8r var forbeholdt desktop.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'Approved by BEKK'
-            ),
-            _react2.default.createElement(_spectacle.Image, { src: 'images/bekkradar.png' })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center flex-start' }),
-            _react2.default.createElement(
-              SmallHeading,
-              null,
-              '\xA0WebGL\xA0'
-            ),
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Hvordan?'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Real talk: WebGL er komplisert, annerledes og kravstort.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Det betyr at veien til mestring er full av g\xF8yale og frustrerende opplevelser.'
+              'regl er inspirert av Reacts functional rendering.'
             ),
             _react2.default.createElement(
               _spectacle.Appear,
@@ -73577,8 +73678,164 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Du m\xE5 bare starte et sted.'
+                'Komposisjon av commands som components i React.'
               )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'regl gj\xF8r ganske lite for deg.'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'npm to the rescue!'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              '...men regl tar seg av state h\xE5ndtering og det maskinelle.'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'No more gl.bindBuffer \\0/'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL --- regl --------- three.js'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: 'http://regl.party/api' },
+                'regl.party'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL er drit flink til \xE5 tegne trekanter'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'Seri\xF8st liksom'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'N\xE5r WebGL tegner, g\xE5r den gjennom en buffer av trekanter.'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Hver trekant er tre punkter:'
+              ),
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                _react2.default.createElement(
+                  _spectacle.Code,
+                  null,
+                  't1 = [p1, p2, p3]'
+                )
+              ),
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                _react2.default.createElement(
+                  _spectacle.Code,
+                  null,
+                  'buffer = [t1, t2...tN]'
+                )
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Hello, I am Captain Obvious.'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Trekantene bygger igjen opp mer komplekse ting.'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'En firkant er 2 trekanter. Og en kube er 6\xD72 trekanter.'
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Captain Obvious strikes again!'
+              )
+            )
+          ),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nconst t = tower([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els,\n    uniforms: {\n      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),\n      projection: function({ viewportWidth, viewportHeight }) {\n        return mat4.perspective(\n          [],\n          Math.PI / 4,\n          viewportWidth / viewportHeight,\n          0.01,\n          100\n        );\n      }\n    }\n  })();\n}\n\ndraw();\n",
+            ranges: [{ loc: [0, 0], title: 'Tegne et tårn' }, { loc: [7, 8], title: 'Oppsett' }, { loc: [9, 10], title: 'Definer vertices' }, { loc: [10, 14], title: 'Bottom' }, { loc: [15, 19], title: 'Front' }, { loc: [20, 24], title: 'Right' }, { loc: [25, 29], title: 'Back' }, { loc: [30, 34], title: 'Left' }, { loc: [35, 39], title: 'Top' }, { loc: [41, 42], title: 'Definer elements' }, { loc: [42, 44], title: 'Bottom' }, { loc: [44, 46], title: 'Front' }, { loc: [46, 48], title: 'Right' }, { loc: [48, 50], title: 'Back' }, { loc: [50, 52], title: 'Left' }, { loc: [52, 54], title: 'Top' }, { loc: [64, 65], title: 'Returner' }, { loc: [67, 68], title: 'Putt i en variabel' }, { loc: [69, 70], title: 'Lager en draw()' }, { loc: [70, 73], title: 'Fyllfarge' }, { loc: [74, 75], title: 'Oppsett av kall' }, { loc: [101, 102], title: 'Elements for indeks' }, { loc: [97, 101], title: 'Attributes' }, { loc: [84, 97], title: 'Vertex shader' }]
+          }),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
+              'Verte-what?'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Vertex shader'
             )
           ),
           _react2.default.createElement(
@@ -73664,18 +73921,32 @@ var Slides = function (_Component) {
               'Kilde: https://en.wikipedia.org/wiki/Graphics_pipeline'
             )
           ),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nconst t = tower([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els,\n    uniforms: {\n      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),\n      projection: function({ viewportWidth, viewportHeight }) {\n        return mat4.perspective(\n          [],\n          Math.PI / 4,\n          viewportWidth / viewportHeight,\n          0.01,\n          100\n        );\n      }\n    }\n  })();\n}\n\ndraw();\n",
+            ranges: [{ loc: [84, 97], title: 'Vertex shader' }, { loc: [85, 86], title: 'Setter precision' }, { loc: [86, 88], title: 'Deklarerer vars' }, { loc: [88, 89], title: 'Deklarerer uniforms' }, { loc: [102, 114], title: 'Deklarerer uniforms' }, { loc: [89, 90], title: 'Deklarerer ut vars' }, { loc: [91, 96], title: 'Jobben' }, { loc: [75, 84], title: 'Fragment shader' }, { loc: [117, 118], title: 'Kaller draw' }]
+          }),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[1] })
+          ),
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Denne pipelinen er drit flink til \xE5 tegne trekanter'
+              'Ikke veldig imponerende.'
             ),
             _react2.default.createElement(
               SmallText,
               null,
-              'Seri\xF8st liksom'
+              'Ser ikke 3D ut en gang!'
             )
           ),
           _react2.default.createElement(
@@ -73684,21 +73955,12 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'N\xE5r WebGL tegner, g\xE5r den gjennom en buffer av trekanter.'
+              'Vi m\xE5 l\xE6re oss om WebGLs koordinatsystem.'
             ),
             _react2.default.createElement(
-              AppearingBlock,
+              SmallText,
               null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Hver trekant er tre punkter.'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                'Hello, I am Captain Obvious.'
-              )
+              'Ugh, trodde jeg var ferdig med matte...'
             )
           ),
           _react2.default.createElement(
@@ -73707,39 +73969,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Trekantene bygger igjen opp mer komplekse ting.'
-            ),
-            _react2.default.createElement(
-              AppearingBlock,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'En firkant er 2 trekanter. Og en kube er 12 trekanter.'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                'Captain Obvious strikes again!'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Punktene som utgj\xF8r trekanter lever i et koordinatsystem.'
-            ),
-            _react2.default.createElement(
-              _spectacle.Appear,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Koordinatsystemet til WebGL er en kube, hvor hver akse g\xE5r fra -1 til 1.'
-              )
+              'Koordinatsystemet til WebGL er en kube, hvor hver akse g\xE5r fra -1 til 1.'
             )
           ),
           _react2.default.createElement(
@@ -73822,214 +74052,11 @@ var Slides = function (_Component) {
           ),
           _react2.default.createElement(
             _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center flex-start' }),
-            _react2.default.createElement(
-              SmallHeading,
-              null,
-              '\xA0REGL\xA0'
-            ),
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Hva og hvorfor?'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
             defaultSlideProps,
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'regl er et biblotek for \xE5 jobbe med WebGL.'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'Ligger liksom litt i navnet.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'regl har sine r\xF8tter i stack.gl.'
-            ),
-            _react2.default.createElement(
-              _spectacle.Appear,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Som var et prosjekt for \xE5 modularisere WebGL.'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'regl er inspirert av Reacts functional rendering.'
-            ),
-            _react2.default.createElement(
-              _spectacle.Appear,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Komposisjon av objects som components i React.'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'regl tilbyr ikke WebGL wrappers.'
-            ),
-            _react2.default.createElement(
-              AppearingBlock,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Du m\xE5 fortsatt lage geometriene dine selv.'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                'npm to the rescue!'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Men regl tar seg av state management og det maskinelle.'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'No more gl.bindBuffer \\0/'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center flex-start' }),
-            _react2.default.createElement(
-              SmallHeading,
-              null,
-              '\xA0REGL\xA0'
-            ),
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Hvordan?'
-            )
-          ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const regl = require('regl')(Canvas | Context | Div);\n\nconst props = {\n  frag: string,\n  vert: string,\n  attributes: Object,\n  elements: Buffer | BufferLike,\n  uniforms: Object\n};\n\nconst drawProps = regl(props);\n\ndrawProps();\n",
-            ranges: [{ loc: [0, 0], title: 'REGL API' }, { loc: [0, 1], title: 'Instansiering' }, { loc: [10, 11], title: 'Kommandoer' }, { loc: [2, 10], title: 'Props' }, { loc: [3, 5], title: 'Shaders' }, { loc: [5, 6], title: 'Attributes' }, { loc: [6, 7], title: 'Elements' }, { loc: [7, 8], title: 'Uniforms' }, { loc: [10, 11], title: 'Kommandoer' }, { loc: [12, 13], title: 'Draw' }]
-          }),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Og mye mer: ',
-              _react2.default.createElement(
-                'a',
-                { href: 'http://regl.party/api' },
-                'regl.party/api'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Hvordan henger dette sammen med VJing?'
-            ),
-            _react2.default.createElement(
-              AppearingBlock,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Motivasjon for \xE5 l\xE6re.'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                'Ogs\xE5 er det ganske fett da.'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              '3D + penn & papir = <3'
-            )
-          ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nconst t = tower([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els,\n    uniforms: {\n      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),\n      projection: function({ viewportWidth, viewportHeight }) {\n        return mat4.perspective(\n          [],\n          Math.PI / 4,\n          viewportWidth / viewportHeight,\n          0.01,\n          100\n        );\n      }\n    }\n  })();\n}\n\ndraw();\n",
-            ranges: [{ loc: [0, 0], title: 'Tegne et tårn' }, { loc: [7, 8], title: 'Oppsett' }, { loc: [9, 10], title: 'Definer vertices' }, { loc: [10, 14], title: 'Bottom' }, { loc: [15, 19], title: 'Front' }, { loc: [20, 24], title: 'Right' }, { loc: [25, 29], title: 'Back' }, { loc: [30, 34], title: 'Left' }, { loc: [35, 39], title: 'Top' }, { loc: [41, 42], title: 'Definer elements' }, { loc: [42, 44], title: 'Bottom' }, { loc: [44, 46], title: 'Front' }, { loc: [46, 48], title: 'Right' }, { loc: [48, 50], title: 'Back' }, { loc: [50, 52], title: 'Left' }, { loc: [52, 54], title: 'Top' }, { loc: [56, 63], title: 'Definer colors' }, { loc: [64, 65], title: 'Returner' }, { loc: [67, 68], title: 'Putt i en variabel' }, { loc: [69, 70], title: 'Lager en draw()' }, { loc: [0, 1], title: 'Importer regl' }, { loc: [70, 73], title: 'Fyllfarge' }, { loc: [74, 75], title: 'Oppsett av kall' }, { loc: [101, 102], title: 'Elements for indeks' }, { loc: [97, 101], title: 'Attributes' }, { loc: [102, 103], title: 'Uniforms' }, { loc: [103, 104], title: 'View matrix' }, { loc: [1, 2], title: 'Mat4 modulen' }, { loc: [103, 104], title: 'Lages med lookAt' }, { loc: [104, 105], title: 'Projection' }, { loc: [104, 105], title: 'Regl kaller fn' }, { loc: [105, 112], title: 'mat4 hjelp igjen' }, { loc: [84, 97], title: 'Vertex shader' }, { loc: [85, 86], title: 'Setter precision' }, { loc: [86, 89], title: 'Deklarerer in vars' }, { loc: [89, 90], title: 'Deklarerer ut vars' }, { loc: [91, 96], title: 'Jobben' }, { loc: [75, 84], title: 'Fragment shader' }, { loc: [117, 118], title: 'Kaller draw' }]
-          }),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[1] })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Ikke veldig imponerende.'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'Ser ikke 3D ut en gang!'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Vi justerer p\xE5 kameraet!'
+              'N\xE5 kan vi justere p\xE5 kameraet!'
             )
           ),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
@@ -74107,7 +74134,7 @@ var Slides = function (_Component) {
             className: 'codeslide',
             lang: 'js',
             code: "function rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const t = tower(config.placement, config.width, config.height);\n\n  return regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [4, 5], title: 'Tower er lik' }, { loc: [71, 80], title: 'Sine egne shaders' }, { loc: [80, 93], title: 'Sine egne shaders' }, { loc: [93, 98], title: 'og verdier' }, { loc: [64, 68], title: 'Eksporter fn' }, { loc: [66, 67], title: 'som tar config' }, { loc: [68, 69], title: 'vi kan bruke' }]
+            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [4, 5], title: 'Tower er lik' }, { loc: [71, 80], title: 'Fragment shader' }, { loc: [80, 93], title: 'Vertex shader' }, { loc: [93, 98], title: 'og verdier' }, { loc: [64, 68], title: 'Eksporter fn' }]
           }),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
             align: 'top',
@@ -74116,7 +74143,7 @@ var Slides = function (_Component) {
             className: 'codeslide',
             lang: 'js',
             code: "function ground(w, d) {\n  const vert = [\n    [0 - w / 2, 0.01, 0 - d / 2],\n    [0 + w / 2, 0.01, 0 - d / 2],\n    [0 - w / 2, 0.01, 0 + d / 2],\n    [0 + w / 2, 0.01, 0 + d / 2]\n  ];\n\n  const els = [[0, 1, 2], [1, 2, 3]];\n\n  const colors = Array(vert.length).fill([0.2, 0.2, 0.2, 1.0]);\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(regl, config = { width: 8, depth: 5 }) {\n  const g = ground(config.width, config.depth);\n  return regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec3 position;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: g.vert,\n      color: g.colors\n    },\n    elements: g.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'ground.js' }, { loc: [0, 1], title: 'Vi lager en bakke' }, { loc: [1, 13], title: 'En firkant langs X,Z' }, { loc: [18, 26], title: 'Med shaders' }, { loc: [26, 38], title: 'Med shaders' }, { loc: [38, 43], title: 'og data' }, { loc: [15, 16], title: 'Eksporter fn' }, { loc: [15, 16], title: 'med config' }, { loc: [16, 17], title: 'som kan brukes' }]
+            ranges: [{ loc: [0, 0], title: 'ground.js' }, { loc: [0, 1], title: 'Vi lager en bakke' }, { loc: [1, 13], title: 'En firkant langs X,Z' }, { loc: [18, 26], title: 'Med shaders' }, { loc: [26, 38], title: 'Med shaders' }, { loc: [38, 43], title: 'og data' }, { loc: [15, 16], title: 'Eksporter fn' }]
           }),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
             align: 'top',
@@ -74135,6 +74162,11 @@ var Slides = function (_Component) {
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
+            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
             _react2.default.createElement(
               _spectacle.Text,
               null,
@@ -74147,7 +74179,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Fortsatt litt kjedelig, da'
+              'N\xE5 kan vi begynne \xE5 fikle og eksperimentere.'
             ),
             _react2.default.createElement(
               AppearingBlock,
@@ -74155,12 +74187,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Vi spriter det opp med litt fargefikling!'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                'Men ikke mer enn at vi f\xE5r med oss bryggefesten...'
+                'Feks med fargene.'
               )
             )
           ),
@@ -74171,16 +74198,7 @@ var Slides = function (_Component) {
             className: 'codeslide',
             lang: 'js',
             code: "const glsl = require('glslify');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length).fill([\n    rand2(0.8, 0.9),\n    rand2(0.1, 0.2),\n    rand2(0.35, 0.45),\n    1.0\n  ]);\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const t = tower(config.placement, config.width, config.height);\n\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 pColor;\n\n      void main () {\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1);\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw);\n        }\n\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `),\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'Tower.js' }, { loc: [6, 7], title: 'Inne i tower fn' }, { loc: [55, 61], title: 'Endrer vi fargene' }, { loc: [56, 60], title: 'Til noe kledelig' }, { loc: [87, 100], title: 'Vertex er uendret' }, { loc: [72, 87], title: 'Fragment shader' }, { loc: [79, 84], title: 'Vi fikler litt' }, { loc: [79, 82], title: 'Striper' }, { loc: [81, 84], title: 'Og litt random' }, { loc: [74, 75], title: 'Random module' }, { loc: [74, 75], title: 'med glslify' }, { loc: [72, 73], title: 'Build time import' }, { loc: [0, 1], title: 'ala browserify' }]
-          }),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const glsl = require('glslify');\n\nfunction ground(w, d) {\n  const vert = [\n    [0 - w / 2, 0.01, 0 - d / 2],\n    [0 + w / 2, 0.01, 0 - d / 2],\n    [0 - w / 2, 0.01, 0 + d / 2],\n    [0 + w / 2, 0.01, 0 + d / 2]\n  ];\n\n  const els = [[0, 1, 2], [1, 2, 3]];\n\n  const colors = Array(vert.length).fill([0.2, 0.2, 0.2, 1.0]);\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(regl, config = { width: 8, depth: 5 }) {\n  const g = ground(config.width, config.depth);\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 pColor;\n      void main () {\n        gl_FragColor = vec4(pColor.xyz, 0.9 + random(gl_FragCoord.xy));\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec3 position;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n        pColor = color;\n      }\n    `),\n    attributes: {\n      position: g.vert,\n      color: g.colors\n    },\n    elements: g.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'ground.js' }, { loc: [20, 29], title: 'Fragment shader' }, { loc: [25, 28], title: 'Samme fikling' }]
+            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [72, 87], title: 'i fragment shader' }, { loc: [79, 84], title: 'Vi fikler litt' }, { loc: [79, 82], title: 'Striper' }, { loc: [81, 84], title: 'Og litt random' }]
           }),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -74193,7 +74211,57 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'N\xE5 begynner det \xE5 ligne p\xE5 noe'
+              'Dette begynner \xE5 se fett ut.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.BlockQuote,
+              null,
+              _react2.default.createElement(
+                _spectacle.Quote,
+                null,
+                '\xC5 fikle er \xE5 l\xE6re.'
+              ),
+              _react2.default.createElement(
+                _spectacle.Cite,
+                null,
+                'Noen'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            null,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Vi kan fikle til noen kule lyseffekter.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[5] })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Jeg skal spare dere for koden til denne lys-effekten.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Men dette er et prima eksempel p\xE5 hvordan et fungerende system hjelper deg til \xE5 l\xE6re.'
             ),
             _react2.default.createElement(
               AppearingBlock,
@@ -74201,28 +74269,19 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Men vi kan fikle litt mer'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                '\xC5 fikle er \xE5 l\xE6re \u2014 Confucius'
+                'N\xE5r du forst\xE5r hvordan du kom deg et sted du er kan du alltid komme deg dit igjen.'
               )
             )
           ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const glsl = require('glslify');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length).fill([\n    rand2(0.8, 0.9),\n    rand2(0.1, 0.2),\n    rand2(0.35, 0.45),\n    1.0\n  ]);\n\n  const normals = [\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, 1, 0],\n    [0, 1, 0],\n    [0, 1, 0],\n    [0, 1, 0]\n  ];\n\n  return { vert, els, colors, normals };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const t = tower(config.placement, config.width, config.height);\n\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main () {\n        vec3 normal = normalize(fragNormal);\n        vec3 lightPosition = vec3(0, -10, 0);\n        vec4 lightColor = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lightDir = normalize(lightPosition - fragPosition);\n        float diffuse = max(0.0, dot(lightDir, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffuse*lightColor;\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw) + diffuse*lightColor;\n        }\n\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec3 position, normal;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n        fragNormal = normal;\n        fragPosition = position;\n      }\n    `),\n    attributes: {\n      position: t.vert,\n      color: t.colors,\n      normal: t.normals\n    },\n    elements: t.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [0, 0], title: 'Let there be light!' }, { loc: [6, 7], title: 'Vi må ha normals' }, { loc: [62, 67], title: "Normal = what's up" }, { loc: [67, 71], title: "Normal = what's up" }, { loc: [71, 75], title: "Normal = what's up" }, { loc: [75, 79], title: "Normal = what's up" }, { loc: [79, 83], title: "Normal = what's up" }, { loc: [83, 88], title: "Normal = what's up" }, { loc: [138, 143], title: 'En attribute' }, { loc: [141, 142], title: 'En attribute' }, { loc: [122, 138], title: 'Vertex shader' }, { loc: [124, 125], title: 'Deklarer inn' }, { loc: [128, 129], title: 'Deklarer ut' }, { loc: [134, 136], title: 'Assign' }, { loc: [99, 100], title: 'Fragment shader' }, { loc: [104, 105], title: 'Les inn' }, { loc: [107, 113], title: 'Gjør litt matte' }, { loc: [115, 116], title: 'Legg til lys' }, { loc: [117, 118], title: 'Legg til lys' }]
-          }),
           _react2.default.createElement(
             _spectacle.Slide,
             _extends({}, defaultSlideProps, { align: 'hack hack' }),
             _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[5] })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -74361,14 +74420,40 @@ var Slides = function (_Component) {
             _spectacle.Slide,
             defaultSlideProps,
             _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Og s\xE5nn kan du l\xE6re deg noe nytt.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'G\xF8y?'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'https://kortslutning.fun' },
+                  'kortslutning.fun'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
               BigHeading,
               null,
               'Takk for meg!'
-            ),
-            _react2.default.createElement(
-              SmallHeading,
-              null,
-              'Henchman #5 / @mollerse'
             ),
             _react2.default.createElement(
               _spectacle.Text,
@@ -74376,10 +74461,15 @@ var Slides = function (_Component) {
               'Slides:',
               ' ',
               _react2.default.createElement(
-                _spectacle.Link,
+                'a',
                 { href: 'https://mollerse.github.io/regl-vj-presentation' },
                 'mollerse.github.io/regl-vj-presentation'
               )
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              { className: 'slides' },
+              'Kontakt: @mollerse alle plasser'
             )
           )
         )
