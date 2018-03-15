@@ -1,4 +1,4 @@
-const regl = require('regl')();
+const reglFn = require('regl');
 const mat4 = require('gl-mat4');
 
 function rand2(l, u) {
@@ -67,7 +67,9 @@ function tower([x0, z0], w, h) {
 
 const t = tower([0, 0], 1, 3);
 
-function draw() {
+export default function draw(ctx) {
+  const regl = reglFn(ctx);
+
   regl.clear({
     color: [0.0, 0.0, 0.0, 1]
   });
@@ -86,11 +88,10 @@ function draw() {
       precision mediump float;
       attribute vec4 color;
       attribute vec3 position;
-      uniform mat4 projection, view;
       varying lowp vec4 pColor;
 
       void main() {
-        gl_Position = projection * view * vec4(position, 1);
+        gl_Position = vec4(position, 1);
 
         pColor = color;
       }
@@ -99,20 +100,8 @@ function draw() {
       position: t.vert,
       color: t.colors
     },
-    elements: t.els,
-    uniforms: {
-      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),
-      projection: function({ viewportWidth, viewportHeight }) {
-        return mat4.perspective(
-          [],
-          Math.PI / 4,
-          viewportWidth / viewportHeight,
-          0.01,
-          100
-        );
-      }
-    }
+    elements: t.els
   })();
-}
 
-draw();
+  return regl;
+}

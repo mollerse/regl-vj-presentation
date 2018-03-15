@@ -5,9 +5,9 @@ function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-function tower([x0, z0], w, h) {
+function cube([x0, z0], w, h) {
   var w2 = w / 2;
-  const vert = [
+  const punkter = [
     [x0 - w2, 0, z0 - w2],
     [x0 + w2, 0, z0 - w2],
     [x0 - w2, 0, z0 + w2],
@@ -39,7 +39,7 @@ function tower([x0, z0], w, h) {
     [x0 + w2, h, z0 + w2]
   ];
 
-  const els = [
+  const elementBuffer = [
     [0, 1, 2],
     [1, 2, 3], //bottom
     [4, 5, 6],
@@ -54,7 +54,7 @@ function tower([x0, z0], w, h) {
     [21, 22, 23] //top
   ];
 
-  const colors = Array(vert.length / 4)
+  const farger = Array(punkter.length / 4)
     .fill(0)
     .map(() => {
       const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];
@@ -62,10 +62,10 @@ function tower([x0, z0], w, h) {
     })
     .reduce((a, e) => a.concat(e));
 
-  return { vert, els, colors };
+  return { punkter, elementBuffer, farger };
 }
 
-const t = tower([0, 0], 1, 3);
+const aCube = cube([0, 0], 1, 3);
 
 function draw() {
   regl.frame(function() {
@@ -75,32 +75,32 @@ function draw() {
 
     regl({
       frag: `
-      precision mediump float;
+        precision mediump float;
 
-      varying vec4 pColor;
+        varying vec4 punktFarge;
 
-      void main () {
-        gl_FragColor = pColor;
-      }
+        void main () {
+          gl_FragColor = punktFarge;
+        }
       `,
       vert: `
-      precision mediump float;
-      attribute vec4 color;
-      attribute vec3 position;
-      uniform mat4 projection, view;
-      varying lowp vec4 pColor;
+        precision mediump float;
+        attribute vec4 farge;
+        attribute vec3 posisjon;
+        uniform mat4 projection, view;
+        varying lowp vec4 punktFarge;
 
-      void main() {
-        gl_Position = projection * view * vec4(position, 1);
+        void main() {
+          gl_Position = projection * view * vec4(posisjon, 1);
 
-        pColor = color;
-      }
+          punktFarge = farge;
+        }
       `,
       attributes: {
-        position: t.vert,
-        color: t.colors
+        posisjon: aCube.punkter,
+        farge: aCube.farger
       },
-      elements: t.els,
+      elements: aCube.elementBuffer,
       uniforms: {
         view: function({ tick }) {
           const t = 0.01 * tick;

@@ -73198,6 +73198,83 @@ function extend() {
 },{}],466:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WebGLSlide = function (_Component) {
+  _inherits(WebGLSlide, _Component);
+
+  function WebGLSlide() {
+    _classCallCheck(this, WebGLSlide);
+
+    return _possibleConstructorReturn(this, (WebGLSlide.__proto__ || Object.getPrototypeOf(WebGLSlide)).apply(this, arguments));
+  }
+
+  _createClass(WebGLSlide, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('webgl');
+
+      ctx.canvas.height = window.innerHeight;
+      ctx.canvas.width = window.innerWidth;
+      canvas.style.position = 'absolute';
+      canvas.style.top = 0;
+      canvas.style.left = '-20px';
+
+      this.regl = this.props.fn(ctx);
+      this.canvas = canvas;
+      this._output.appendChild(canvas);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this._output.removeChild(this.canvas);
+      this.regl.destroy();
+
+      if (window.audioEl) {
+        window.audioEl.pause();
+        delete window.audioEl;
+      }
+
+      if (window.scbEl) {
+        document.body.removeChild(scbEl);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement('div', { ref: function ref(el) {
+          return _this2._output = el;
+        } });
+    }
+  }]);
+
+  return WebGLSlide;
+}(_react.Component);
+
+exports.default = WebGLSlide;
+
+},{"react":362}],467:[function(require,module,exports){
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -73222,9 +73299,9 @@ var _theme = require('./theme');
 
 var _theme2 = _interopRequireDefault(_theme);
 
-var _webglSlide = require('./webgl-slide');
+var _reglSlide = require('./regl-slide');
 
-var _webglSlide2 = _interopRequireDefault(_webglSlide);
+var _reglSlide2 = _interopRequireDefault(_reglSlide);
 
 var _webglExamples = require('./webgl-examples');
 
@@ -73318,10 +73395,11 @@ var Slides = function (_Component) {
               null,
               '\u2014 WebGL with a twist'
             ),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
               SmallHeading,
               null,
-              'Stian Veum M\xF8llersen'
+              '\xA0Stian Veum M\xF8llersen / @mollerse\xA0'
             ),
             _react2.default.createElement(
               SmallText,
@@ -73335,17 +73413,129 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               SmallHeading,
               null,
+              '\u2026the story begins'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Jeg er veldig glad i \xE5 lage g\xF8yale ting i nettlesern \uD83D\uDE0E'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Spesielt ting som ',
+                _react2.default.createElement(
+                  'em',
+                  null,
+                  'ser'
+                ),
+                ' g\xF8yalt ut \uD83D\uDC68\u200D\uD83C\uDFA8'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'SVG, Canvas, CSS \u2014 all the good stuff \uD83E\uDD29'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Men bare 2D* \uD83D\uDE1E'
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Du kan gj\xF8re ',
+                _react2.default.createElement(
+                  'em',
+                  null,
+                  'litt'
+                ),
+                ' 3D greier.'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center hack' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              { className: 'attribution' },
+              '50 Years of Charts by Hinderling Volkart AG'
+            ),
+            _react2.default.createElement('iframe', {
+              height: '100%',
+              width: '100%',
+              style: {
+                border: 'none'
+              },
+              src: 'https://50-jahre-hitparade.ch/'
+            })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              '3D f\xE5r du med WebGL \uD83D\uDE3B'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Men hva ',
+                _react2.default.createElement(
+                  'em',
+                  null,
+                  'er'
+                ),
+                ' WebGL? \uD83E\uDD37\u200D\u2642\uFE0F'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
               '\xA0WebGL\xA0'
             ),
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'The story begins.'
+              '\u2026what even are you?'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL er en metode for \xE5 vise avansert grafikk i nettleseren \uD83E\uDD13'
             ),
             _react2.default.createElement(
               SmallText,
               null,
-              'Duh. Det er f\xF8rste slide.'
+              'Unreal Engine, wooo!'
             )
           ),
           _react2.default.createElement(
@@ -73371,65 +73561,29 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'WebGL er en metode for \xE5 vise avansert grafikk i nettleseren.'
+              'WebGL er nettleserens API mot grafikkortet \uD83D\uDCFD'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'GPUens beregningskrefter i nettlesern \uD83D\uDCAA'
             ),
             _react2.default.createElement(
-              SmallText,
-              null,
-              'Unreal Engine, wooo!'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'WebGL er nettleserens interface mot grafikkortet.'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'There be dangers.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Gj\xF8r GPUens massive beregningskrefter tilgjengelig i nettlesern, for \xE5 lage grafikk som f\xF8r var forbeholdt desktop.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Real talk: WebGL er komplisert, annerledes og kravstort.'
-            )
-          ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "var cubeRotation = 0.0;\n\nmain();\nfunction main() {\n  const canvas = document.querySelector('#glcanvas');\n  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');\n\n  if (!gl) {\n    alert('Unable to initialize WebGL. Your browser or machine may not support it.');\n    return;\n  }\n\n  const vsSource = `\n    attribute vec4 aVertexPosition;\n    attribute vec4 aVertexColor;\n\n    uniform mat4 uModelViewMatrix;\n    uniform mat4 uProjectionMatrix;\n\n    varying lowp vec4 vColor;\n\n    void main(void) {\n      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;\n      vColor = aVertexColor;\n    }\n  `;\n\n  const fsSource = `\n    varying lowp vec4 vColor;\n\n    void main(void) {\n      gl_FragColor = vColor;\n    }\n  `;\n  const shaderProgram = initShaderProgram(gl, vsSource, fsSource);\n  const programInfo = {\n    program: shaderProgram,\n    attribLocations: {\n      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),\n      vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),\n    },\n    uniformLocations: {\n      projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),\n      modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),\n    },\n  };\n  const buffers = initBuffers(gl);\n\n  var then = 0;\n  function render(now) {    const deltaTime = now - then;\n    then = now;\n\n    drawScene(gl, programInfo, buffers, deltaTime);\n\n    requestAnimationFrame(render);\n  }\n  requestAnimationFrame(render);\n}\nfunction initBuffers(gl) {\n\n  const positionBuffer = gl.createBuffer();\n\n  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);\n\n  const positions = [    -1.0, -1.0,  1.0,\n     1.0, -1.0,  1.0,\n     1.0,  1.0,  1.0,\n    -1.0,  1.0,  1.0,\n    -1.0, -1.0, -1.0,\n    -1.0,  1.0, -1.0,\n     1.0,  1.0, -1.0,\n     1.0, -1.0, -1.0,\n    -1.0,  1.0, -1.0,\n    -1.0,  1.0,  1.0,\n     1.0,  1.0,  1.0,\n     1.0,  1.0, -1.0,\n    -1.0, -1.0, -1.0,\n     1.0, -1.0, -1.0,\n     1.0, -1.0,  1.0,\n    -1.0, -1.0,  1.0,\n     1.0, -1.0, -1.0,\n     1.0,  1.0, -1.0,\n     1.0,  1.0,  1.0,\n     1.0, -1.0,  1.0,\n    -1.0, -1.0, -1.0,\n    -1.0, -1.0,  1.0,\n    -1.0,  1.0,  1.0,\n    -1.0,  1.0, -1.0,\n  ];\n\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);\n\n  const faceColors = [  ];\n\n  var colors = [];\n\n  for (var j = 0; j < faceColors.length; ++j) {\n    const c = faceColors[j];\n    colors = colors.concat(c, c, c, c);\n  }\n\n  const colorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);\n\n  const indexBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);\n\n  const indices = [  ];\n\n  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,\n      new Uint16Array(indices), gl.STATIC_DRAW);\n\n  return {\n    position: positionBuffer,\n    color: colorBuffer,\n    indices: indexBuffer,\n  };\n}\nfunction drawScene(gl, programInfo, buffers, deltaTime) {\n  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);\n  const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;\n  const zNear = 0.1;\n  const zFar = 100.0;\n  const projectionMatrix = mat4.create();\n  mat4.perspective(projectionMatrix,\n                   fieldOfView,\n                   aspect,\n                   zNear,\n                   zFar);\n  const modelViewMatrix = mat4.create();\n  {\n    const numComponents = 3;\n    const type = gl.FLOAT;\n    const normalize = false;\n    const stride = 0;\n    const offset = 0;\n    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);\n    gl.vertexAttribPointer(\n        programInfo.attribLocations.vertexPosition,\n        numComponents,\n        type,\n        normalize,\n        stride,\n        offset);\n    gl.enableVertexAttribArray(\n        programInfo.attribLocations.vertexPosition);\n  }\n  {\n    const numComponents = 4;\n    const type = gl.FLOAT;\n    const normalize = false;\n    const stride = 0;\n    const offset = 0;\n    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);\n    gl.vertexAttribPointer(\n        programInfo.attribLocations.vertexColor,\n        numComponents,\n        type,\n        normalize,\n        stride,\n        offset);\n    gl.enableVertexAttribArray(\n        programInfo.attribLocations.vertexColor);\n  }\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);\n\n  gl.useProgram(programInfo.program);\n\n  gl.uniformMatrix4fv(\n      programInfo.uniformLocations.projectionMatrix,\n      false,\n      projectionMatrix);\n  gl.uniformMatrix4fv(\n      programInfo.uniformLocations.modelViewMatrix,\n      false,\n      modelViewMatrix);\n\n  {\n    const vertexCount = 36;\n    const type = gl.UNSIGNED_SHORT;\n    const offset = 0;\n    gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);\n  }\n\n  cubeRotation += deltaTime;\n}\nfunction initShaderProgram(gl, vsSource, fsSource) {\n  const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);\n  const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);\n\n  const shaderProgram = gl.createProgram();\n  gl.attachShader(shaderProgram, vertexShader);\n  gl.attachShader(shaderProgram, fragmentShader);\n  gl.linkProgram(shaderProgram);\n\n  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {\n    alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));\n    return null;\n  }\n\n  return shaderProgram;\n}\nfunction loadShader(gl, type, source) {\n  const shader = gl.createShader(type);\n\n  gl.shaderSource(shader, source);\n\n  gl.compileShader(shader);\n\n  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {\n    alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));\n    gl.deleteShader(shader);\n    return null;\n  }\n\n  return shader;\n}\n",
-            ranges: [{ loc: [3, 12] }, { loc: [12, 26] }, { loc: [27, 34] }, { loc: [34, 46] }, { loc: [187, 203] }, { loc: [203, 218] }, { loc: [187, 203] }, { loc: [34, 46] }, { loc: [58, 65] }, { loc: [101, 113] }, { loc: [119, 136] }, { loc: [136, 146] }, { loc: [146, 156] }, { loc: [156, 166] }, { loc: [166, 176] }, { loc: [176, 187] }]
-          }),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center center' }),
-            _react2.default.createElement(
-              _spectacle.Text,
+              AppearingBlock,
               null,
               _react2.default.createElement(
-                'a',
-                { href: 'https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Creating_3D_objects_using_WebGL' },
-                'Creating 3D objects using WebGL fra Mozilla Developer Network'
+                _spectacle.Text,
+                null,
+                '\u21D3'
+              ),
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Grafikk som f\xF8r var forbeholdt desktop \uD83D\uDDA5'
               )
             )
           ),
@@ -73439,12 +73593,58 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Men, hvordan?'
+              '\u26A0\uFE0FReal talk\u26A0\uFE0F'
             ),
             _react2.default.createElement(
-              SmallText,
+              _spectacle.Text,
               null,
-              'Dette var mye greier.'
+              'WebGL er komplisert, annerledes og kravstort.'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, {
+              align: 'center hack',
+              className: 'code-demo'
+            }),
+            _react2.default.createElement(_spectacle.CodePane, {
+              lang: 'js',
+              source: "var cubeRotation = 0.0;\n\nmain();\nfunction main() {\n  const canvas = document.querySelector('#glcanvas');\n  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');\n\n  if (!gl) {\n    alert('Unable to initialize WebGL. Your browser or machine may not support it.');\n    return;\n  }\n\n  const vsSource = `\n    attribute vec4 aVertexPosition;\n    attribute vec4 aVertexColor;\n\n    uniform mat4 uModelViewMatrix;\n    uniform mat4 uProjectionMatrix;\n\n    varying lowp vec4 vColor;\n\n    void main(void) {\n      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;\n      vColor = aVertexColor;\n    }\n  `;\n\n  const fsSource = `\n    varying lowp vec4 vColor;\n\n    void main(void) {\n      gl_FragColor = vColor;\n    }\n  `;\n  const shaderProgram = initShaderProgram(gl, vsSource, fsSource);\n  const programInfo = {\n    program: shaderProgram,\n    attribLocations: {\n      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),\n      vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),\n    },\n    uniformLocations: {\n      projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),\n      modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),\n    },\n  };\n  const buffers = initBuffers(gl);\n\n  var then = 0;\n  function render(now) {    const deltaTime = now - then;\n    then = now;\n\n    drawScene(gl, programInfo, buffers, deltaTime);\n\n    requestAnimationFrame(render);\n  }\n  requestAnimationFrame(render);\n}\nfunction initBuffers(gl) {\n\n  const positionBuffer = gl.createBuffer();\n\n  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);\n\n  const positions = [    -1.0, -1.0,  1.0,\n     1.0, -1.0,  1.0,\n     1.0,  1.0,  1.0,\n    -1.0,  1.0,  1.0,\n    -1.0, -1.0, -1.0,\n    -1.0,  1.0, -1.0,\n     1.0,  1.0, -1.0,\n     1.0, -1.0, -1.0,\n    -1.0,  1.0, -1.0,\n    -1.0,  1.0,  1.0,\n     1.0,  1.0,  1.0,\n     1.0,  1.0, -1.0,\n    -1.0, -1.0, -1.0,\n     1.0, -1.0, -1.0,\n     1.0, -1.0,  1.0,\n    -1.0, -1.0,  1.0,\n     1.0, -1.0, -1.0,\n     1.0,  1.0, -1.0,\n     1.0,  1.0,  1.0,\n     1.0, -1.0,  1.0,\n    -1.0, -1.0, -1.0,\n    -1.0, -1.0,  1.0,\n    -1.0,  1.0,  1.0,\n    -1.0,  1.0, -1.0,\n  ];\n\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);\n\n  const faceColors = [  ];\n\n  var colors = [];\n\n  for (var j = 0; j < faceColors.length; ++j) {\n    const c = faceColors[j];\n    colors = colors.concat(c, c, c, c);\n  }\n\n  const colorBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);\n  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);\n\n  const indexBuffer = gl.createBuffer();\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);\n\n  const indices = [  ];\n\n  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,\n      new Uint16Array(indices), gl.STATIC_DRAW);\n\n  return {\n    position: positionBuffer,\n    color: colorBuffer,\n    indices: indexBuffer,\n  };\n}\nfunction drawScene(gl, programInfo, buffers, deltaTime) {\n  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);\n  const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;\n  const zNear = 0.1;\n  const zFar = 100.0;\n  const projectionMatrix = mat4.create();\n  mat4.perspective(projectionMatrix,\n                   fieldOfView,\n                   aspect,\n                   zNear,\n                   zFar);\n  const modelViewMatrix = mat4.create();\n  {\n    const numComponents = 3;\n    const type = gl.FLOAT;\n    const normalize = false;\n    const stride = 0;\n    const offset = 0;\n    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);\n    gl.vertexAttribPointer(\n        programInfo.attribLocations.vertexPosition,\n        numComponents,\n        type,\n        normalize,\n        stride,\n        offset);\n    gl.enableVertexAttribArray(\n        programInfo.attribLocations.vertexPosition);\n  }\n  {\n    const numComponents = 4;\n    const type = gl.FLOAT;\n    const normalize = false;\n    const stride = 0;\n    const offset = 0;\n    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);\n    gl.vertexAttribPointer(\n        programInfo.attribLocations.vertexColor,\n        numComponents,\n        type,\n        normalize,\n        stride,\n        offset);\n    gl.enableVertexAttribArray(\n        programInfo.attribLocations.vertexColor);\n  }\n  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);\n\n  gl.useProgram(programInfo.program);\n\n  gl.uniformMatrix4fv(\n      programInfo.uniformLocations.projectionMatrix,\n      false,\n      projectionMatrix);\n  gl.uniformMatrix4fv(\n      programInfo.uniformLocations.modelViewMatrix,\n      false,\n      modelViewMatrix);\n\n  {\n    const vertexCount = 36;\n    const type = gl.UNSIGNED_SHORT;\n    const offset = 0;\n    gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);\n  }\n\n  cubeRotation += deltaTime;\n}\nfunction initShaderProgram(gl, vsSource, fsSource) {\n  const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);\n  const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);\n\n  const shaderProgram = gl.createProgram();\n  gl.attachShader(shaderProgram, vertexShader);\n  gl.attachShader(shaderProgram, fragmentShader);\n  gl.linkProgram(shaderProgram);\n\n  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {\n    alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));\n    return null;\n  }\n\n  return shaderProgram;\n}\nfunction loadShader(gl, type, source) {\n  const shader = gl.createShader(type);\n\n  gl.shaderSource(shader, source);\n\n  gl.compileShader(shader);\n\n  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {\n    alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));\n    gl.deleteShader(shader);\n    return null;\n  }\n\n  return shader;\n}\n"
+            })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              { className: 'attribution' },
+              'Creating 3D objects using WebGL fra Mozilla Developer Network'
+            ),
+            _react2.default.createElement('iframe', {
+              height: '480',
+              width: '640',
+              style: {
+                border: 'none'
+              },
+              src: 'https://mdn.github.io/webgl-examples/tutorial/sample5/'
+            })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Dette var mye greier \uD83D\uDE10'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Hvordan angriper jeg dette? \uD83D\uDE27'
+              )
             )
           ),
           _react2.default.createElement(
@@ -73461,22 +73661,8 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Cite,
                 null,
-                'Noen'
+                '\uD83D\uDC49'
               )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center center' }),
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Utforsk ny teknologi gjennom kreativitet, blottet for praktiske form\xE5l.'
-            ),
-            _react2.default.createElement(
-              SmallText,
-              null,
-              'Skal sies at kreativitet i seg selv er en utrolig viktig egenskap for utviklere, men det er en annen talk.'
             )
           ),
           _react2.default.createElement(
@@ -73485,7 +73671,30 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Det betyr at veien til mestring er full av g\xF8yale og frustrerende opplevelser.'
+              'Utforsk teknologi gjennom kreativitet \uD83E\uDDD9\u200D\u2642\uFE0F'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Blottet for praktiske form\xE5l \uD83D\uDC4C'
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Skal sies at kreativitet i seg selv er en utrolig viktig egenskap for utviklere, men det er en annen talk.'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Det gj\xF8r frustrasjonene p\xE5 veien til g\xF8yale opplevelser \uD83C\uDF89'
             ),
             _react2.default.createElement(
               _spectacle.Appear,
@@ -73493,7 +73702,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Du m\xE5 bare starte et sted.'
+                'Du m\xE5 bare starte et sted \uD83D\uDDFA'
               )
             )
           ),
@@ -73540,7 +73749,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Musikk er lyd, og lyd er signaler'
+              'Musikk er lyd, lyd er signaler \uD83D\uDD0A'
             ),
             _react2.default.createElement(
               AppearingBlock,
@@ -73548,9 +73757,110 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                '...og signaler kan vi prosessere!'
+                '\u21D3'
+              ),
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Signaler kan visualiseres! \uD83D\uDC4D'
               )
             )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center hack' }),
+            _react2.default.createElement(_spectacle.Image, {
+              height: '90%',
+              src: 'https://upload.wikimedia.org/wikipedia/commons/6/61/FFT-Time-Frequency-View.png',
+              alt: 'FFT Time and Frequency view'
+            }),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'By Phonical (Own work) [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center hack' }),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              '<aside>'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'Du kan l\xE6re alt om FFT p\xE5 Youtube:'
+            ),
+            _react2.default.createElement('iframe', {
+              width: '854',
+              height: '480',
+              src: 'https://www.youtube.com/embed/spUNpyF58BY',
+              frameborder: '0',
+              allow: 'encrypted-media',
+              allowfullscreen: true
+            }),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              '</aside>'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Vi kan visualisere musikk \uD83E\uDD18'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                '\u2026hvem kan egentlig glemme Winamp?'
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Antageligvis de fleste, for jeg innser at jeg har blitt gammel.'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              { className: 'attribution' },
+              'Milkdrop 2 \u2014 Winamp Visualizer'
+            ),
+            _react2.default.createElement('iframe', {
+              width: '80%',
+              height: '615',
+              src: 'https://www.youtube.com/embed/-34Qqd0mAfo?start=78',
+              frameborder: '0',
+              allowfullscreen: true
+            })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              { className: 'attribution' },
+              'Thutmose \u2014 WuWu (TARI Remix) [Trap Nation]'
+            ),
+            _react2.default.createElement('iframe', {
+              width: '80%',
+              height: '615',
+              src: 'https://www.youtube.com/embed/_BwpNaT_noo?start=11',
+              frameborder: '0',
+              allowfullscreen: true
+            })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -73588,29 +73898,36 @@ var Slides = function (_Component) {
           ),
           _react2.default.createElement(
             _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            defaultSlideProps,
             _react2.default.createElement(
               _spectacle.Text,
-              { className: 'attribution' },
-              'Og hvem kan glemme Winamp?'
-            ),
-            _react2.default.createElement('iframe', {
-              width: '80%',
-              height: '615',
-              src: 'https://www.youtube.com/embed/-34Qqd0mAfo?start=78',
-              frameborder: '0',
-              allowfullscreen: true
-            }),
-            _react2.default.createElement(
-              SmallText,
               null,
-              'Antageligvis de fleste, for jeg innser at jeg har blitt gammel.'
+              'Her er det muligheter \uD83E\uDD29'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Greit \xE5 begrense seg litt \u261D\uFE0F'
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Vi kan jo ikke s\xE5 mye om dette \uD83D\uDE05'
+              )
             )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
-            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
+            _react2.default.createElement(_spectacle.Image, { width: '65%', src: 'images/notes.jpg' }),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              '3D + penn & papir \u21D2 \u2764\uFE0F'
+            )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -73618,7 +73935,16 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              '3D + penn & papir = <3'
+              'Gape over alt! \uD83C\uDF7D'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                '\u2026eller?'
+              )
             )
           ),
           _react2.default.createElement(
@@ -73632,7 +73958,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Mer verk enn ramme?'
+              'Helst mer ramme enn verk \uD83D\uDDBC'
             )
           ),
           _react2.default.createElement(
@@ -73641,13 +73967,58 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Hvis du vil ',
+              'Vil du virkelig ',
               _react2.default.createElement(
-                'i',
+                'em',
                 null,
                 'l\xE6re'
               ),
-              ' deg noe er det greit \xE5 velge noe fikser f\xE6rre ting for deg.'
+              ' deg noe \uD83D\uDC68\u200D\uD83C\uDF93'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'er det greit med noe som gjemmer akkurat passe mye \uD83D\uDD75\uFE0F\u200D\u2642\uFE0F'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL ------------------------ \uD83E\uDD84\uD83C\uDF08'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { transition: 'none' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL ----- \uD83C\uDF6A -------------- \uD83E\uDD84\uD83C\uDF08'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { transition: 'none' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL ----- \uD83C\uDF6A ---------- three.js'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { transition: 'none' }),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL --- regl ---------- three.js'
             )
           ),
           _react2.default.createElement(
@@ -73678,10 +74049,37 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Komposisjon av commands som components i React.'
+                'Commands istedenfor components i React.'
               )
             )
           ),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "const regl = require('regl')();\n\nconst cameraProps = {\n  uniforms: {\n    view: [],\n    projection: []\n  }\n};\nconst camera = regl(cameraProps);\n\nconst cubeProps = {\n  frag: '',\n  vert: '',\n  attributes: {},\n  elements: []\n};\nconst drawCube = regl(cubeProps);\n\ncamera(function() {\n  drawCube();\n});\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'Commands'
+            }, {
+              loc: [2, 9],
+              title: 'En command'
+            }, {
+              loc: [10, 17],
+              title: 'En anna command'
+            }, {
+              loc: [18, 21],
+              title: 'Komposisjon 👍'
+            }, {
+              loc: [2, 8],
+              title: 'Disse'
+            }, {
+              loc: [10, 16],
+              title: 'Er tilgjengelig her'
+            }]
+          }),
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
@@ -73702,21 +74100,12 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              '...men regl tar seg av state h\xE5ndtering og det maskinelle.'
+              '\u2026men regl tar seg av state h\xE5ndtering og det maskinelle.'
             ),
             _react2.default.createElement(
               SmallText,
               null,
-              'No more gl.bindBuffer \\0/'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'WebGL --- regl --------- three.js'
+              'No more gl.bindBuffer \uD83D\uDD7A'
             )
           ),
           _react2.default.createElement(
@@ -73735,7 +74124,27 @@ var Slides = function (_Component) {
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
-            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
+            _react2.default.createElement(_spectacle.Image, { width: '65%', src: 'images/notes.jpg' })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
+              '\xA0Steg 1:\xA0'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Lag ',
+              _react2.default.createElement(
+                'em',
+                null,
+                '\xE9n'
+              ),
+              ' kube'
+            )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -73743,7 +74152,16 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'WebGL er drit flink til \xE5 tegne trekanter'
+              'F\xF8rst litt WebGL teori \uD83D\uDC68\u200D\uD83C\uDFEB'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'WebGL er drit flink til \xE5 tegne trekanter \uD83D\uDCD0'
             ),
             _react2.default.createElement(
               SmallText,
@@ -73788,7 +74206,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 SmallText,
                 null,
-                'Hello, I am Captain Obvious.'
+                'Hello, I am Captain Obvious \uD83D\uDC68\u200D\u2708\uFE0F'
               )
             )
           ),
@@ -73811,7 +74229,25 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 SmallText,
                 null,
-                'Captain Obvious strikes again!'
+                'Captain Obvious strikes again! \uD83D\uDC68\u200D\u2708\uFE0F'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'S\xE5 jeg m\xE5 definere 24 punkter fordelt p\xE5 12 trekanter \uD83D\uDC68\u200D\uD83D\uDCBB'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                '\u2026og putte dem i en buffer \uD83D\uDC77\u200D\u2642\uFE0F'
               )
             )
           ),
@@ -73821,21 +74257,100 @@ var Slides = function (_Component) {
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nconst t = tower([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els,\n    uniforms: {\n      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),\n      projection: function({ viewportWidth, viewportHeight }) {\n        return mat4.perspective(\n          [],\n          Math.PI / 4,\n          viewportWidth / viewportHeight,\n          0.01,\n          100\n        );\n      }\n    }\n  })();\n}\n\ndraw();\n",
-            ranges: [{ loc: [0, 0], title: 'Tegne et tårn' }, { loc: [7, 8], title: 'Oppsett' }, { loc: [9, 10], title: 'Definer vertices' }, { loc: [10, 14], title: 'Bottom' }, { loc: [15, 19], title: 'Front' }, { loc: [20, 24], title: 'Right' }, { loc: [25, 29], title: 'Back' }, { loc: [30, 34], title: 'Left' }, { loc: [35, 39], title: 'Top' }, { loc: [41, 42], title: 'Definer elements' }, { loc: [42, 44], title: 'Bottom' }, { loc: [44, 46], title: 'Front' }, { loc: [46, 48], title: 'Right' }, { loc: [48, 50], title: 'Back' }, { loc: [50, 52], title: 'Left' }, { loc: [52, 54], title: 'Top' }, { loc: [64, 65], title: 'Returner' }, { loc: [67, 68], title: 'Putt i en variabel' }, { loc: [69, 70], title: 'Lager en draw()' }, { loc: [70, 73], title: 'Fyllfarge' }, { loc: [74, 75], title: 'Oppsett av kall' }, { loc: [101, 102], title: 'Elements for indeks' }, { loc: [97, 101], title: 'Attributes' }, { loc: [84, 97], title: 'Vertex shader' }]
+            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction cube([x0, z0], w, h) {\n  var w2 = w / 2;\n  const punkter = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const elementBuffer = [\n    [0, 1, 2],\n    [1, 2, 3],\n    [4, 5, 6],\n    [5, 6, 7],\n    [8, 9, 10],\n    [9, 10, 11],\n    [12, 13, 14],\n    [13, 14, 15],\n    [16, 17, 18],\n    [17, 18, 19],\n    [20, 21, 22],\n    [21, 22, 23]\n  ];\n\n  const farger = Array(punkter.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { punkter, elementBuffer, farger };\n}\n\nconst aCube = cube([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 punktFarge;\n\n      void main () {\n        gl_FragColor = punktFarge;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 farge;\n      attribute vec3 posisjon;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = vec4(posisjon, 1);\n\n        punktFarge = farge;\n      }\n    `,\n    attributes: {\n      posisjon: aCube.punkter,\n      farge: aCube.farger\n    },\n    elements: aCube.elementBuffer\n  })();\n}\n\ndraw();\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'Tegne en kube'
+            }, {
+              loc: [7, 8],
+              title: 'cube factory 🏭'
+            }, {
+              loc: [9, 10],
+              title: 'Definer punkter'
+            }, {
+              loc: [10, 14],
+              title: 'Bunn'
+            }, {
+              loc: [15, 19],
+              title: 'Front'
+            }, {
+              loc: [20, 24],
+              title: 'Høyre'
+            }, {
+              loc: [25, 29],
+              title: 'Bak'
+            }, {
+              loc: [30, 34],
+              title: 'Venstre'
+            }, {
+              loc: [35, 39],
+              title: 'Topp'
+            }, {
+              loc: [41, 42],
+              title: 'Lage trekant-buffer 👷‍♂️'
+            }, {
+              loc: [42, 44],
+              title: 'Bunn'
+            }, {
+              loc: [44, 46],
+              title: 'Front'
+            }, {
+              loc: [46, 48],
+              title: 'Høyre'
+            }, {
+              loc: [48, 50],
+              title: 'Bak'
+            }, {
+              loc: [50, 52],
+              title: 'Venstre'
+            }, {
+              loc: [52, 54],
+              title: 'Topp'
+            }, {
+              loc: [56, 63],
+              title: 'Litt farge 🎨'
+            }, {
+              loc: [64, 65],
+              title: 'Returner'
+            }, {
+              loc: [67, 68],
+              title: 'Putt i en variabel'
+            }, {
+              loc: [69, 70],
+              title: 'Lager en draw()'
+            }, {
+              loc: [70, 73],
+              title: 'Fyllfarge'
+            }, {
+              loc: [74, 75],
+              title: 'Lager en kommando'
+            }, {
+              loc: [100, 101],
+              title: 'elementBuffer'
+            }, {
+              loc: [96, 100],
+              title: 'attributes'
+            }, {
+              loc: [84, 96],
+              title: 'Vertex shader'
+            }]
           }),
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
             _react2.default.createElement(
-              SmallHeading,
-              null,
-              'Verte-what?'
-            ),
-            _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Vertex shader'
+              'Verte-what? \uD83E\uDD37\u200D\u2642\uFE0F'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Vertex shader'
+              )
             )
           ),
           _react2.default.createElement(
@@ -73844,7 +74359,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Kjernen i WebGL er shadere.'
+              'Kjernen i WebGL er shadere \uD83D\uDC7B'
             ),
             _react2.default.createElement(
               SmallText,
@@ -73858,7 +74373,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Shadere er sm\xE5 programmer som kj\xF8res p\xE5 GPUen.'
+              'Shadere er sm\xE5 programmer som kj\xF8res p\xE5 GPUen \uD83E\uDDD9\u200D\u2642\uFE0F'
             ),
             _react2.default.createElement(
               AppearingBlock,
@@ -73866,7 +74381,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Skrevet i GLSL, en avart av C.'
+                'Skrevet i GLSL, en avart av C \uD83E\uDD13'
               ),
               _react2.default.createElement(
                 SmallText,
@@ -73899,7 +74414,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Vertex Shadere er ansvarlige for \xE5 bygge geometrier.'
+              'Vertex Shadere er ansvarlige for \xE5 bygge geometrier \uD83C\uDFD7'
             ),
             _react2.default.createElement(
               _spectacle.Appear,
@@ -73907,7 +74422,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Som Fragment Shadere kan fargelegge.'
+                'Som Fragment Shadere kan fargelegge \uD83C\uDFA8'
               )
             )
           ),
@@ -73927,13 +74442,49 @@ var Slides = function (_Component) {
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nconst t = tower([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els,\n    uniforms: {\n      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),\n      projection: function({ viewportWidth, viewportHeight }) {\n        return mat4.perspective(\n          [],\n          Math.PI / 4,\n          viewportWidth / viewportHeight,\n          0.01,\n          100\n        );\n      }\n    }\n  })();\n}\n\ndraw();\n",
-            ranges: [{ loc: [84, 97], title: 'Vertex shader' }, { loc: [85, 86], title: 'Setter precision' }, { loc: [86, 88], title: 'Deklarerer vars' }, { loc: [88, 89], title: 'Deklarerer uniforms' }, { loc: [102, 114], title: 'Deklarerer uniforms' }, { loc: [89, 90], title: 'Deklarerer ut vars' }, { loc: [91, 96], title: 'Jobben' }, { loc: [75, 84], title: 'Fragment shader' }, { loc: [117, 118], title: 'Kaller draw' }]
+            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction cube([x0, z0], w, h) {\n  var w2 = w / 2;\n  const punkter = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const elementBuffer = [\n    [0, 1, 2],\n    [1, 2, 3],\n    [4, 5, 6],\n    [5, 6, 7],\n    [8, 9, 10],\n    [9, 10, 11],\n    [12, 13, 14],\n    [13, 14, 15],\n    [16, 17, 18],\n    [17, 18, 19],\n    [20, 21, 22],\n    [21, 22, 23]\n  ];\n\n  const farger = Array(punkter.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { punkter, elementBuffer, farger };\n}\n\nconst aCube = cube([0, 0], 1, 3);\n\nfunction draw() {\n  regl.clear({\n    color: [0.0, 0.0, 0.0, 1]\n  });\n\n  regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 punktFarge;\n\n      void main () {\n        gl_FragColor = punktFarge;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 farge;\n      attribute vec3 posisjon;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = vec4(posisjon, 1);\n\n        punktFarge = farge;\n      }\n    `,\n    attributes: {\n      posisjon: aCube.punkter,\n      farge: aCube.farger\n    },\n    elements: aCube.elementBuffer\n  })();\n}\n\ndraw();\n",
+            ranges: [{
+              loc: [84, 96],
+              title: 'Vertex shader'
+            }, {
+              loc: [85, 86],
+              title: 'Setter presisjon'
+            }, {
+              loc: [86, 88],
+              title: 'attributes'
+            }, {
+              loc: [96, 100],
+              title: 'attributes'
+            }, {
+              loc: [87, 88],
+              title: 'varying'
+            }, {
+              loc: [90, 95],
+              title: 'Jobben'
+            }, {
+              loc: [91, 92],
+              title: 'gl_Position'
+            }, {
+              loc: [93, 94],
+              title: 'varying'
+            }, {
+              loc: [75, 84],
+              title: 'Fragment shader'
+            }, {
+              loc: [78, 79],
+              title: 'varying'
+            }, {
+              loc: [80, 83],
+              title: 'gl_FragColor'
+            }, {
+              loc: [104, 105],
+              title: 'Kaller draw'
+            }]
           }),
           _react2.default.createElement(
             _spectacle.Slide,
             _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[1] })
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[1] })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -73941,12 +74492,12 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Ikke veldig imponerende.'
+              'Ikke veldig imponerende \uD83E\uDD10'
             ),
             _react2.default.createElement(
               SmallText,
               null,
-              'Ser ikke 3D ut en gang!'
+              'Ser ikke 3D ut en gang! \uD83C\uDF81'
             )
           ),
           _react2.default.createElement(
@@ -73955,12 +74506,12 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Vi m\xE5 l\xE6re oss om WebGLs koordinatsystem.'
+              'Vi m\xE5 l\xE6re oss om WebGLs koordinatsystem \uD83D\uDDFA'
             ),
             _react2.default.createElement(
               SmallText,
               null,
-              'Ugh, trodde jeg var ferdig med matte...'
+              'Ugh, trodde jeg var ferdig med matte \uD83E\uDD26\u200D\u2642\uFE0F'
             )
           ),
           _react2.default.createElement(
@@ -73969,7 +74520,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Koordinatsystemet til WebGL er en kube, hvor hver akse g\xE5r fra -1 til 1.'
+              'Koordinatsystemet til WebGL er en kube, hvor hver akse g\xE5r fra -1 til 1 \uD83D\uDC68\u200D\uD83C\uDFEB'
             )
           ),
           _react2.default.createElement(
@@ -73988,7 +74539,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Det er slitsomt \xE5 forholde seg til at alt plasseres langs [-1, 1]'
+              'Det er slitsomt \xE5 forholde seg til at alt plasseres langs [-1, 1] \uD83D\uDE13'
             ),
             _react2.default.createElement(
               _spectacle.Appear,
@@ -73996,7 +74547,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'S\xE5 vi bruker matte for \xE5 fikse problemet.'
+                'S\xE5 vi bruker matte for \xE5 fikse problemet \uD83D\uDCA1'
               )
             )
           ),
@@ -74006,7 +74557,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Matriser lar oss mappe om koordinatsystemer.'
+              'Matriser lar oss mappe om koordinatsystemer \uD83D\uDDFA'
             )
           ),
           _react2.default.createElement(
@@ -74015,7 +74566,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Model matrix: object \u2192 world.'
+              'Matriser som mapper \uD83D\uDDFA'
             ),
             _react2.default.createElement(
               _spectacle.Appear,
@@ -74023,7 +74574,7 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'View matrix: world \u2192 camera.'
+                'Model: object \u2192 world.'
               )
             ),
             _react2.default.createElement(
@@ -74032,7 +74583,16 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Projection matrix: camera \u2192 screen.'
+                'View: world \u2192 camera.'
+              )
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Projection: camera \u2192 screen.'
               )
             )
           ),
@@ -74042,12 +74602,21 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'N\xE5r vi kombinerer dem f\xE5r vi en komplett mapping fra et objekt til skjermen.'
+              'N\xE5r vi kombinerer dem f\xE5r vi en komplett mapping fra et objekt til skjermen \uD83D\uDC4C'
             ),
             _react2.default.createElement(
-              SmallText,
+              AppearingBlock,
               null,
-              'Hvem sa du ikke kom til \xE5 f\xE5 bruk for matte etter skolen?'
+              _react2.default.createElement(
+                _spectacle.Code,
+                null,
+                'gl_Position = projection * view * model * pos;'
+              ),
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Hvem sa du ikke kom til \xE5 f\xE5 bruk for matte etter skolen? \uD83D\uDE04'
+              )
             )
           ),
           _react2.default.createElement(
@@ -74056,7 +74625,27 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'N\xE5 kan vi justere p\xE5 kameraet!'
+              'N\xE5 kan vi justere hva vi ser! \uD83D\uDC41'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
+              '\xA0Steg 2:\xA0'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Se ',
+              _react2.default.createElement(
+                'em',
+                null,
+                'hele'
+              ),
+              ' verden!'
             )
           ),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
@@ -74065,13 +74654,109 @@ var Slides = function (_Component) {
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nconst t = tower([0, 0], 1, 3);\n\nfunction draw() {\n  regl.frame(function() {\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    regl({\n      frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n      `,\n      vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n      `,\n      attributes: {\n        position: t.vert,\n        color: t.colors\n      },\n      elements: t.els,\n      uniforms: {\n        view: function({ tick }) {\n          const t = 0.01 * tick;\n          return mat4.lookAt(\n            [],\n            [8 * Math.cos(t), 3 + 3 * Math.sin(t), 8],\n            [0, 0, 0],\n            [0, 1, 0]\n          );\n        },\n\n        projection: function({ viewportWidth, viewportHeight }) {\n          return mat4.perspective(\n            [],\n            Math.PI / 4,\n            viewportWidth / viewportHeight,\n            0.01,\n            100\n          );\n        }\n      }\n    })();\n  });\n}\n\ndraw();\n",
-            ranges: [{ loc: [0, 0], title: 'Justerbart kamera' }, { loc: [7, 8], title: 'Tower er lik' }, { loc: [75, 76], title: 'Oppsett av kall' }, { loc: [103, 104], title: 'Uniforms' }, { loc: [104, 113], title: 'View matrix' }, { loc: [104, 105], title: 'regl gir oss tick' }, { loc: [70, 71], title: 'Ved å bruke frame' }, { loc: [104, 113], title: 'View matrix' }, { loc: [105, 106], title: 'Finner en faktor' }, { loc: [106, 112], title: 'Regn ut ny matrix' }, { loc: [114, 123], title: 'Projection matrix' }, { loc: [85, 98], title: 'Vertex shader' }, { loc: [92, 97], title: 'Uendret' }, { loc: [128, 129], title: 'Kaller draw' }]
+            code: "const regl = require('regl')();\nconst mat4 = require('gl-mat4');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction cube([x0, z0], w, h) {\n  var w2 = w / 2;\n  const punkter = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const elementBuffer = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const farger = Array(punkter.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { punkter, elementBuffer, farger };\n}\n\nconst aCube = cube([0, 0], 1, 3);\n\nfunction draw() {\n  regl.frame(function() {\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    regl({\n      frag: `\n        precision mediump float;\n\n        varying vec4 punktFarge;\n\n        void main () {\n          gl_FragColor = punktFarge;\n        }\n      `,\n      vert: `\n        precision mediump float;\n        attribute vec4 farge;\n        attribute vec3 posisjon;\n        uniform mat4 projection, view;\n        varying lowp vec4 punktFarge;\n\n        void main() {\n          gl_Position = projection * view * vec4(posisjon, 1);\n\n          punktFarge = farge;\n        }\n      `,\n      attributes: {\n        posisjon: aCube.punkter,\n        farge: aCube.farger\n      },\n      elements: aCube.elementBuffer,\n      uniforms: {\n        view: function({ tick }) {\n          const t = 0.01 * tick;\n          return mat4.lookAt(\n            [],\n            [8 * Math.cos(t), 3 + 3 * Math.sin(t), 8],\n            [0, 0, 0],\n            [0, 1, 0]\n          );\n        },\n\n        projection: function({ viewportWidth, viewportHeight }) {\n          return mat4.perspective(\n            [],\n            Math.PI / 4,\n            viewportWidth / viewportHeight,\n            0.01,\n            100\n          );\n        }\n      }\n    })();\n  });\n}\n\ndraw();\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'Sett opp et kamera'
+            }, {
+              loc: [7, 8],
+              title: 'Cube 🏭 er lik'
+            }, {
+              loc: [75, 76],
+              title: 'Oppsett av kommando'
+            }, {
+              loc: [103, 104],
+              title: 'Uniforms'
+            }, {
+              loc: [104, 113],
+              title: 'View matrix'
+            }, {
+              loc: [104, 105],
+              title: 'regl gir oss tick'
+            }, {
+              loc: [70, 71],
+              title: 'Ved å bruke frame'
+            }, {
+              loc: [104, 113],
+              title: 'View matrix'
+            }, {
+              loc: [105, 106],
+              title: 'Finner en faktor'
+            }, {
+              loc: [106, 112],
+              title: 'Regn ut ny matrix'
+            }, {
+              loc: [1, 2],
+              title: 'hjelp fra gl-mat4'
+            }, {
+              loc: [106, 112],
+              title: 'Regn ut ny matrix'
+            }, {
+              loc: [107, 108],
+              title: 'Out param'
+            }, {
+              loc: [108, 109],
+              title: 'Punktet vi ser på'
+            }, {
+              loc: [109, 110],
+              title: 'Sentrum'
+            }, {
+              loc: [110, 111],
+              title: 'Hva er 👆'
+            }, {
+              loc: [106, 112],
+              title: 'Regn ut ny matrix'
+            }, {
+              loc: [114, 123],
+              title: 'Projection matrix'
+            }, {
+              loc: [114, 115],
+              title: 'fra regl'
+            }, {
+              loc: [115, 122],
+              title: 'regn ut matrix'
+            }, {
+              loc: [116, 117],
+              title: 'out param'
+            }, {
+              loc: [117, 118],
+              title: 'field of view'
+            }, {
+              loc: [118, 119],
+              title: 'aspect ratio'
+            }, {
+              loc: [119, 120],
+              title: 'near'
+            }, {
+              loc: [120, 121],
+              title: 'far'
+            }, {
+              loc: [115, 122],
+              title: 'regn ut matrix'
+            }, {
+              loc: [85, 98],
+              title: 'Vertex shader'
+            }, {
+              loc: [89, 90],
+              title: 'uniforms'
+            }, {
+              loc: [92, 97],
+              title: 'Regn ut pos'
+            }, {
+              loc: [93, 94],
+              title: 'Regn ut pos'
+            }, {
+              loc: [76, 85],
+              title: 'Uendra'
+            }, {
+              loc: [128, 129],
+              title: 'Kaller draw'
+            }]
           }),
           _react2.default.createElement(
             _spectacle.Slide,
             _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[2] })
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[2] })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -74079,7 +74764,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'N\xE5 kan vi tydelig se 3D-effekten!'
+              'N\xE5 kan vi se 3D-effekten! \uD83C\uDF89'
             )
           ),
           _react2.default.createElement(
@@ -74088,7 +74773,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Fortsatt litt kjedelig med bare ett t\xE5rn.'
+              'Fortsatt kjedelig med bare en kube \uD83C\uDFD9'
             )
           ),
           _react2.default.createElement(
@@ -74097,25 +74782,30 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Heldigvis har regl gode APIer for komposisjon!'
+              'Vi kan lage flere ting!'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                '\u2026men f\xF8rst litt modularisering \uD83D\uDC77\u200D\u2642\uFE0F'
+              )
             )
           ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const regl = require('regl')();\n\nconst cameraProps = {\n  uniforms: {\n    view: [],\n    projection: []\n  }\n};\nconst camera = regl(cameraProps);\n\nconst towerProps = {\n  frag: '',\n  vert: '',\n  attributes: {},\n  elements: []\n};\nconst drawTower = regl(towerProps);\n\ncamera(function() {\n  drawTower();\n});\n",
-            ranges: [{ loc: [0, 0], title: 'Scoping' }, { loc: [10, 17], title: 'En komponent' }, { loc: [2, 9], title: 'En annen komponent' }, { loc: [18, 21], title: 'Props blir passed' }]
-          }),
           _react2.default.createElement(
             _spectacle.Slide,
             defaultSlideProps,
             _react2.default.createElement(
+              SmallHeading,
+              null,
+              '\xA0Steg 3:\xA0'
+            ),
+            _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Dette kan vi bruke til \xE5 dele opp scena v\xE5r.'
+              'Fylle verden!'
             )
           ),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
@@ -74125,7 +74815,22 @@ var Slides = function (_Component) {
             className: 'codeslide',
             lang: 'js',
             code: "const mat4 = require('gl-mat4');\n\nfunction view({ tick }) {\n  const t = 0.01 * tick;\n  return mat4.lookAt(\n    [],\n    [8 * Math.cos(t), 3 + 3 * Math.sin(t), 8],\n    [0, 0, 0],\n    [0, 1, 0]\n  );\n}\n\nfunction projection({ viewportWidth, viewportHeight }) {\n  return mat4.perspective(\n    [],\n    Math.PI / 4,\n    viewportWidth / viewportHeight,\n    0.01,\n    100\n  );\n}\n\nmodule.exports = function(regl) {\n  return regl({\n    uniforms: { view, projection }\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'camera.js' }, { loc: [0, 0], title: 'Kameraet i en fil' }, { loc: [2, 11], title: 'Med view' }, { loc: [12, 21], title: 'Og projection' }, { loc: [22, 27], title: 'Eksporter fn' }]
+            ranges: [{
+              loc: [0, 0],
+              title: 'camera.js'
+            }, {
+              loc: [0, 0],
+              title: 'Egen command'
+            }, {
+              loc: [2, 11],
+              title: 'Med view'
+            }, {
+              loc: [12, 21],
+              title: 'Og projection'
+            }, {
+              loc: [22, 27],
+              title: 'Som eksporteres'
+            }]
           }),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
             align: 'top',
@@ -74133,8 +74838,29 @@ var Slides = function (_Component) {
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "function rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const t = tower(config.placement, config.width, config.height);\n\n  return regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [4, 5], title: 'Tower er lik' }, { loc: [71, 80], title: 'Fragment shader' }, { loc: [80, 93], title: 'Vertex shader' }, { loc: [93, 98], title: 'og verdier' }, { loc: [64, 68], title: 'Eksporter fn' }]
+            code: "function rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction cube([x0, z0], w, h) {\n  var w2 = w / 2;\n  const punkter = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const elementBuffer = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const farger = Array(punkter.length / 4)\n    .fill(0)\n    .map(() => {\n      const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];\n      return Array(4).fill(c);\n    })\n    .reduce((a, e) => a.concat(e));\n\n  return { punkter, elementBuffer, farger };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const aCube = cube(config.placement, config.width, config.height);\n\n  return regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 punktFarge;\n\n      void main () {\n        gl_FragColor = punktFarge;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec4 farge;\n      attribute vec3 posisjon;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n\n        punktFarge = farge;\n      }\n    `,\n    attributes: {\n      posisjon: aCube.punkter,\n      farge: aCube.farger\n    },\n    elements: aCube.elementBuffer\n  });\n};\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'cube.js'
+            }, {
+              loc: [0, 0],
+              title: 'Egen command'
+            }, {
+              loc: [4, 5],
+              title: 'Cube 🏭'
+            }, {
+              loc: [71, 80],
+              title: 'Fragment shader'
+            }, {
+              loc: [80, 93],
+              title: 'Vertex shader'
+            }, {
+              loc: [93, 98],
+              title: 'og verdier'
+            }, {
+              loc: [64, 68],
+              title: 'Som eksporteres'
+            }]
           }),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
             align: 'top',
@@ -74142,8 +74868,29 @@ var Slides = function (_Component) {
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "function ground(w, d) {\n  const vert = [\n    [0 - w / 2, 0.01, 0 - d / 2],\n    [0 + w / 2, 0.01, 0 - d / 2],\n    [0 - w / 2, 0.01, 0 + d / 2],\n    [0 + w / 2, 0.01, 0 + d / 2]\n  ];\n\n  const els = [[0, 1, 2], [1, 2, 3]];\n\n  const colors = Array(vert.length).fill([0.2, 0.2, 0.2, 1.0]);\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(regl, config = { width: 8, depth: 5 }) {\n  const g = ground(config.width, config.depth);\n  return regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 pColor;\n      void main () {\n        gl_FragColor = pColor;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec3 position;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n        pColor = color;\n      }\n    `,\n    attributes: {\n      position: g.vert,\n      color: g.colors\n    },\n    elements: g.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'ground.js' }, { loc: [0, 1], title: 'Vi lager en bakke' }, { loc: [1, 13], title: 'En firkant langs X,Z' }, { loc: [18, 26], title: 'Med shaders' }, { loc: [26, 38], title: 'Med shaders' }, { loc: [38, 43], title: 'og data' }, { loc: [15, 16], title: 'Eksporter fn' }]
+            code: "function ground(w, d) {\n  const punkter = [\n    [0 - w / 2, 0.01, 0 - d / 2],\n    [0 + w / 2, 0.01, 0 - d / 2],\n    [0 - w / 2, 0.01, 0 + d / 2],\n    [0 + w / 2, 0.01, 0 + d / 2]\n  ];\n\n  const elementBuffer = [[0, 1, 2], [1, 2, 3]];\n\n  const farger = Array(punkter.length).fill([0.2, 0.2, 0.2, 1.0]);\n\n  return { punkter, elementBuffer, farger };\n}\n\nmodule.exports = function(regl, config = { width: 8, depth: 5 }) {\n  const aGround = ground(config.width, config.depth);\n  return regl({\n    frag: `\n      precision mediump float;\n\n      varying vec4 punktParge;\n      void main () {\n        gl_FragColor = punktParge;\n      }\n    `,\n    vert: `\n      precision mediump float;\n      attribute vec3 posisjon;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktParge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n        punktParge = farge;\n      }\n    `,\n    attributes: {\n      posisjon: aGround.punkter,\n      farge: aGround.farger\n    },\n    elements: aGround.elementBuffer\n  });\n};\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'ground.js'
+            }, {
+              loc: [0, 1],
+              title: 'Vi lager en bakke 🏭'
+            }, {
+              loc: [1, 13],
+              title: 'En firkant langs X,Z'
+            }, {
+              loc: [18, 26],
+              title: 'Med shaders'
+            }, {
+              loc: [26, 38],
+              title: 'Med shaders'
+            }, {
+              loc: [38, 43],
+              title: 'og data'
+            }, {
+              loc: [15, 16],
+              title: 'Eksporter fn'
+            }]
           }),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
             align: 'top',
@@ -74151,18 +74898,31 @@ var Slides = function (_Component) {
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "const regl = require('regl')();\n\nconst camera = require('./camera')(regl);\nconst drawGround = require('./ground')(regl, { width: 8, depth: 5 });\nconst drawTower = require('./tower')(regl, {\n  placement: [0, 0],\n  width: 1,\n  height: 3\n});\n\nfunction draw() {\n  regl.frame(function() {\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    camera(function() {\n      drawGround();\n      drawTower();\n    });\n  });\n}\n\ndraw();\n",
-            ranges: [{ loc: [0, 0], title: 'Alt sys sammen' }, { loc: [2, 9], title: 'Importer delene' }, { loc: [10, 11], title: 'Inne i draw' }, { loc: [16, 20], title: 'Kaller vi dem' }, { loc: [16, 20], title: 'Nå deles camera' }, { loc: [23, 24], title: 'Som vi kan se' }]
+            code: "const regl = require('regl')();\n\nconst camera = require('./camera')(regl);\nconst drawGround = require('./ground')(regl, { width: 8, depth: 5 });\nconst drawCube = require('./cube')(regl, {\n  placement: [0, 0],\n  width: 1,\n  height: 3\n});\n\nfunction draw() {\n  regl.frame(function() {\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    camera(function() {\n      drawGround();\n      drawCube();\n    });\n  });\n}\n\ndraw();\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'Alt sys sammen'
+            }, {
+              loc: [2, 9],
+              title: 'Importer delene'
+            }, {
+              loc: [10, 11],
+              title: 'Inne i draw'
+            }, {
+              loc: [16, 20],
+              title: 'Kaller vi dem'
+            }, {
+              loc: [16, 20],
+              title: 'Nå deles camera'
+            }, {
+              loc: [23, 24],
+              title: 'Som vi kan se'
+            }]
           }),
           _react2.default.createElement(
             _spectacle.Slide,
             _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[3] })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[3] })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -74170,7 +74930,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Dette begynner \xE5 ligne noe!'
+              'Dette begynner \xE5 ligne noe! \uD83D\uDC85'
             )
           ),
           _react2.default.createElement(
@@ -74179,7 +74939,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'N\xE5 kan vi begynne \xE5 fikle og eksperimentere.'
+              'N\xE5 kan vi begynne \xE5 fikle og eksperimentere \uD83D\uDC68\u200D\uD83D\uDD2C'
             ),
             _react2.default.createElement(
               AppearingBlock,
@@ -74187,178 +74947,69 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Feks med fargene.'
-              )
-            )
-          ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const glsl = require('glslify');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length).fill([\n    rand2(0.8, 0.9),\n    rand2(0.1, 0.2),\n    rand2(0.35, 0.45),\n    1.0\n  ]);\n\n  return { vert, els, colors };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const t = tower(config.placement, config.width, config.height);\n\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 pColor;\n\n      void main () {\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1);\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw);\n        }\n\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    `),\n    attributes: {\n      position: t.vert,\n      color: t.colors\n    },\n    elements: t.els\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [72, 87], title: 'i fragment shader' }, { loc: [79, 84], title: 'Vi fikler litt' }, { loc: [79, 82], title: 'Striper' }, { loc: [81, 84], title: 'Og litt random' }]
-          }),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[4] })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Dette begynner \xE5 se fett ut.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.BlockQuote,
-              null,
-              _react2.default.createElement(
-                _spectacle.Quote,
-                null,
-                '\xC5 fikle er \xE5 l\xE6re.'
-              ),
-              _react2.default.createElement(
-                _spectacle.Cite,
-                null,
-                'Noen'
+                'Feks med fargene \uD83C\uDFA8'
               )
             )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
-            null,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Vi kan fikle til noen kule lyseffekter.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[5] })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
             defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Jeg skal spare dere for koden til denne lys-effekten.'
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'Men dette er et prima eksempel p\xE5 hvordan et fungerende system hjelper deg til \xE5 l\xE6re.'
-            ),
-            _react2.default.createElement(
-              AppearingBlock,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'N\xE5r du forst\xE5r hvordan du kom deg et sted du er kan du alltid komme deg dit igjen.'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[5] })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(_spectacle.Image, { width: '80%', src: 'images/notes.jpg' })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'N\xE5 er vi nesten der.'
-            ),
-            _react2.default.createElement(
-              AppearingBlock,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Trenger bare fler t\xE5rn'
-              ),
-              _react2.default.createElement(
-                SmallText,
-                null,
-                '...tappet\xE5rn?'
-              )
-            )
-          ),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const regl = require('regl')();\n\nconst camera = require('./camera')(regl);\nconst drawGround = require('./ground')(regl, { width: 9, depth: 6 });\nconst drawTower = require('./tower')(regl, {\n  placement: [0, 0],\n  height: 1,\n  width: 1\n});\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nconst numTowers = Math.pow(2, 9);\n\nconst randomXZs = Array(numTowers)\n  .fill(1)\n  .map(() => [rand2(-3.75, 3.75), rand2(-2.5, 2.5)]);\n\nconst randomWs = Array(numTowers).fill(1).map(() => rand2(0.1, 0.75));\nconst randomHs = Array(numTowers).fill(1).map(() => rand2(0.0, 2));\n\nfunction getOffsets() {\n  const ret = Array(numTowers);\n  for (let i = 0; i < ret.length; i++) {\n    ret[i] = {\n      offsetXZ: randomXZs[i],\n      scaleXZ: randomWs[i],\n      scaleY: randomHs[i]\n    };\n  }\n\n  return ret;\n}\n\nfunction draw() {\n  regl.frame(function() {\n    const offsets = getOffsets();\n\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    camera(function() {\n      drawGround();\n      drawTower(offsets);\n    });\n  });\n}\n\ndraw();\n",
-            ranges: [{ loc: [0, 0], title: 'index.js' }, { loc: [2, 9], title: 'Importerer som før' }, { loc: [4, 9], title: 'Litt annen config' }, { loc: [14, 15], title: 'Hvor mange tårn?' }, { loc: [16, 22], title: 'Lag litt random' }, { loc: [23, 35], title: 'Samle i en liste' }, { loc: [38, 39], title: 'Generer data' }, { loc: [44, 48], title: 'Tegning' }, { loc: [46, 47], title: 'Ett kall per offset' }]
-          }),
-          _react2.default.createElement(_spectacleCodeSlide2.default, {
-            align: 'top',
-            bgColor: '#333',
-            transition: [],
-            className: 'codeslide',
-            lang: 'js',
-            code: "const glsl = require('glslify');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction tower([x0, z0], w, h) {\n  var w2 = w / 2;\n  const vert = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const els = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const colors = Array(vert.length).fill([\n    rand2(0.8, 0.9),\n    rand2(0.1, 0.2),\n    rand2(0.35, 0.45),\n    1.0\n  ]);\n\n  const normals = [\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, 1, 0],\n    [0, 1, 0],\n    [0, 1, 0],\n    [0, 1, 0]\n  ];\n\n  return { vert, els, colors, normals };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const t = tower(config.placement, config.width, config.height);\n\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main () {\n        vec3 normal = normalize(fragNormal);\n        vec3 lightPosition = vec3(0, -10, 0);\n        vec4 lightColor = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lightDir = normalize(lightPosition - fragPosition);\n        float diffuse = max(0.0, dot(lightDir, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffuse*lightColor;\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw) + diffuse*lightColor;\n        }\n\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec3 position, normal;\n      attribute vec4 color;\n      uniform float scaleXZ, scaleY;\n      uniform vec2 offsetXZ;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main() {\n        float posX = position.x*scaleXZ + offsetXZ.x;\n        float posY = position.y*scaleY;\n        float posZ = position.z*scaleXZ + offsetXZ.y;\n\n        gl_Position = projection * view * vec4(posX, posY, posZ, 1);\n\n        pColor = color;\n        fragNormal = normal;\n        fragPosition = vec3(posX, posY, posZ);\n      }\n    `),\n    attributes: {\n      position: t.vert,\n      color: t.colors,\n      normal: t.normals\n    },\n    elements: t.els,\n    uniforms: {\n      scaleXZ: regl.prop('scaleXZ'),\n      offsetXZ: regl.prop('offsetXZ'),\n      scaleY: regl.prop('scaleY')\n    }\n  });\n};\n",
-            ranges: [{ loc: [0, 0], title: 'tower.js' }, { loc: [0, 0], title: 'Må fikle litt' }, { loc: [150, 155], title: 'Leser inn offsets' }, { loc: [122, 123], title: 'Vertext shader' }, { loc: [126, 128], title: 'Henter ut verdier' }, { loc: [133, 136], title: 'Regner ut ny pos' }, { loc: [137, 138], title: 'Setter ny pos' }]
-          }),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[6] })
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            defaultSlideProps,
-            _react2.default.createElement(
-              _spectacle.Text,
-              null,
-              'N\xE5 har vi noe veldig fett!'
-            ),
-            _react2.default.createElement(
-              AppearingBlock,
-              null,
-              _react2.default.createElement(
-                _spectacle.Text,
-                null,
-                'Mangler bare en ting...'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _spectacle.Slide,
-            _extends({}, defaultSlideProps, { align: 'center center' }),
             _react2.default.createElement(
               SmallHeading,
               null,
-              'MUSIKK!'
+              '\xA0Steg 4&5:\xA0'
             ),
             _react2.default.createElement(
-              SmallText,
+              _spectacle.Text,
               null,
-              'Fordi alt blir bedre med lyd'
+              'Eksperimentering!'
+            )
+          ),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "const glsl = require('glslify');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction cube([x0, z0], w, h) {\n  var w2 = w / 2;\n  const punkter = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const elementBuffer = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const farger = Array(punkter.length).fill([\n    rand2(0.8, 0.9),\n    rand2(0.1, 0.2),\n    rand2(0.35, 0.45),\n    1.0\n  ]);\n\n  return { punkter, elementBuffer, farger };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const aCube = cube(config.placement, config.width, config.height);\n\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 punktFarge;\n\n      void main () {\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1);\n        } else {\n          gl_FragColor = vec4(punktFarge.x + 0.3*random( gl_FragCoord.xy ), punktFarge.yzw);\n        }\n\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec4 farge;\n      attribute vec3 posisjon;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n\n        punktFarge = farge;\n      }\n    `),\n    attributes: {\n      posisjon: aCube.punkter,\n      farge: aCube.farger\n    },\n    elements: aCube.elementBuffer\n  });\n};\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'cube.js'
+            }, {
+              loc: [72, 87],
+              title: 'i fragment shader'
+            }, {
+              loc: [72, 73],
+              title: 'glsl'
+            }, {
+              loc: [0, 1],
+              title: 'glsl'
+            }, {
+              loc: [74, 75],
+              title: 'glslify'
+            }, {
+              loc: [79, 84],
+              title: 'Vi fikler litt'
+            }, {
+              loc: [79, 82],
+              title: 'Striper'
+            }, {
+              loc: [81, 84],
+              title: 'Og litt random'
+            }]
+          }),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[4] })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Dette begynner \xE5 se fett ut \uD83D\uDE0E'
             )
           ),
           _react2.default.createElement(
@@ -74367,7 +75018,207 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Vi kan bruke WebAudioAPI til \xE5 hente ut frekvensdata fra lyd.'
+              'Et fungerende system er enklere \xE5 utforske \uD83D\uDC68\u200D\uD83D\uDE80'
+            ),
+            _react2.default.createElement(
+              _spectacle.Appear,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Det er da du l\xE6rer \uD83D\uDC68\u200D\uD83C\uDF93'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Vi kan fikle til noen kule lyseffekter \uD83E\uDD39\u200D\u2642\uFE0F'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                SmallText,
+                null,
+                'Jeg sparer dere for koden her, men den finner dere i eksempel 5 p\xE5 github \uD83D\uDC4D'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[5] })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Dette er et prima eksempel p\xE5 hvordan et fungerende system hjelper deg med l\xE6ring \uD83D\uDCA1'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'N\xE5r du forst\xE5r hvordan du kom deg et sted du er kan du alltid komme deg dit igjen \uD83D\uDDFA'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[5] })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(_spectacle.Image, { width: '65%', src: 'images/notes.jpg' })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Vi m\xE5 bygge flere bygninger \uD83C\uDFD7'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
+              '\xA0Steg 6:\xA0'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Fler ting!'
+            )
+          ),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "const regl = require('regl')();\n\nconst camera = require('./camera')(regl);\nconst drawGround = require('./ground')(regl, { width: 9, depth: 6 });\nconst drawCube = require('./cube')(regl, {\n  placement: [0, 0],\n  height: 1,\n  width: 1\n});\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nconst numCubes = Math.pow(2, 9);\n\nconst randomXZs = Array(numCubes)\n  .fill(1)\n  .map(() => [rand2(-3.75, 3.75), rand2(-2.5, 2.5)]);\n\nconst randomWs = Array(numCubes).fill(1).map(() => rand2(0.1, 0.75));\nconst randomHs = Array(numCubes).fill(1).map(() => rand2(0.0, 2));\n\nfunction getOffsets() {\n  const ret = Array(numCubes);\n  for (let i = 0; i < ret.length; i++) {\n    ret[i] = {\n      offsetXZ: randomXZs[i],\n      scaleXZ: randomWs[i],\n      scaleY: randomHs[i]\n    };\n  }\n\n  return ret;\n}\n\nfunction draw() {\n  regl.frame(function() {\n    const offsets = getOffsets();\n\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    camera(function() {\n      drawGround();\n      drawCube(offsets);\n    });\n  });\n}\n\ndraw();\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'demo.js'
+            }, {
+              loc: [2, 9],
+              title: 'Importerer som før'
+            }, {
+              loc: [4, 9],
+              title: 'Litt annen config'
+            }, {
+              loc: [14, 15],
+              title: 'Hvor mange?'
+            }, {
+              loc: [16, 22],
+              title: 'Lag litt random'
+            }, {
+              loc: [23, 35],
+              title: 'Samle i en liste'
+            }, {
+              loc: [36, 38],
+              title: 'I draw'
+            }, {
+              loc: [38, 39],
+              title: 'Generer data'
+            }, {
+              loc: [44, 48],
+              title: 'Tegning'
+            }, {
+              loc: [46, 47],
+              title: 'Ett kall per offset'
+            }]
+          }),
+          _react2.default.createElement(_spectacleCodeSlide2.default, {
+            align: 'top',
+            bgColor: '#333',
+            transition: [],
+            className: 'codeslide',
+            lang: 'js',
+            code: "const glsl = require('glslify');\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nfunction cube([x0, z0], w, h) {\n  var w2 = w / 2;\n  const punkter = [\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 - w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n\n    [x0 + w2, 0, z0 - w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 + w2],\n    [x0 + w2, 0, z0 + w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2],\n\n    [x0 - w2, 0, z0 - w2],\n    [x0 - w2, 0, z0 + w2],\n    [x0 - w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n\n    [x0 - w2, h, z0 - w2],\n    [x0 + w2, h, z0 - w2],\n    [x0 - w2, h, z0 + w2],\n    [x0 + w2, h, z0 + w2]\n  ];\n\n  const elementBuffer = [\n    [0, 1, 2],\n    [1, 2, 3], //bottom\n    [4, 5, 6],\n    [5, 6, 7], //front\n    [8, 9, 10],\n    [9, 10, 11], //right\n    [12, 13, 14],\n    [13, 14, 15], //back\n    [16, 17, 18],\n    [17, 18, 19], //left\n    [20, 21, 22],\n    [21, 22, 23] //top\n  ];\n\n  const farger = Array(punkter.length).fill([\n    rand2(0.8, 0.9),\n    rand2(0.1, 0.2),\n    rand2(0.35, 0.45),\n    1.0\n  ]);\n\n  const normaler = [\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, -1, 0],\n    [0, -1, 0],\n    [0, 0, 1],\n    [0, 0, 1],\n    [0, 1, 0],\n    [0, 1, 0],\n    [0, 1, 0],\n    [0, 1, 0]\n  ];\n\n  return { punkter, elementBuffer, farger, normaler };\n}\n\nmodule.exports = function(\n  regl,\n  config = { placement: [0, 0], width: 1, height: 1 }\n) {\n  const aCube = cube(config.placement, config.width, config.height);\n\n  return regl({\n    frag: glsl(`\n      precision mediump float;\n      #pragma glslify: random = require(glsl-random/lowp)\n\n      varying vec4 punktFarge;\n      varying vec3 punktNormal, punktPosisjon;\n\n      void main () {\n        vec3 normal = normalize(punktNormal);\n        vec3 lysPosisjon = vec3(0, -10, 0);\n        vec4 lysFarge = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lysRetning = normalize(lysPosisjon - punktPosisjon);\n        float diffusjon = max(0.0, dot(lysRetning, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffusjon*lysFarge;\n        } else {\n          gl_FragColor = vec4(punktFarge.x + 0.3*random( gl_FragCoord.xy ), punktFarge.yzw) + diffusjon*lysFarge;\n        }\n\n      }\n    `),\n    vert: glsl(`\n      precision mediump float;\n      attribute vec3 posisjon, normal;\n      attribute vec4 farge;\n      uniform float scaleXZ, scaleY;\n      uniform vec2 offsetXZ;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n      varying vec3 punktNormal, punktPosisjon;\n\n      void main() {\n        float posX = posisjon.x*scaleXZ + offsetXZ.x;\n        float posY = posisjon.y*scaleY;\n        float posZ = posisjon.z*scaleXZ + offsetXZ.y;\n\n        gl_Position = projection * view * vec4(posX, posY, posZ, 1);\n\n        punktFarge = farge;\n        punktNormal = normal;\n        punktPosisjon = vec3(posX, posY, posZ);\n      }\n    `),\n    attributes: {\n      posisjon: aCube.punkter,\n      farge: aCube.farger,\n      normal: aCube.normaler\n    },\n    elements: aCube.elementBuffer,\n    uniforms: {\n      scaleXZ: regl.prop('scaleXZ'),\n      offsetXZ: regl.prop('offsetXZ'),\n      scaleY: regl.prop('scaleY')\n    }\n  });\n};\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'cube.js'
+            }, {
+              loc: [150, 155],
+              title: 'Leser inn offsets'
+            }, {
+              loc: [122, 123],
+              title: 'Vertext shader'
+            }, {
+              loc: [126, 128],
+              title: 'Henter ut verdiene'
+            }, {
+              loc: [133, 136],
+              title: 'Regner ut ny pos'
+            }, {
+              loc: [137, 138],
+              title: 'Setter ny pos'
+            }]
+          }),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'hack hack' }),
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[6] })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(_spectacle.Image, { width: '65%', src: 'images/notes.jpg' })
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'N\xE5 har vi noe veldig fett! \uD83D\uDE0E\uD83E\uDD18'
+            ),
+            _react2.default.createElement(
+              AppearingBlock,
+              null,
+              _react2.default.createElement(
+                _spectacle.Text,
+                null,
+                'Mangler bare en ting\u2026'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              SmallHeading,
+              null,
+              '\xA0Steg 7:\xA0'
+            ),
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Musikk! \uD83C\uDFB6'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Vi kan bruke WebAudioAPI til \xE5 hente ut data fra lyd med AnalyzerNode \uD83D\uDCC8'
             )
           ),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
@@ -74377,21 +75228,80 @@ var Slides = function (_Component) {
             className: 'codeslide',
             lang: 'js',
             code: "const getUserMedia = require('getusermedia');\nconst createAnalyser = require('web-audio-analyser');\n\nmodule.exports = function() {\n  return function(fftSize, cb) {\n    getUserMedia({video: false, audio: true}, function (err, stream) {\n      if (err) {\n         console.log('failed');\n      } else {\n\n        var analyser = createAnalyser(stream, { stereo: false, audible: false });\n        analyser.analyser.fftSize = fftSize;\n\n        cb(analyser);\n      }\n    });\n  }\n}\n",
-            ranges: [{ loc: [0, 0], title: 'sound.js' }, { loc: [0, 2], title: 'Hjelp fra modules' }, { loc: [4, 5], title: 'Lager oss en funksjon' }, { loc: [5, 6], title: "Som spør mic'en" }, { loc: [10, 12], title: 'Vi hooker den opp' }, { loc: [13, 14], title: 'Og kaller cb' }]
+            ranges: [{
+              loc: [0, 0],
+              title: 'sound.js'
+            }, {
+              loc: [0, 2],
+              title: 'Hjelp fra modules'
+            }, {
+              loc: [4, 5],
+              title: 'Lager oss en funksjon'
+            }, {
+              loc: [5, 6],
+              title: "Som spør mic'en"
+            }, {
+              loc: [10, 12],
+              title: 'Vi hooker den opp'
+            }, {
+              loc: [13, 14],
+              title: 'Og kaller cb'
+            }]
           }),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            _extends({}, defaultSlideProps, { align: 'center hack' }),
+            _react2.default.createElement(_spectacle.Image, {
+              height: '90%',
+              src: 'https://upload.wikimedia.org/wikipedia/commons/6/61/FFT-Time-Frequency-View.png',
+              alt: 'FFT Time and Frequency view'
+            }),
+            _react2.default.createElement(
+              SmallText,
+              null,
+              'By Phonical (Own work) [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons'
+            )
+          ),
           _react2.default.createElement(_spectacleCodeSlide2.default, {
             align: 'top',
             bgColor: '#333',
             transition: [],
             className: 'codeslide',
             lang: 'js',
-            code: "const regl = require('regl')();\n\nconst camera = require('./camera')(regl);\nconst drawGround = require('./ground')(regl, { width: 9, depth: 6 });\nconst drawTower = require('./tower')(regl, {\n  placement: [0, 0],\n  height: 1,\n  width: 1\n});\nconst loadSound = require('./sound')(regl);\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nconst numTowers = Math.pow(2, 9);\n\nconst randomXZs = Array(numTowers)\n  .fill(1)\n  .map(() => [rand2(-3.75, 3.75), rand2(-2.5, 2.5)]);\n\nconst randomWs = Array(numTowers).fill(1).map(() => rand2(0.1, 0.75));\n\nfunction getOffsets(freqs) {\n  const ret = Array(numTowers);\n  for (let i = 0; i < ret.length; i++) {\n    ret[i] = {\n      offsetXZ: randomXZs[i],\n      scaleXZ: randomWs[i],\n      scaleY: freqs[i] * 0.01\n    };\n  }\n\n  return ret;\n}\n\nfunction draw(analyser) {\n  regl.frame(function() {\n    const freqs = analyser.frequencies();\n    const offsets = getOffsets(freqs);\n\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    camera(function() {\n      drawGround();\n      drawTower(offsets);\n    });\n  });\n}\n\nloadSound(\n  numTowers * 2, //fftSize\n  draw //onDone\n);\n",
-            ranges: [{ loc: [0, 0], title: 'index.js' }, { loc: [9, 10], title: 'Importerer sound' }, { loc: [52, 56], title: 'Laster sound' }, { loc: [36, 37], title: 'Som kaller draw' }, { loc: [38, 39], title: 'Her leser vi freq' }, { loc: [39, 40], title: 'sender til offsets' }, { loc: [23, 35], title: 'I offsets' }, { loc: [29, 30], title: 'Bytter vi ut Y' }, { loc: [29, 30], title: 'med frekvens verdi' }]
+            code: "const regl = require('regl')();\n\nconst camera = require('./camera')(regl);\nconst drawGround = require('./ground')(regl, { width: 9, depth: 6 });\nconst drawCube = require('./cube')(regl, {\n  placement: [0, 0],\n  height: 1,\n  width: 1\n});\nconst loadSound = require('./sound')(regl);\n\nfunction rand2(l, u) {\n  return l + Math.random() * (u - l);\n}\n\nconst numCubes = Math.pow(2, 9);\n\nconst randomXZs = Array(numCubes)\n  .fill(1)\n  .map(() => [rand2(-3.75, 3.75), rand2(-2.5, 2.5)]);\n\nconst randomWs = Array(numCubes).fill(1).map(() => rand2(0.1, 0.75));\n\nfunction getOffsets(freqs) {\n  const ret = Array(numCubes);\n  for (let i = 0; i < ret.length; i++) {\n    ret[i] = {\n      offsetXZ: randomXZs[i],\n      scaleXZ: randomWs[i],\n      scaleY: freqs[i] * 0.01\n    };\n  }\n\n  return ret;\n}\n\nfunction draw(analyser) {\n  regl.frame(function() {\n    const freqs = analyser.frequencies();\n    const offsets = getOffsets(freqs);\n\n    regl.clear({\n      color: [0.0, 0.0, 0.0, 1]\n    });\n\n    camera(function() {\n      drawGround();\n      drawCube(offsets);\n    });\n  });\n}\n\nloadSound(\n  numCubes * 2, //fftSize\n  draw //onDone\n);\n",
+            ranges: [{
+              loc: [0, 0],
+              title: 'demo.js'
+            }, {
+              loc: [9, 10],
+              title: 'Importerer sound'
+            }, {
+              loc: [52, 56],
+              title: 'Laster sound'
+            }, {
+              loc: [36, 37],
+              title: 'Som kaller draw'
+            }, {
+              loc: [38, 39],
+              title: 'Her leser vi freq'
+            }, {
+              loc: [39, 40],
+              title: 'sender til offsets'
+            }, {
+              loc: [23, 35],
+              title: 'I offsets'
+            }, {
+              loc: [29, 30],
+              title: 'Bytter vi ut Y'
+            }, {
+              loc: [29, 30],
+              title: 'med frekvens verdi'
+            }]
           }),
           _react2.default.createElement(
             _spectacle.Slide,
             _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default[7] })
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default[7] })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -74407,14 +75317,14 @@ var Slides = function (_Component) {
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                'Welcome to Metropolis!'
+                '\uD83C\uDFB6 Welcome to Metropolis \uD83C\uDFB6'
               )
             )
           ),
           _react2.default.createElement(
             _spectacle.Slide,
             _extends({}, defaultSlideProps, { align: 'hack hack' }),
-            _react2.default.createElement(_webglSlide2.default, { fn: _webglExamples2.default['final'] })
+            _react2.default.createElement(_reglSlide2.default, { fn: _webglExamples2.default['final'] })
           ),
           _react2.default.createElement(
             _spectacle.Slide,
@@ -74422,7 +75332,7 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'Og s\xE5nn kan du l\xE6re deg noe nytt.'
+              'Dette var historien om hvordan jeg l\xE6rte meg litt om WebGL \uD83D\uDC68\u200D\uD83C\uDF93'
             )
           ),
           _react2.default.createElement(
@@ -74431,20 +75341,34 @@ var Slides = function (_Component) {
             _react2.default.createElement(
               _spectacle.Text,
               null,
-              'G\xF8y?'
+              'regl er akkurat lavniv\xE5 nok til at jeg ble tvunget til \xE5 skj\xF8nne hvordan WebGL henger sammen \uD83D\uDD75\uFE0F\u200D\u2642\uFE0F'
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Jeg hadde det morsomt mens jeg holdt p\xE5 \uD83E\uDD39\u200D\u2642\uFE0F'
             ),
             _react2.default.createElement(
-              AppearingBlock,
+              _spectacle.Appear,
               null,
               _react2.default.createElement(
                 _spectacle.Text,
                 null,
-                _react2.default.createElement(
-                  'a',
-                  { href: 'https://kortslutning.fun' },
-                  'kortslutning.fun'
-                )
+                '\u2026og jeg fikk litt ekstra kunnskap gjennom g\xF8yale omveier \uD83D\uDD2D'
               )
+            )
+          ),
+          _react2.default.createElement(
+            _spectacle.Slide,
+            defaultSlideProps,
+            _react2.default.createElement(
+              _spectacle.Text,
+              null,
+              'Alt trenger ikke v\xE6re praktisk for \xE5 ha praktisk nytte \uD83D\uDE04'
             )
           ),
           _react2.default.createElement(
@@ -74456,8 +75380,13 @@ var Slides = function (_Component) {
               'Takk for meg!'
             ),
             _react2.default.createElement(
-              _spectacle.Text,
-              { className: 'slides' },
+              SmallHeading,
+              null,
+              'Stian Veum M\xF8llersen / @mollerse'
+            ),
+            _react2.default.createElement(
+              SmallText,
+              null,
               'Slides:',
               ' ',
               _react2.default.createElement(
@@ -74467,9 +75396,13 @@ var Slides = function (_Component) {
               )
             ),
             _react2.default.createElement(
-              _spectacle.Text,
-              { className: 'slides' },
-              'Kontakt: @mollerse alle plasser'
+              SmallText,
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: 'https://kortslutning.fun' },
+                'kortslutning.fun'
+              )
             )
           )
         )
@@ -74484,7 +75417,7 @@ var mount = document.createElement('div');
 document.body.appendChild(mount);
 (0, _reactDom.render)(_react2.default.createElement(Slides, null), mount);
 
-},{"./theme":467,"./webgl-examples":496,"./webgl-slide":497,"prismjs":150,"react":362,"react-dom":189,"spectacle":432,"spectacle-code-slide":398}],467:[function(require,module,exports){
+},{"./regl-slide":466,"./theme":468,"./webgl-examples":497,"prismjs":150,"react":362,"react-dom":189,"spectacle":432,"spectacle-code-slide":398}],468:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -74505,7 +75438,7 @@ exports.default = (0, _default2.default)({
   primary: 'main'
 });
 
-},{"spectacle/lib/themes/default":437}],468:[function(require,module,exports){
+},{"spectacle/lib/themes/default":437}],469:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -74559,27 +75492,18 @@ function draw(ctx) {
 
   regl({
     frag: '\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    ',
-    vert: '\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    ',
+    vert: '\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = vec4(position, 1);\n\n        pColor = color;\n      }\n    ',
     attributes: {
       position: t.vert,
       color: t.colors
     },
-    elements: t.els,
-    uniforms: {
-      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),
-      projection: function projection(_ref3) {
-        var viewportWidth = _ref3.viewportWidth,
-            viewportHeight = _ref3.viewportHeight;
-
-        return mat4.perspective([], Math.PI / 4, viewportWidth / viewportHeight, 0.01, 100);
-      }
-    }
+    elements: t.els
   })();
 
   return regl;
 }
 
-},{"gl-mat4":54,"regl":386}],469:[function(require,module,exports){
+},{"gl-mat4":54,"regl":386}],470:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -74660,7 +75584,7 @@ function draw(ctx) {
   return regl;
 }
 
-},{"gl-mat4":54,"regl":386}],470:[function(require,module,exports){
+},{"gl-mat4":54,"regl":386}],471:[function(require,module,exports){
 'use strict';
 
 var mat4 = require('gl-mat4');
@@ -74685,35 +75609,58 @@ module.exports = function (regl) {
   });
 };
 
-},{"gl-mat4":54}],471:[function(require,module,exports){
+},{"gl-mat4":54}],472:[function(require,module,exports){
 "use strict";
 
-function ground(w, d) {
-  var vert = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-  var els = [[0, 1, 2], [1, 2, 3]];
+function rand2(l, u) {
+  return l + Math.random() * (u - l);
+}
 
-  var colors = Array(vert.length).fill([0.2, 0.2, 0.2, 1.0]);
+function cube(_ref, w, h) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      x0 = _ref2[0],
+      z0 = _ref2[1];
 
-  return { vert: vert, els: els, colors: colors };
+  var w2 = w / 2;
+  var punkter = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
+
+  var elementBuffer = [[0, 1, 2], [1, 2, 3], //bottom
+  [4, 5, 6], [5, 6, 7], //front
+  [8, 9, 10], [9, 10, 11], //right
+  [12, 13, 14], [13, 14, 15], //back
+  [16, 17, 18], [17, 18, 19], //left
+  [20, 21, 22], [21, 22, 23] //top
+  ];
+
+  var farger = Array(punkter.length / 4).fill(0).map(function () {
+    var c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];
+    return Array(4).fill(c);
+  }).reduce(function (a, e) {
+    return a.concat(e);
+  });
+
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
 }
 
 module.exports = function (regl) {
-  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 8, depth: 5 };
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
 
-  var g = ground(config.width, config.depth);
+  var aCube = cube(config.placement, config.width, config.height);
+
   return regl({
-    frag: "\n      precision mediump float;\n\n      varying vec4 pColor;\n      void main () {\n        gl_FragColor = pColor;\n      }\n    ",
-    vert: "\n      precision mediump float;\n      attribute vec3 position;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n        pColor = color;\n      }\n    ",
+    frag: "\n      precision mediump float;\n\n      varying vec4 punktFarge;\n\n      void main () {\n        gl_FragColor = punktFarge;\n      }\n    ",
+    vert: "\n      precision mediump float;\n      attribute vec4 farge;\n      attribute vec3 posisjon;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n\n        punktFarge = farge;\n      }\n    ",
     attributes: {
-      position: g.vert,
-      color: g.colors
+      posisjon: aCube.punkter,
+      farge: aCube.farger
     },
-    elements: g.els
+    elements: aCube.elementBuffer
   });
 };
 
-},{}],472:[function(require,module,exports){
+},{}],473:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -74722,7 +75669,7 @@ module.exports = function (ctx) {
   var regl = reglFn(ctx);
   var camera = require('./camera')(regl);
   var drawGround = require('./ground')(regl, { width: 8, depth: 5 });
-  var drawTower = require('./tower')(regl, {
+  var drawCube = require('./cube')(regl, {
     placement: [0, 0],
     width: 1,
     height: 3
@@ -74736,7 +75683,7 @@ module.exports = function (ctx) {
 
       camera(function () {
         drawGround();
-        drawTower();
+        drawCube();
       });
     });
   }
@@ -74746,24 +75693,56 @@ module.exports = function (ctx) {
   return regl;
 };
 
-},{"./camera":470,"./ground":471,"./tower":473,"regl":386}],473:[function(require,module,exports){
+},{"./camera":471,"./cube":472,"./ground":474,"regl":386}],474:[function(require,module,exports){
 "use strict";
 
+function ground(w, d) {
+  var punkter = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
+
+  var elementBuffer = [[0, 1, 2], [1, 2, 3]];
+
+  var farger = Array(punkter.length).fill([0.2, 0.2, 0.2, 1.0]);
+
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
+}
+
+module.exports = function (regl) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 8, depth: 5 };
+
+  var aGround = ground(config.width, config.depth);
+  return regl({
+    frag: "\n      precision mediump float;\n\n      varying vec4 punktParge;\n      void main () {\n        gl_FragColor = punktParge;\n      }\n    ",
+    vert: "\n      precision mediump float;\n      attribute vec3 posisjon;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktParge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n        punktParge = farge;\n      }\n    ",
+    attributes: {
+      posisjon: aGround.punkter,
+      farge: aGround.farger
+    },
+    elements: aGround.elementBuffer
+  });
+};
+
+},{}],475:[function(require,module,exports){
+arguments[4][471][0].apply(exports,arguments)
+},{"dup":471,"gl-mat4":54}],476:[function(require,module,exports){
+'use strict';
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var glsl = require('glslify');
 
 function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-function tower(_ref, w, h) {
+function cube(_ref, w, h) {
   var _ref2 = _slicedToArray(_ref, 2),
       x0 = _ref2[0],
       z0 = _ref2[1];
 
   var w2 = w / 2;
-  var vert = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
+  var punkter = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
 
-  var els = [[0, 1, 2], [1, 2, 3], //bottom
+  var elementBuffer = [[0, 1, 2], [1, 2, 3], //bottom
   [4, 5, 6], [5, 6, 7], //front
   [8, 9, 10], [9, 10, 11], //right
   [12, 13, 14], [13, 14, 15], //back
@@ -74771,47 +75750,127 @@ function tower(_ref, w, h) {
   [20, 21, 22], [21, 22, 23] //top
   ];
 
-  var colors = Array(vert.length / 4).fill(0).map(function () {
-    var c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];
-    return Array(4).fill(c);
-  }).reduce(function (a, e) {
-    return a.concat(e);
-  });
+  var farger = Array(punkter.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
 
-  return { vert: vert, els: els, colors: colors };
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
 }
 
 module.exports = function (regl) {
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
 
-  var t = tower(config.placement, config.width, config.height);
+  var aCube = cube(config.placement, config.width, config.height);
 
   return regl({
-    frag: "\n      precision mediump float;\n\n      varying vec4 pColor;\n\n      void main () {\n        gl_FragColor = pColor;\n      }\n    ",
-    vert: "\n      precision mediump float;\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    ",
+    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 punktFarge;\n\n      void main () {\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1);\n        } else {\n          gl_FragColor = vec4(punktFarge.x + 0.3*random( gl_FragCoord.xy ), punktFarge.yzw);\n        }\n\n      }\n    "]),
+    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec4 farge;\n      attribute vec3 posisjon;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n\n        punktFarge = farge;\n      }\n    "]),
     attributes: {
-      position: t.vert,
-      color: t.colors
+      posisjon: aCube.punkter,
+      farge: aCube.farger
     },
-    elements: t.els
+    elements: aCube.elementBuffer
   });
 };
 
-},{}],474:[function(require,module,exports){
-arguments[4][470][0].apply(exports,arguments)
-},{"dup":470,"gl-mat4":54}],475:[function(require,module,exports){
+},{"glslify":70}],477:[function(require,module,exports){
+arguments[4][473][0].apply(exports,arguments)
+},{"./camera":475,"./cube":476,"./ground":478,"dup":473,"regl":386}],478:[function(require,module,exports){
 'use strict';
 
 var glsl = require('glslify');
 
 function ground(w, d) {
-  var vert = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
+  var punkter = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
 
-  var els = [[0, 1, 2], [1, 2, 3]];
+  var elementBuffer = [[0, 1, 2], [1, 2, 3]];
 
-  var colors = Array(vert.length).fill([0.2, 0.2, 0.2, 1.0]);
+  var farger = Array(punkter.length).fill([0.2, 0.2, 0.2, 1.0]);
 
-  return { vert: vert, els: els, colors: colors };
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
+}
+
+module.exports = function (regl) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 8, depth: 5 };
+
+  var aGround = ground(config.width, config.depth);
+  return regl({
+    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 punktFarge;\n      void main () {\n        gl_FragColor = vec4(punktFarge.xyz, 0.9 + random(gl_FragCoord.xy));\n      }\n    "]),
+    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 posisjon;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n        punktFarge = farge;\n      }\n    "]),
+    attributes: {
+      posisjon: aGround.punkter,
+      farge: aGround.farger
+    },
+    elements: aGround.elementBuffer
+  });
+};
+
+},{"glslify":70}],479:[function(require,module,exports){
+arguments[4][471][0].apply(exports,arguments)
+},{"dup":471,"gl-mat4":54}],480:[function(require,module,exports){
+'use strict';
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var glsl = require('glslify');
+
+function rand2(l, u) {
+  return l + Math.random() * (u - l);
+}
+
+function cube(_ref, w, h) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      x0 = _ref2[0],
+      z0 = _ref2[1];
+
+  var w2 = w / 2;
+  var punkter = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
+
+  var elementBuffer = [[0, 1, 2], [1, 2, 3], //bottom
+  [4, 5, 6], [5, 6, 7], //front
+  [8, 9, 10], [9, 10, 11], //right
+  [12, 13, 14], [13, 14, 15], //back
+  [16, 17, 18], [17, 18, 19], //left
+  [20, 21, 22], [21, 22, 23] //top
+  ];
+
+  var farger = Array(punkter.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
+
+  var normaler = [[0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, 1, 0], [0, 1, 0], [0, 1, 0], [0, 1, 0]];
+
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger, normaler: normaler };
+}
+
+module.exports = function (regl) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
+
+  var aCube = cube(config.placement, config.width, config.height);
+
+  return regl({
+    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 punktFarge;\n      varying vec3 punktNormal, punktPosisjon;\n\n      void main () {\n        vec3 normal = normalize(punktNormal);\n        vec3 lysPosisjon = vec3(0, -10, 0);\n        vec4 lysFarge = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lysRetning = normalize(lysPosisjon - punktPosisjon);\n        float diffusjon = max(0.0, dot(lysRetning, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffusjon*lysFarge;\n        } else {\n          gl_FragColor = vec4(punktFarge.x + 0.3*random( gl_FragCoord.xy ), punktFarge.yzw) + diffusjon*lysFarge;\n        }\n\n      }\n    "]),
+    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 posisjon, normal;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n      varying vec3 punktNormal, punktPosisjon;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n\n        punktFarge = farge;\n        punktNormal = normal;\n        punktPosisjon = posisjon;\n      }\n    "]),
+    attributes: {
+      posisjon: aCube.punkter,
+      farge: aCube.farger,
+      normal: aCube.normaler
+    },
+    elements: aCube.elementBuffer
+  });
+};
+
+},{"glslify":70}],481:[function(require,module,exports){
+arguments[4][473][0].apply(exports,arguments)
+},{"./camera":479,"./cube":480,"./ground":482,"dup":473,"regl":386}],482:[function(require,module,exports){
+'use strict';
+
+var glsl = require('glslify');
+
+function ground(w, d) {
+  var punkter = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
+
+  var elementBuffer = [[0, 1, 2], [1, 2, 3]];
+
+  var farger = Array(punkter.length).fill([0.2, 0.2, 0.2, 1.0]);
+
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
 }
 
 module.exports = function (regl) {
@@ -74819,19 +75878,19 @@ module.exports = function (regl) {
 
   var g = ground(config.width, config.depth);
   return regl({
-    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 pColor;\n      void main () {\n        gl_FragColor = vec4(pColor.xyz, 0.9 + random(gl_FragCoord.xy));\n      }\n    "]),
-    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 position;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n        pColor = color;\n      }\n    "]),
+    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 punktFarge;\n      void main () {\n        gl_FragColor = vec4(punktFarge.xyz, 0.9 + random(gl_FragCoord.xy));\n      }\n    "]),
+    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 posisjon;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n        punktFarge = farge;\n      }\n    "]),
     attributes: {
-      position: g.vert,
-      color: g.colors
+      posisjon: g.punkter,
+      farge: g.farger
     },
-    elements: g.els
+    elements: g.elementBuffer
   });
 };
 
-},{"glslify":70}],476:[function(require,module,exports){
-arguments[4][472][0].apply(exports,arguments)
-},{"./camera":474,"./ground":475,"./tower":477,"dup":472,"regl":386}],477:[function(require,module,exports){
+},{"glslify":70}],483:[function(require,module,exports){
+arguments[4][471][0].apply(exports,arguments)
+},{"dup":471,"gl-mat4":54}],484:[function(require,module,exports){
 'use strict';
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -74842,15 +75901,15 @@ function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-function tower(_ref, w, h) {
+function cube(_ref, w, h) {
   var _ref2 = _slicedToArray(_ref, 2),
       x0 = _ref2[0],
       z0 = _ref2[1];
 
   var w2 = w / 2;
-  var vert = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
+  var punkter = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
 
-  var els = [[0, 1, 2], [1, 2, 3], //bottom
+  var elementBuffer = [[0, 1, 2], [1, 2, 3], //bottom
   [4, 5, 6], [5, 6, 7], //front
   [8, 9, 10], [9, 10, 11], //right
   [12, 13, 14], [13, 14, 15], //back
@@ -74858,89 +75917,36 @@ function tower(_ref, w, h) {
   [20, 21, 22], [21, 22, 23] //top
   ];
 
-  var colors = Array(vert.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
+  var farger = Array(punkter.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
 
-  return { vert: vert, els: els, colors: colors };
+  var normaler = [[0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, 1, 0], [0, 1, 0], [0, 1, 0], [0, 1, 0]];
+
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger, normaler: normaler };
 }
 
 module.exports = function (regl) {
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
 
-  var t = tower(config.placement, config.width, config.height);
+  var aCube = cube(config.placement, config.width, config.height);
 
   return regl({
-    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 pColor;\n\n      void main () {\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1);\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw);\n        }\n\n      }\n    "]),
-    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec4 color;\n      attribute vec3 position;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n      }\n    "]),
+    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 punktFarge;\n      varying vec3 punktNormal, punktPosisjon;\n\n      void main () {\n        vec3 normal = normalize(punktNormal);\n        vec3 lysPosisjon = vec3(0, -10, 0);\n        vec4 lysFarge = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lysRetning = normalize(lysPosisjon - punktPosisjon);\n        float diffusjon = max(0.0, dot(lysRetning, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffusjon*lysFarge;\n        } else {\n          gl_FragColor = vec4(punktFarge.x + 0.3*random( gl_FragCoord.xy ), punktFarge.yzw) + diffusjon*lysFarge;\n        }\n\n      }\n    "]),
+    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 posisjon, normal;\n      attribute vec4 farge;\n      uniform float scaleXZ, scaleY;\n      uniform vec2 offsetXZ;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktFarge;\n      varying vec3 punktNormal, punktPosisjon;\n\n      void main() {\n        float posX = posisjon.x*scaleXZ + offsetXZ.x;\n        float posY = posisjon.y*scaleY;\n        float posZ = posisjon.z*scaleXZ + offsetXZ.y;\n\n        gl_Position = projection * view * vec4(posX, posY, posZ, 1);\n\n        punktFarge = farge;\n        punktNormal = normal;\n        punktPosisjon = vec3(posX, posY, posZ);\n      }\n    "]),
     attributes: {
-      position: t.vert,
-      color: t.colors
+      posisjon: aCube.punkter,
+      farge: aCube.farger,
+      normal: aCube.normaler
     },
-    elements: t.els
+    elements: aCube.elementBuffer,
+    uniforms: {
+      scaleXZ: regl.prop('scaleXZ'),
+      offsetXZ: regl.prop('offsetXZ'),
+      scaleY: regl.prop('scaleY')
+    }
   });
 };
 
-},{"glslify":70}],478:[function(require,module,exports){
-arguments[4][470][0].apply(exports,arguments)
-},{"dup":470,"gl-mat4":54}],479:[function(require,module,exports){
-arguments[4][475][0].apply(exports,arguments)
-},{"dup":475,"glslify":70}],480:[function(require,module,exports){
-arguments[4][472][0].apply(exports,arguments)
-},{"./camera":478,"./ground":479,"./tower":481,"dup":472,"regl":386}],481:[function(require,module,exports){
-'use strict';
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var glsl = require('glslify');
-
-function rand2(l, u) {
-  return l + Math.random() * (u - l);
-}
-
-function tower(_ref, w, h) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      x0 = _ref2[0],
-      z0 = _ref2[1];
-
-  var w2 = w / 2;
-  var vert = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
-
-  var els = [[0, 1, 2], [1, 2, 3], //bottom
-  [4, 5, 6], [5, 6, 7], //front
-  [8, 9, 10], [9, 10, 11], //right
-  [12, 13, 14], [13, 14, 15], //back
-  [16, 17, 18], [17, 18, 19], //left
-  [20, 21, 22], [21, 22, 23] //top
-  ];
-
-  var colors = Array(vert.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
-
-  var normals = [[0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, 1, 0], [0, 1, 0], [0, 1, 0], [0, 1, 0]];
-
-  return { vert: vert, els: els, colors: colors, normals: normals };
-}
-
-module.exports = function (regl) {
-  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
-
-  var t = tower(config.placement, config.width, config.height);
-
-  return regl({
-    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main () {\n        vec3 normal = normalize(fragNormal);\n        vec3 lightPosition = vec3(0, -10, 0);\n        vec4 lightColor = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lightDir = normalize(lightPosition - fragPosition);\n        float diffuse = max(0.0, dot(lightDir, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffuse*lightColor;\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw) + diffuse*lightColor;\n        }\n\n      }\n    "]),
-    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 position, normal;\n      attribute vec4 color;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main() {\n        gl_Position = projection * view * vec4(position, 1);\n\n        pColor = color;\n        fragNormal = normal;\n        fragPosition = position;\n      }\n    "]),
-    attributes: {
-      position: t.vert,
-      color: t.colors,
-      normal: t.normals
-    },
-    elements: t.els
-  });
-};
-
-},{"glslify":70}],482:[function(require,module,exports){
-arguments[4][470][0].apply(exports,arguments)
-},{"dup":470,"gl-mat4":54}],483:[function(require,module,exports){
-arguments[4][475][0].apply(exports,arguments)
-},{"dup":475,"glslify":70}],484:[function(require,module,exports){
+},{"glslify":70}],485:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -74949,21 +75955,21 @@ function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-var numTowers = Math.pow(2, 9);
+var numCubes = Math.pow(2, 9);
 
-var randomXZs = Array(numTowers).fill(1).map(function () {
+var randomXZs = Array(numCubes).fill(1).map(function () {
   return [rand2(-3.75, 3.75), rand2(-2.5, 2.5)];
 });
 
-var randomWs = Array(numTowers).fill(1).map(function () {
+var randomWs = Array(numCubes).fill(1).map(function () {
   return rand2(0.1, 0.75);
 });
-var randomHs = Array(numTowers).fill(1).map(function () {
+var randomHs = Array(numCubes).fill(1).map(function () {
   return rand2(0.0, 2);
 });
 
 function getOffsets() {
-  var ret = Array(numTowers);
+  var ret = Array(numCubes);
   for (var i = 0; i < ret.length; i++) {
     ret[i] = {
       offsetXZ: randomXZs[i],
@@ -74979,7 +75985,7 @@ module.exports = function (ctx) {
   var regl = reglFn(ctx);
   var camera = require('./camera')(regl);
   var drawGround = require('./ground')(regl, { width: 9, depth: 6 });
-  var drawTower = require('./tower')(regl, {
+  var drawCube = require('./cube')(regl, {
     placement: [0, 0],
     height: 1,
     width: 1
@@ -74995,7 +76001,7 @@ module.exports = function (ctx) {
 
       camera(function () {
         drawGround();
-        drawTower(offsets);
+        drawCube(offsets);
       });
     });
   }
@@ -75005,67 +76011,13 @@ module.exports = function (ctx) {
   return regl;
 };
 
-},{"./camera":482,"./ground":483,"./tower":485,"regl":386}],485:[function(require,module,exports){
-'use strict';
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var glsl = require('glslify');
-
-function rand2(l, u) {
-  return l + Math.random() * (u - l);
-}
-
-function tower(_ref, w, h) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      x0 = _ref2[0],
-      z0 = _ref2[1];
-
-  var w2 = w / 2;
-  var vert = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
-
-  var els = [[0, 1, 2], [1, 2, 3], //bottom
-  [4, 5, 6], [5, 6, 7], //front
-  [8, 9, 10], [9, 10, 11], //right
-  [12, 13, 14], [13, 14, 15], //back
-  [16, 17, 18], [17, 18, 19], //left
-  [20, 21, 22], [21, 22, 23] //top
-  ];
-
-  var colors = Array(vert.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
-
-  var normals = [[0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, 1, 0], [0, 1, 0], [0, 1, 0], [0, 1, 0]];
-
-  return { vert: vert, els: els, colors: colors, normals: normals };
-}
-
-module.exports = function (regl) {
-  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
-
-  var t = tower(config.placement, config.width, config.height);
-
-  return regl({
-    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main () {\n        vec3 normal = normalize(fragNormal);\n        vec3 lightPosition = vec3(0, -10, 0);\n        vec4 lightColor = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lightDir = normalize(lightPosition - fragPosition);\n        float diffuse = max(0.0, dot(lightDir, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0, 0, 0, 1) + diffuse*lightColor;\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw) + diffuse*lightColor;\n        }\n\n      }\n    "]),
-    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 position, normal;\n      attribute vec4 color;\n      uniform float scaleXZ, scaleY;\n      uniform vec2 offsetXZ;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main() {\n        float posX = position.x*scaleXZ + offsetXZ.x;\n        float posY = position.y*scaleY;\n        float posZ = position.z*scaleXZ + offsetXZ.y;\n\n        gl_Position = projection * view * vec4(posX, posY, posZ, 1);\n\n        pColor = color;\n        fragNormal = normal;\n        fragPosition = vec3(posX, posY, posZ);\n      }\n    "]),
-    attributes: {
-      position: t.vert,
-      color: t.colors,
-      normal: t.normals
-    },
-    elements: t.els,
-    uniforms: {
-      scaleXZ: regl.prop('scaleXZ'),
-      offsetXZ: regl.prop('offsetXZ'),
-      scaleY: regl.prop('scaleY')
-    }
-  });
-};
-
-},{"glslify":70}],486:[function(require,module,exports){
-arguments[4][470][0].apply(exports,arguments)
-},{"dup":470,"gl-mat4":54}],487:[function(require,module,exports){
-arguments[4][475][0].apply(exports,arguments)
-},{"dup":475,"glslify":70}],488:[function(require,module,exports){
+},{"./camera":483,"./cube":484,"./ground":486,"regl":386}],486:[function(require,module,exports){
+arguments[4][482][0].apply(exports,arguments)
+},{"dup":482,"glslify":70}],487:[function(require,module,exports){
+arguments[4][471][0].apply(exports,arguments)
+},{"dup":471,"gl-mat4":54}],488:[function(require,module,exports){
+arguments[4][484][0].apply(exports,arguments)
+},{"dup":484,"glslify":70}],489:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -75074,18 +76026,18 @@ function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-var numTowers = Math.pow(2, 9);
+var numCubes = Math.pow(2, 9);
 
-var randomXZs = Array(numTowers).fill(1).map(function () {
+var randomXZs = Array(numCubes).fill(1).map(function () {
   return [rand2(-3.75, 3.75), rand2(-2.5, 2.5)];
 });
 
-var randomWs = Array(numTowers).fill(1).map(function () {
+var randomWs = Array(numCubes).fill(1).map(function () {
   return rand2(0.1, 0.75);
 });
 
 function getOffsets(freqs) {
-  var ret = Array(numTowers);
+  var ret = Array(numCubes);
   for (var i = 0; i < ret.length; i++) {
     ret[i] = {
       offsetXZ: randomXZs[i],
@@ -75101,7 +76053,7 @@ module.exports = function (ctx) {
   var regl = reglFn(ctx);
   var camera = require('./camera')(regl);
   var drawGround = require('./ground')(regl, { width: 9, depth: 6 });
-  var drawTower = require('./tower')(regl, {
+  var drawCube = require('./cube')(regl, {
     placement: [0, 0],
     height: 1,
     width: 1
@@ -75119,19 +76071,21 @@ module.exports = function (ctx) {
 
       camera(function () {
         drawGround();
-        drawTower(offsets);
+        drawCube(offsets);
       });
     });
   }
 
-  loadSound(numTowers * 2, //fftSize
+  loadSound(numCubes * 2, //fftSize
   draw //onDone
   );
 
   return regl;
 };
 
-},{"./camera":486,"./ground":487,"./sound":489,"./tower":490,"regl":386}],489:[function(require,module,exports){
+},{"./camera":487,"./cube":488,"./ground":490,"./sound":491,"regl":386}],490:[function(require,module,exports){
+arguments[4][482][0].apply(exports,arguments)
+},{"dup":482,"glslify":70}],491:[function(require,module,exports){
 'use strict';
 
 var getUserMedia = require('getusermedia');
@@ -75153,13 +76107,11 @@ module.exports = function () {
   };
 };
 
-},{"getusermedia":44,"web-audio-analyser":453}],490:[function(require,module,exports){
-arguments[4][485][0].apply(exports,arguments)
-},{"dup":485,"glslify":70}],491:[function(require,module,exports){
-arguments[4][470][0].apply(exports,arguments)
-},{"dup":470,"gl-mat4":54}],492:[function(require,module,exports){
-arguments[4][475][0].apply(exports,arguments)
-},{"dup":475,"glslify":70}],493:[function(require,module,exports){
+},{"getusermedia":44,"web-audio-analyser":453}],492:[function(require,module,exports){
+arguments[4][471][0].apply(exports,arguments)
+},{"dup":471,"gl-mat4":54}],493:[function(require,module,exports){
+arguments[4][484][0].apply(exports,arguments)
+},{"dup":484,"glslify":70}],494:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -75168,18 +76120,18 @@ function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-var numTowers = Math.pow(2, 9);
+var numCubes = Math.pow(2, 9);
 
-var randomXZs = Array(numTowers).fill(1).map(function () {
+var randomXZs = Array(numCubes).fill(1).map(function () {
   return [rand2(-3.75, 3.75), rand2(-2.5, 2.5)];
 });
 
-var randomWs = Array(numTowers).fill(1).map(function () {
+var randomWs = Array(numCubes).fill(1).map(function () {
   return rand2(0.1, 0.75);
 });
 
 function getOffsets(freqs) {
-  var ret = Array(numTowers);
+  var ret = Array(numCubes);
   for (var i = 0; i < ret.length; i++) {
     ret[i] = {
       offsetXZ: randomXZs[i],
@@ -75195,7 +76147,7 @@ module.exports = function (ctx) {
   var regl = reglFn(ctx);
   var camera = require('./camera')(regl);
   var drawGround = require('./ground')(regl, { width: 9, depth: 6 });
-  var drawTower = require('./tower')(regl, {
+  var drawCubes = require('./cube')(regl, {
     placement: [0, 0],
     height: 1,
     width: 1
@@ -75213,19 +76165,21 @@ module.exports = function (ctx) {
 
       camera(function () {
         drawGround();
-        drawTower(offsets);
+        drawCubes(offsets);
       });
     });
   }
 
-  loadSound('https://soundcloud.com/nightcrawlermusic/nightcrawler-metropolis-feat-1', numTowers * 2, //fftSize
+  loadSound('https://soundcloud.com/nightcrawlermusic/nightcrawler-metropolis-feat-1', numCubes * 2, //fftSize
   draw //onDone
   );
 
   return regl;
 };
 
-},{"./camera":491,"./ground":492,"./sound":494,"./tower":495,"regl":386}],494:[function(require,module,exports){
+},{"./camera":492,"./cube":493,"./ground":495,"./sound":496,"regl":386}],495:[function(require,module,exports){
+arguments[4][482][0].apply(exports,arguments)
+},{"dup":482,"glslify":70}],496:[function(require,module,exports){
 'use strict';
 
 var soundcloud = require('soundcloud-badge');
@@ -75261,189 +76215,56 @@ module.exports = function () {
   };
 };
 
-},{"soundcloud-badge":389,"web-audio-analyser":453}],495:[function(require,module,exports){
-'use strict';
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var glsl = require('glslify');
-
-function rand2(l, u) {
-  return l + Math.random() * (u - l);
-}
-
-function tower(_ref, w, h) {
-  var _ref2 = _slicedToArray(_ref, 2),
-      x0 = _ref2[0],
-      z0 = _ref2[1];
-
-  var w2 = w / 2;
-  var vert = [[x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 + w2, 0, z0 - w2], [x0 + w2, 0, z0 + w2], [x0 + w2, h, z0 - w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 + w2], [x0 + w2, 0, z0 + w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2], [x0 - w2, 0, z0 - w2], [x0 - w2, 0, z0 + w2], [x0 - w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 - w2, h, z0 - w2], [x0 + w2, h, z0 - w2], [x0 - w2, h, z0 + w2], [x0 + w2, h, z0 + w2]];
-
-  var els = [[0, 1, 2], [1, 2, 3], //bottom
-  [4, 5, 6], [5, 6, 7], //front
-  [8, 9, 10], [9, 10, 11], //right
-  [12, 13, 14], [13, 14, 15], //back
-  [16, 17, 18], [17, 18, 19], //left
-  [20, 21, 22], [21, 22, 23] //top
-  ];
-
-  var colors = Array(vert.length).fill([rand2(0.8, 0.9), rand2(0.1, 0.2), rand2(0.35, 0.45), 1.0]);
-
-  var normals = [[0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, -1, 0], [0, -1, 0], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1]];
-
-  return { vert: vert, els: els, colors: colors, normals: normals };
-}
-
-module.exports = function (regl) {
-  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { placement: [0, 0], width: 1, height: 1 };
-
-  var t = tower(config.placement, config.width, config.height);
-
-  return regl({
-    frag: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      float random(vec2 co)\n{\n   return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);\n}\n\n      varying vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main () {\n        vec3 normal = normalize(fragNormal);\n        vec3 lightPosition = vec3(0, -10, 0);\n        vec4 lightColor = vec4(1.0, 0.0, 0.0, 0.9);\n\n        vec3 lightDir = normalize(lightPosition - fragPosition);\n        float diffuse = max(0.0, dot(lightDir, normal));\n\n        if (mod(gl_FragCoord.y, 1.5) < 1.0) {\n          gl_FragColor = vec4(0,0,0,1.0) + diffuse*lightColor;\n        } else {\n          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw) + diffuse*lightColor;\n        }\n\n      }\n    "]),
-    vert: glsl(["\n      precision mediump float;\n#define GLSLIFY 1\n\n      attribute vec3 position, normal;\n      attribute vec4 color;\n      uniform float scaleXZ, scaleY;\n      uniform vec2 offsetXZ;\n      uniform mat4 projection, view;\n      varying lowp vec4 pColor;\n      varying vec3 fragNormal, fragPosition;\n\n      void main() {\n        float posX = position.x*scaleXZ + offsetXZ.x;\n        float posY = position.y*scaleY;\n        float posZ = position.z*scaleXZ + offsetXZ.y;\n\n        gl_Position = projection * view * vec4(posX, posY, posZ, 1);\n\n        pColor = color;\n        fragNormal = normal;\n        fragPosition = vec3(posX, posY, posZ);\n      }\n    "]),
-    attributes: {
-      position: t.vert,
-      color: t.colors,
-      normal: t.normals
-    },
-    elements: t.els,
-    uniforms: {
-      scaleXZ: regl.prop('scaleXZ'),
-      offsetXZ: regl.prop('offsetXZ'),
-      scaleY: regl.prop('scaleY')
-    }
-  });
-};
-
-},{"glslify":70}],496:[function(require,module,exports){
+},{"soundcloud-badge":389,"web-audio-analyser":453}],497:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _indexSlideified = require('./1_tower/index-slideified.js');
+var _demo = require('./1_tower/demo.js');
 
-var _indexSlideified2 = _interopRequireDefault(_indexSlideified);
+var _demo2 = _interopRequireDefault(_demo);
 
-var _indexSlideified3 = require('./2_camera/index-slideified.js');
+var _demo3 = require('./2_camera/demo.js');
 
-var _indexSlideified4 = _interopRequireDefault(_indexSlideified3);
+var _demo4 = _interopRequireDefault(_demo3);
 
-var _indexSlideified5 = require('./3_multiple/index-slideified.js');
+var _demo5 = require('./3_multiple/demo.js');
 
-var _indexSlideified6 = _interopRequireDefault(_indexSlideified5);
+var _demo6 = _interopRequireDefault(_demo5);
 
-var _indexSlideified7 = require('./4_glslify/index-slideified.js');
+var _demo7 = require('./4_glslify/demo.js');
 
-var _indexSlideified8 = _interopRequireDefault(_indexSlideified7);
+var _demo8 = _interopRequireDefault(_demo7);
 
-var _indexSlideified9 = require('./5_lighting/index-slideified.js');
+var _demo9 = require('./5_lighting/demo.js');
 
-var _indexSlideified10 = _interopRequireDefault(_indexSlideified9);
+var _demo10 = _interopRequireDefault(_demo9);
 
-var _indexSlideified11 = require('./6_batch/index-slideified.js');
+var _demo11 = require('./6_batch/demo.js');
 
-var _indexSlideified12 = _interopRequireDefault(_indexSlideified11);
+var _demo12 = _interopRequireDefault(_demo11);
 
-var _indexSlideified13 = require('./7_sound/index-slideified.js');
+var _demo13 = require('./7_sound/demo.js');
 
-var _indexSlideified14 = _interopRequireDefault(_indexSlideified13);
+var _demo14 = _interopRequireDefault(_demo13);
 
-var _indexSlideified15 = require('./final/index-slideified.js');
+var _demo15 = require('./final/demo.js');
 
-var _indexSlideified16 = _interopRequireDefault(_indexSlideified15);
+var _demo16 = _interopRequireDefault(_demo15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  1: _indexSlideified2.default,
-  2: _indexSlideified4.default,
-  3: _indexSlideified6.default,
-  4: _indexSlideified8.default,
-  5: _indexSlideified10.default,
-  6: _indexSlideified12.default,
-  7: _indexSlideified14.default,
-  final: _indexSlideified16.default
+  1: _demo2.default,
+  2: _demo4.default,
+  3: _demo6.default,
+  4: _demo8.default,
+  5: _demo10.default,
+  6: _demo12.default,
+  7: _demo14.default,
+  final: _demo16.default
 };
 
-},{"./1_tower/index-slideified.js":468,"./2_camera/index-slideified.js":469,"./3_multiple/index-slideified.js":472,"./4_glslify/index-slideified.js":476,"./5_lighting/index-slideified.js":480,"./6_batch/index-slideified.js":484,"./7_sound/index-slideified.js":488,"./final/index-slideified.js":493}],497:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WebGLSlide = function (_Component) {
-  _inherits(WebGLSlide, _Component);
-
-  function WebGLSlide() {
-    _classCallCheck(this, WebGLSlide);
-
-    return _possibleConstructorReturn(this, (WebGLSlide.__proto__ || Object.getPrototypeOf(WebGLSlide)).apply(this, arguments));
-  }
-
-  _createClass(WebGLSlide, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var canvas = document.createElement('canvas');
-      var ctx = canvas.getContext('webgl');
-
-      ctx.canvas.height = window.innerHeight;
-      ctx.canvas.width = window.innerWidth;
-      canvas.style.position = 'absolute';
-      canvas.style.top = 0;
-      canvas.style.left = '-20px';
-
-      this.regl = this.props.fn(ctx);
-      this.canvas = canvas;
-      this._output.appendChild(canvas);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this._output.removeChild(this.canvas);
-      this.regl.destroy();
-
-      if (window.audioEl) {
-        window.audioEl.pause();
-        delete window.audioEl;
-      }
-
-      if (window.scbEl) {
-        document.body.removeChild(scbEl);
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement('div', { ref: function ref(el) {
-          return _this2._output = el;
-        } });
-    }
-  }]);
-
-  return WebGLSlide;
-}(_react.Component);
-
-exports.default = WebGLSlide;
-
-},{"react":362}]},{},[466]);
+},{"./1_tower/demo.js":469,"./2_camera/demo.js":470,"./3_multiple/demo.js":473,"./4_glslify/demo.js":477,"./5_lighting/demo.js":481,"./6_batch/demo.js":485,"./7_sound/demo.js":489,"./final/demo.js":494}]},{},[467]);

@@ -27,7 +27,7 @@ import theme from './theme';
 const fs = require('fs');
 
 // Examples
-import WebGLSlide from './webgl-slide';
+import ReglSlide from './regl-slide';
 import examples from './webgl-examples';
 
 const BigHeading = props => (
@@ -68,14 +68,69 @@ class Slides extends Component {
           <Slide {...defaultSlideProps}>
             <BigHeading>VJing med regl</BigHeading>
             <BigHeading>&mdash; WebGL with a twist</BigHeading>
-            <SmallHeading>Stian Veum Møllersen</SmallHeading>
+            <br />
+            <SmallHeading>
+              &nbsp;Stian Veum Møllersen / @mollerse&nbsp;
+            </SmallHeading>
             <SmallText>Content warnings: Motion</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps}>
+            <SmallHeading>&hellip;the story begins</SmallHeading>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Jeg er veldig glad i å lage gøyale ting i nettlesern 😎</Text>
+            <Appear>
+              <Text>
+                Spesielt ting som <em>ser</em> gøyalt ut 👨‍🎨
+              </Text>
+            </Appear>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>SVG, Canvas, CSS &mdash; all the good stuff 🤩</Text>
+            <AppearingBlock>
+              <Text>Men bare 2D&#42; 😞</Text>
+              <SmallText>
+                Du kan gjøre <em>litt</em> 3D greier.
+              </SmallText>
+            </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps} align="center hack">
+            <Text className="attribution">
+              50 Years of Charts by Hinderling Volkart AG
+            </Text>
+            <iframe
+              height="100%"
+              width="100%"
+              style={{
+                border: 'none'
+              }}
+              src="https://50-jahre-hitparade.ch/"
+            />
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>3D får du med WebGL 😻</Text>
+            <AppearingBlock>
+              <Text>
+                Men hva <em>er</em> WebGL? 🤷‍♂️
+              </Text>
+            </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
             <SmallHeading>&nbsp;WebGL&nbsp;</SmallHeading>
-            <Text>The story begins.</Text>
-            <SmallText>Duh. Det er første slide.</SmallText>
+            <Text>&hellip;what even are you?</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>
+              WebGL er en metode for å vise avansert grafikk i nettleseren 🤓
+            </Text>
+            <SmallText>Unreal Engine, wooo!</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps} align="center hack">
@@ -93,95 +148,78 @@ class Slides extends Component {
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>
-              WebGL er en metode for å vise avansert grafikk i nettleseren.
-            </Text>
-            <SmallText>Unreal Engine, wooo!</SmallText>
+            <Text>WebGL er nettleserens API mot grafikkortet 📽</Text>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>WebGL er nettleserens interface mot grafikkortet.</Text>
-            <SmallText>There be dangers.</SmallText>
+            <Text>GPUens beregningskrefter i nettlesern 💪</Text>
+            <AppearingBlock>
+              <Text>&dArr;</Text>
+              <Text>Grafikk som før var forbeholdt desktop 🖥</Text>
+            </AppearingBlock>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>
-              Gjør GPUens massive beregningskrefter tilgjengelig i nettlesern,
-              for å lage grafikk som før var forbeholdt desktop.
+            <Text>⚠️Real talk⚠️</Text>
+            <Text>WebGL er komplisert, annerledes og kravstort.</Text>
+          </Slide>
+
+          <Slide
+            {...defaultSlideProps}
+            align="center hack"
+            className="code-demo"
+          >
+            <CodePane
+              lang="js"
+              source={fs.readFileSync('./code-slides/demo.js', 'utf8')}
+            />
+          </Slide>
+
+          <Slide {...defaultSlideProps} align="hack hack">
+            <Text className="attribution">
+              Creating 3D objects using WebGL fra Mozilla Developer Network
             </Text>
+            <iframe
+              height="480"
+              width="640"
+              style={{
+                border: 'none'
+              }}
+              src="https://mdn.github.io/webgl-examples/tutorial/sample5/"
+            />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>
-              Real talk: WebGL er komplisert, annerledes og kravstort.
-            </Text>
-          </Slide>
-
-          <CodeSlide
-            align="top"
-            bgColor="#333"
-            transition={[]}
-            className="codeslide"
-            lang="js"
-            code={fs.readFileSync('./code-slides/demo.js', 'utf8')}
-            ranges={[
-              { loc: [3, 12] },
-              { loc: [12, 26] },
-              { loc: [27, 34] },
-              { loc: [34, 46] },
-              { loc: [187, 203] },
-              { loc: [203, 218] },
-              { loc: [187, 203] },
-              { loc: [34, 46] },
-              { loc: [58, 65] },
-              { loc: [101, 113] },
-              { loc: [119, 136] },
-              { loc: [136, 146] },
-              { loc: [146, 156] },
-              { loc: [156, 166] },
-              { loc: [166, 176] },
-              { loc: [176, 187] }
-            ]}
-          />
-
-          <Slide {...defaultSlideProps} align="center center">
-            <Text>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Creating_3D_objects_using_WebGL">
-                Creating 3D objects using WebGL fra Mozilla Developer Network
-              </a>
-            </Text>
-          </Slide>
-
-          <Slide {...defaultSlideProps}>
-            <Text>Men, hvordan?</Text>
-            <SmallText>Dette var mye greier.</SmallText>
+            <Text>Dette var mye greier 😐</Text>
+            <Appear>
+              <Text>Hvordan angriper jeg dette? 😧</Text>
+            </Appear>
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <BlockQuote>
               <Quote>Det er enklere å lære seg noe når du har det gøy.</Quote>
-              <Cite>Noen</Cite>
+              <Cite>👉</Cite>
             </BlockQuote>
           </Slide>
 
-          <Slide {...defaultSlideProps} align="center center">
-            <Text>
-              Utforsk ny teknologi gjennom kreativitet, blottet for praktiske
-              formål.
-            </Text>
-            <SmallText>
-              Skal sies at kreativitet i seg selv er en utrolig viktig egenskap
-              for utviklere, men det er en annen talk.
-            </SmallText>
+          <Slide {...defaultSlideProps}>
+            <Text>Utforsk teknologi gjennom kreativitet 🧙‍♂️</Text>
+            <AppearingBlock>
+              <Text>Blottet for praktiske formål 👌</Text>
+              <SmallText>
+                Skal sies at kreativitet i seg selv er en utrolig viktig
+                egenskap for utviklere, men det er en annen talk.
+              </SmallText>
+            </AppearingBlock>
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <Text>
-              Det betyr at veien til mestring er full av gøyale og frustrerende
-              opplevelser.
+              Det gjør frustrasjonene på veien til gøyale opplevelser 🎉
             </Text>
             <Appear>
-              <Text>Du må bare starte et sted.</Text>
+              <Text>Du må bare starte et sted 🗺</Text>
             </Appear>
           </Slide>
 
@@ -202,10 +240,74 @@ class Slides extends Component {
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Musikk er lyd, og lyd er signaler</Text>
+            <Text>Musikk er lyd, lyd er signaler 🔊</Text>
             <AppearingBlock>
-              <Text>...og signaler kan vi prosessere!</Text>
+              <Text>&dArr;</Text>
+              <Text>Signaler kan visualiseres! 👍</Text>
             </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps} align="center hack">
+            <Image
+              height="90%"
+              src="https://upload.wikimedia.org/wikipedia/commons/6/61/FFT-Time-Frequency-View.png"
+              alt="FFT Time and Frequency view"
+            />
+            <SmallText>
+              By Phonical (Own work) [CC BY-SA 4.0
+              (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia
+              Commons
+            </SmallText>
+          </Slide>
+
+          <Slide {...defaultSlideProps} align="center hack">
+            <SmallText>&lt;aside&gt;</SmallText>
+            <SmallText>Du kan lære alt om FFT på Youtube:</SmallText>
+            <iframe
+              width="854"
+              height="480"
+              src="https://www.youtube.com/embed/spUNpyF58BY"
+              frameborder="0"
+              allow="encrypted-media"
+              allowfullscreen
+            />
+            <SmallText>&lt;/aside&gt;</SmallText>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Vi kan visualisere musikk 🤘</Text>
+            <AppearingBlock>
+              <Text>&hellip;hvem kan egentlig glemme Winamp?</Text>
+              <SmallText>
+                Antageligvis de fleste, for jeg innser at jeg har blitt gammel.
+              </SmallText>
+            </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps} align="hack hack">
+            <Text className="attribution">
+              Milkdrop 2 &mdash; Winamp Visualizer
+            </Text>
+            <iframe
+              width="80%"
+              height="615"
+              src="https://www.youtube.com/embed/-34Qqd0mAfo?start=78"
+              frameborder="0"
+              allowfullscreen
+            />
+          </Slide>
+
+          <Slide {...defaultSlideProps} align="hack hack">
+            <Text className="attribution">
+              Thutmose &mdash; WuWu (TARI Remix) [Trap Nation]
+            </Text>
+            <iframe
+              width="80%"
+              height="615"
+              src="https://www.youtube.com/embed/_BwpNaT_noo?start=11"
+              frameborder="0"
+              allowfullscreen
+            />
           </Slide>
 
           <Slide {...defaultSlideProps} align="center hack">
@@ -236,38 +338,54 @@ class Slides extends Component {
             />
           </Slide>
 
-          <Slide {...defaultSlideProps} align="hack hack">
-            <Text className="attribution">Og hvem kan glemme Winamp?</Text>
-            <iframe
-              width="80%"
-              height="615"
-              src="https://www.youtube.com/embed/-34Qqd0mAfo?start=78"
-              frameborder="0"
-              allowfullscreen
-            />
-            <SmallText>
-              Antageligvis de fleste, for jeg innser at jeg har blitt gammel.
-            </SmallText>
+          <Slide {...defaultSlideProps}>
+            <Text>Her er det muligheter 🤩</Text>
+            <AppearingBlock>
+              <Text>Greit å begrense seg litt ☝️</Text>
+              <SmallText>Vi kan jo ikke så mye om dette 😅</SmallText>
+            </AppearingBlock>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Image width="80%" src="images/notes.jpg" />
+            <Image width="65%" src="images/notes.jpg" />
+            <SmallText>3D &#43; penn &amp; papir &rArr; ❤️</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>3D + penn & papir = &lt;3</Text>
+            <Text>Gape over alt! 🍽</Text>
+            <Appear>
+              <Text>&hellip;eller?</Text>
+            </Appear>
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <SmallHeading>Rammeverk</SmallHeading>
-            <Text>Mer verk enn ramme?</Text>
+            <Text>Helst mer ramme enn verk 🖼</Text>
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <Text>
-              Hvis du vil <i>lære</i> deg noe er det greit å velge noe fikser
-              færre ting for deg.
+              Vil du virkelig <em>lære</em> deg noe 👨‍🎓
             </Text>
+            <Appear>
+              <Text>er det greit med noe som gjemmer akkurat passe mye 🕵️‍♂️</Text>
+            </Appear>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>WebGL ------------------------ 🦄🌈</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps} transition="none">
+            <Text>WebGL ----- 🍪 -------------- 🦄🌈</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps} transition="none">
+            <Text>WebGL ----- 🍪 ---------- three.js</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps} transition="none">
+            <Text>WebGL --- regl ---------- three.js</Text>
           </Slide>
 
           <Slide {...defaultSlideProps}>
@@ -278,9 +396,44 @@ class Slides extends Component {
           <Slide {...defaultSlideProps}>
             <Text>regl er inspirert av Reacts functional rendering.</Text>
             <Appear>
-              <Text>Komposisjon av commands som components i React.</Text>
+              <Text>Commands istedenfor components i React.</Text>
             </Appear>
           </Slide>
+
+          <CodeSlide
+            align="top"
+            bgColor="#333"
+            transition={[]}
+            className="codeslide"
+            lang="js"
+            code={fs.readFileSync('./code-slides/scoped-commands.js', 'utf8')}
+            ranges={[
+              {
+                loc: [0, 0],
+                title: 'Commands'
+              },
+              {
+                loc: [2, 9],
+                title: 'En command'
+              },
+              {
+                loc: [10, 17],
+                title: 'En anna command'
+              },
+              {
+                loc: [18, 21],
+                title: 'Komposisjon 👍'
+              },
+              {
+                loc: [2, 8],
+                title: 'Disse'
+              },
+              {
+                loc: [10, 16],
+                title: 'Er tilgjengelig her'
+              }
+            ]}
+          />
 
           <Slide {...defaultSlideProps}>
             <Text>regl gjør ganske lite for deg.</Text>
@@ -289,13 +442,9 @@ class Slides extends Component {
 
           <Slide {...defaultSlideProps}>
             <Text>
-              ...men regl tar seg av state håndtering og det maskinelle.
+              &hellip;men regl tar seg av state håndtering og det maskinelle.
             </Text>
-            <SmallText>No more gl.bindBuffer \0/</SmallText>
-          </Slide>
-
-          <Slide {...defaultSlideProps}>
-            <Text>WebGL --- regl --------- three.js</Text>
+            <SmallText>No more gl.bindBuffer 🕺</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps}>
@@ -305,11 +454,20 @@ class Slides extends Component {
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Image width="80%" src="images/notes.jpg" />
+            <Image width="65%" src="images/notes.jpg" />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>WebGL er drit flink til å tegne trekanter</Text>
+            <SmallHeading>&nbsp;Steg 1:&nbsp;</SmallHeading>
+            <Text>Lag <em>én</em> kube</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Først litt WebGL teori 👨‍🏫</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>WebGL er drit flink til å tegne trekanter 📐</Text>
             <SmallText>Seriøst liksom</SmallText>
           </Slide>
           <Slide {...defaultSlideProps}>
@@ -325,16 +483,24 @@ class Slides extends Component {
                 <Code>buffer = [t1, t2...tN]</Code>
               </Text>
 
-              <SmallText>Hello, I am Captain Obvious.</SmallText>
+              <SmallText>Hello, I am Captain Obvious 👨‍✈️</SmallText>
             </AppearingBlock>
           </Slide>
+
           <Slide {...defaultSlideProps}>
             <Text>Trekantene bygger igjen opp mer komplekse ting.</Text>
             <AppearingBlock>
               <Text>
                 En firkant er 2 trekanter. Og en kube er 6&times;2 trekanter.
               </Text>
-              <SmallText>Captain Obvious strikes again!</SmallText>
+              <SmallText>Captain Obvious strikes again! 👨‍✈️</SmallText>
+            </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Så jeg må definere 24 punkter fordelt på 12 trekanter 👨‍💻</Text>
+            <AppearingBlock>
+              <Text>&hellip;og putte dem i en buffer 👷‍♂️</Text>
             </AppearingBlock>
           </Slide>
 
@@ -344,49 +510,127 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/1_tower/index.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/1_tower/demo-for-slides.js', 'utf8')}
             ranges={[
-              { loc: [0, 0], title: 'Tegne et tårn' },
-              { loc: [7, 8], title: 'Oppsett' },
-              { loc: [9, 10], title: 'Definer vertices' },
-              { loc: [10, 14], title: 'Bottom' },
-              { loc: [15, 19], title: 'Front' },
-              { loc: [20, 24], title: 'Right' },
-              { loc: [25, 29], title: 'Back' },
-              { loc: [30, 34], title: 'Left' },
-              { loc: [35, 39], title: 'Top' },
-              { loc: [41, 42], title: 'Definer elements' },
-              { loc: [42, 44], title: 'Bottom' },
-              { loc: [44, 46], title: 'Front' },
-              { loc: [46, 48], title: 'Right' },
-              { loc: [48, 50], title: 'Back' },
-              { loc: [50, 52], title: 'Left' },
-              { loc: [52, 54], title: 'Top' },
-              { loc: [64, 65], title: 'Returner' },
-              { loc: [67, 68], title: 'Putt i en variabel' },
-              { loc: [69, 70], title: 'Lager en draw()' },
-              { loc: [70, 73], title: 'Fyllfarge' },
-              { loc: [74, 75], title: 'Oppsett av kall' },
-              { loc: [101, 102], title: 'Elements for indeks' },
-              { loc: [97, 101], title: 'Attributes' },
-              { loc: [84, 97], title: 'Vertex shader' }
+              {
+                loc: [0, 0],
+                title: 'Tegne en kube'
+              },
+              {
+                loc: [7, 8],
+                title: 'cube factory 🏭'
+              },
+              {
+                loc: [9, 10],
+                title: 'Definer punkter'
+              },
+              {
+                loc: [10, 14],
+                title: 'Bunn'
+              },
+              {
+                loc: [15, 19],
+                title: 'Front'
+              },
+              {
+                loc: [20, 24],
+                title: 'Høyre'
+              },
+              {
+                loc: [25, 29],
+                title: 'Bak'
+              },
+              {
+                loc: [30, 34],
+                title: 'Venstre'
+              },
+              {
+                loc: [35, 39],
+                title: 'Topp'
+              },
+              {
+                loc: [41, 42],
+                title: 'Lage trekant-buffer 👷‍♂️'
+              },
+              {
+                loc: [42, 44],
+                title: 'Bunn'
+              },
+              {
+                loc: [44, 46],
+                title: 'Front'
+              },
+              {
+                loc: [46, 48],
+                title: 'Høyre'
+              },
+              {
+                loc: [48, 50],
+                title: 'Bak'
+              },
+              {
+                loc: [50, 52],
+                title: 'Venstre'
+              },
+              {
+                loc: [52, 54],
+                title: 'Topp'
+              },
+              {
+                loc: [56, 63],
+                title: 'Litt farge 🎨'
+              },
+              {
+                loc: [64, 65],
+                title: 'Returner'
+              },
+              {
+                loc: [67, 68],
+                title: 'Putt i en variabel'
+              },
+              {
+                loc: [69, 70],
+                title: 'Lager en draw()'
+              },
+              {
+                loc: [70, 73],
+                title: 'Fyllfarge'
+              },
+              {
+                loc: [74, 75],
+                title: 'Lager en kommando'
+              },
+              {
+                loc: [100, 101],
+                title: 'elementBuffer'
+              },
+              {
+                loc: [96, 100],
+                title: 'attributes'
+              },
+              {
+                loc: [84, 96],
+                title: 'Vertex shader'
+              }
             ]}
           />
 
           <Slide {...defaultSlideProps}>
-            <SmallHeading>Verte-what?</SmallHeading>
-            <Text>Vertex shader</Text>
+            <Text>Verte-what? 🤷‍♂️</Text>
+            <Appear>
+              <Text>Vertex shader</Text>
+            </Appear>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Kjernen i WebGL er shadere.</Text>
+            <Text>Kjernen i WebGL er shadere 👻</Text>
             <SmallText>Ganske shady greier...</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Shadere er små programmer som kjøres på GPUen.</Text>
+            <Text>Shadere er små programmer som kjøres på GPUen 🧙‍♂️</Text>
             <AppearingBlock>
-              <Text>Skrevet i GLSL, en avart av C.</Text>
+              <Text>Skrevet i GLSL, en avart av C 🤓</Text>
               <SmallText>There is no escape!</SmallText>
             </AppearingBlock>
           </Slide>
@@ -399,9 +643,9 @@ class Slides extends Component {
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Vertex Shadere er ansvarlige for å bygge geometrier.</Text>
+            <Text>Vertex Shadere er ansvarlige for å bygge geometrier 🏗</Text>
             <Appear>
-              <Text>Som Fragment Shadere kan fargelegge.</Text>
+              <Text>Som Fragment Shadere kan fargelegge 🎨</Text>
             </Appear>
           </Slide>
 
@@ -418,38 +662,77 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/1_tower/index.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/1_tower/demo-for-slides.js', 'utf8')}
             ranges={[
-              { loc: [84, 97], title: 'Vertex shader' },
-              { loc: [85, 86], title: 'Setter precision' },
-              { loc: [86, 88], title: 'Deklarerer vars' },
-              { loc: [88, 89], title: 'Deklarerer uniforms' },
-              { loc: [102, 114], title: 'Deklarerer uniforms' },
-              { loc: [89, 90], title: 'Deklarerer ut vars' },
-              { loc: [91, 96], title: 'Jobben' },
-              { loc: [75, 84], title: 'Fragment shader' },
-              { loc: [117, 118], title: 'Kaller draw' }
+              {
+                loc: [84, 96],
+                title: 'Vertex shader'
+              },
+              {
+                loc: [85, 86],
+                title: 'Setter presisjon'
+              },
+              {
+                loc: [86, 88],
+                title: 'attributes'
+              },
+              {
+                loc: [96, 100],
+                title: 'attributes'
+              },
+              {
+                loc: [87, 88],
+                title: 'varying'
+              },
+              {
+                loc: [90, 95],
+                title: 'Jobben'
+              },
+              {
+                loc: [91, 92],
+                title: 'gl_Position'
+              },
+              {
+                loc: [93, 94],
+                title: 'varying'
+              },
+              {
+                loc: [75, 84],
+                title: 'Fragment shader'
+              },
+              {
+                loc: [78, 79],
+                title: 'varying'
+              },
+              {
+                loc: [80, 83],
+                title: 'gl_FragColor'
+              },
+              {
+                loc: [104, 105],
+                title: 'Kaller draw'
+              }
             ]}
           />
 
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[1]} />
+            <ReglSlide fn={examples[1]} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Ikke veldig imponerende.</Text>
-            <SmallText>Ser ikke 3D ut en gang!</SmallText>
+            <Text>Ikke veldig imponerende 🤐</Text>
+            <SmallText>Ser ikke 3D ut en gang! 🎁</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Vi må lære oss om WebGLs koordinatsystem.</Text>
-            <SmallText>Ugh, trodde jeg var ferdig med matte...</SmallText>
+            <Text>Vi må lære oss om WebGLs koordinatsystem 🗺</Text>
+            <SmallText>Ugh, trodde jeg var ferdig med matte 🤦‍♂️</SmallText>
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <Text>
               Koordinatsystemet til WebGL er en kube, hvor hver akse går fra -1
-              til 1.
+              til 1 👨‍🏫
             </Text>
           </Slide>
 
@@ -463,37 +746,48 @@ class Slides extends Component {
 
           <Slide {...defaultSlideProps}>
             <Text>
-              Det er slitsomt å forholde seg til at alt plasseres langs [-1, 1]
+              Det er slitsomt å forholde seg til at alt plasseres langs [-1, 1] 😓
             </Text>
             <Appear>
-              <Text>Så vi bruker matte for å fikse problemet.</Text>
+              <Text>Så vi bruker matte for å fikse problemet 💡</Text>
             </Appear>
           </Slide>
           <Slide {...defaultSlideProps}>
-            <Text>Matriser lar oss mappe om koordinatsystemer.</Text>
+            <Text>Matriser lar oss mappe om koordinatsystemer 🗺</Text>
           </Slide>
           <Slide {...defaultSlideProps}>
-            <Text>Model matrix: object &rarr; world.</Text>
+            <Text>Matriser som mapper 🗺</Text>
             <Appear>
-              <Text>View matrix: world &rarr; camera.</Text>
+              <Text>Model: object &rarr; world.</Text>
             </Appear>
             <Appear>
-              <Text>Projection matrix: camera &rarr; screen.</Text>
+              <Text>View: world &rarr; camera.</Text>
+            </Appear>
+            <Appear>
+              <Text>Projection: camera &rarr; screen.</Text>
             </Appear>
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <Text>
               Når vi kombinerer dem får vi en komplett mapping fra et objekt til
-              skjermen.
+              skjermen 👌
             </Text>
-            <SmallText>
-              Hvem sa du ikke kom til å få bruk for matte etter skolen?
-            </SmallText>
+            <AppearingBlock>
+              <Code>gl_Position = projection * view * model * pos;</Code>
+              <SmallText>
+                Hvem sa du ikke kom til å få bruk for matte etter skolen? 😄
+              </SmallText>
+            </AppearingBlock>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Nå kan vi justere på kameraet!</Text>
+            <Text>Nå kan vi justere hva vi ser! 👁</Text>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <SmallHeading>&nbsp;Steg 2:&nbsp;</SmallHeading>
+            <Text>Se <em>hele</em> verden!</Text>
           </Slide>
 
           <CodeSlide
@@ -502,54 +796,163 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/2_camera/index.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/2_camera/demo-for-slides.js', 'utf8')}
             ranges={[
-              { loc: [0, 0], title: 'Justerbart kamera' },
-              { loc: [7, 8], title: 'Tower er lik' },
-              { loc: [75, 76], title: 'Oppsett av kall' },
-              { loc: [103, 104], title: 'Uniforms' },
-              { loc: [104, 113], title: 'View matrix' },
-              { loc: [104, 105], title: 'regl gir oss tick' },
-              { loc: [70, 71], title: 'Ved å bruke frame' },
-              { loc: [104, 113], title: 'View matrix' },
-              { loc: [105, 106], title: 'Finner en faktor' },
-              { loc: [106, 112], title: 'Regn ut ny matrix' },
-              { loc: [114, 123], title: 'Projection matrix' },
-              { loc: [85, 98], title: 'Vertex shader' },
-              { loc: [92, 97], title: 'Uendret' },
-              { loc: [128, 129], title: 'Kaller draw' }
+              {
+                loc: [0, 0],
+                title: 'Sett opp et kamera'
+              },
+              {
+                loc: [7, 8],
+                title: 'Cube 🏭 er lik'
+              },
+              {
+                loc: [75, 76],
+                title: 'Oppsett av kommando'
+              },
+              {
+                loc: [103, 104],
+                title: 'Uniforms'
+              },
+              {
+                loc: [104, 113],
+                title: 'View matrix'
+              },
+              {
+                loc: [104, 105],
+                title: 'regl gir oss tick'
+              },
+              {
+                loc: [70, 71],
+                title: 'Ved å bruke frame'
+              },
+              {
+                loc: [104, 113],
+                title: 'View matrix'
+              },
+              {
+                loc: [105, 106],
+                title: 'Finner en faktor'
+              },
+              {
+                loc: [106, 112],
+                title: 'Regn ut ny matrix'
+              },
+              {
+                loc: [1, 2],
+                title: 'hjelp fra gl-mat4'
+              },
+              {
+                loc: [106, 112],
+                title: 'Regn ut ny matrix'
+              },
+              {
+                loc: [107, 108],
+                title: 'Out param'
+              },
+              {
+                loc: [108, 109],
+                title: 'Punktet vi ser på'
+              },
+              {
+                loc: [109, 110],
+                title: 'Sentrum'
+              },
+              {
+                loc: [110, 111],
+                title: 'Hva er 👆'
+              },
+              {
+                loc: [106, 112],
+                title: 'Regn ut ny matrix'
+              },
+              {
+                loc: [114, 123],
+                title: 'Projection matrix'
+              },
+              {
+                loc: [114, 115],
+                title: 'fra regl'
+              },
+              {
+                loc: [115, 122],
+                title: 'regn ut matrix'
+              },
+              {
+                loc: [116, 117],
+                title: 'out param'
+              },
+              {
+                loc: [117, 118],
+                title: 'field of view'
+              },
+              {
+                loc: [118, 119],
+                title: 'aspect ratio'
+              },
+              {
+                loc: [119, 120],
+                title: 'near'
+              },
+              {
+                loc: [120, 121],
+                title: 'far'
+              },
+              {
+                loc: [115, 122],
+                title: 'regn ut matrix'
+              },
+              {
+                loc: [85, 98],
+                title: 'Vertex shader'
+              },
+              {
+                loc: [89, 90],
+                title: 'uniforms'
+              },
+              {
+                loc: [92, 97],
+                title: 'Regn ut pos'
+              },
+              {
+                loc: [93, 94],
+                title: 'Regn ut pos'
+              },
+              {
+                loc: [76, 85],
+                title: 'Uendra'
+              },
+              {
+                loc: [128, 129],
+                title: 'Kaller draw'
+              }
             ]}
           />
+
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[2]} />
-          </Slide>
-          <Slide {...defaultSlideProps}>
-            <Text>Nå kan vi tydelig se 3D-effekten!</Text>
-          </Slide>
-          <Slide {...defaultSlideProps}>
-            <Text>Fortsatt litt kjedelig med bare ett tårn.</Text>
+            <ReglSlide fn={examples[2]} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Heldigvis har regl gode APIer for komposisjon!</Text>
+            <Text>Nå kan vi se 3D-effekten! 🎉</Text>
           </Slide>
-          <CodeSlide
-            align="top"
-            bgColor="#333"
-            transition={[]}
-            className="codeslide"
-            lang="js"
-            code={fs.readFileSync('./code-slides/scoped-commands.js', 'utf8')}
-            ranges={[
-              { loc: [0, 0], title: 'Scoping' },
-              { loc: [10, 17], title: 'En komponent' },
-              { loc: [2, 9], title: 'En annen komponent' },
-              { loc: [18, 21], title: 'Props blir passed' }
-            ]}
-          />
+
           <Slide {...defaultSlideProps}>
-            <Text>Dette kan vi bruke til å dele opp scena vår.</Text>
+            <Text>Fortsatt kjedelig med bare en kube 🏙</Text>
           </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Vi kan lage flere ting!</Text>
+            <Appear>
+              <Text>&hellip;men først litt modularisering 👷‍♂️</Text>
+            </Appear>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <SmallHeading>&nbsp;Steg 3:&nbsp;</SmallHeading>
+            <Text>Fylle verden!</Text>
+          </Slide>
+
           <CodeSlide
             align="top"
             bgColor="#333"
@@ -561,11 +964,26 @@ class Slides extends Component {
               'utf8'
             )}
             ranges={[
-              { loc: [0, 0], title: 'camera.js' },
-              { loc: [0, 0], title: 'Kameraet i en fil' },
-              { loc: [2, 11], title: 'Med view' },
-              { loc: [12, 21], title: 'Og projection' },
-              { loc: [22, 27], title: 'Eksporter fn' }
+              {
+                loc: [0, 0],
+                title: 'camera.js'
+              },
+              {
+                loc: [0, 0],
+                title: 'Egen command'
+              },
+              {
+                loc: [2, 11],
+                title: 'Med view'
+              },
+              {
+                loc: [12, 21],
+                title: 'Og projection'
+              },
+              {
+                loc: [22, 27],
+                title: 'Som eksporteres'
+              }
             ]}
           />
           <CodeSlide
@@ -575,16 +993,38 @@ class Slides extends Component {
             className="codeslide"
             lang="js"
             code={fs.readFileSync(
-              './webgl-examples/3_multiple/tower.js',
+              './webgl-examples/3_multiple/cube.js',
               'utf8'
             )}
             ranges={[
-              { loc: [0, 0], title: 'tower.js' },
-              { loc: [4, 5], title: 'Tower er lik' },
-              { loc: [71, 80], title: 'Fragment shader' },
-              { loc: [80, 93], title: 'Vertex shader' },
-              { loc: [93, 98], title: 'og verdier' },
-              { loc: [64, 68], title: 'Eksporter fn' }
+              {
+                loc: [0, 0],
+                title: 'cube.js'
+              },
+              {
+                loc: [0, 0],
+                title: 'Egen command'
+              },
+              {
+                loc: [4, 5],
+                title: 'Cube 🏭'
+              },
+              {
+                loc: [71, 80],
+                title: 'Fragment shader'
+              },
+              {
+                loc: [80, 93],
+                title: 'Vertex shader'
+              },
+              {
+                loc: [93, 98],
+                title: 'og verdier'
+              },
+              {
+                loc: [64, 68],
+                title: 'Som eksporteres'
+              }
             ]}
           />
           <CodeSlide
@@ -598,13 +1038,34 @@ class Slides extends Component {
               'utf8'
             )}
             ranges={[
-              { loc: [0, 0], title: 'ground.js' },
-              { loc: [0, 1], title: 'Vi lager en bakke' },
-              { loc: [1, 13], title: 'En firkant langs X,Z' },
-              { loc: [18, 26], title: 'Med shaders' },
-              { loc: [26, 38], title: 'Med shaders' },
-              { loc: [38, 43], title: 'og data' },
-              { loc: [15, 16], title: 'Eksporter fn' }
+              {
+                loc: [0, 0],
+                title: 'ground.js'
+              },
+              {
+                loc: [0, 1],
+                title: 'Vi lager en bakke 🏭'
+              },
+              {
+                loc: [1, 13],
+                title: 'En firkant langs X,Z'
+              },
+              {
+                loc: [18, 26],
+                title: 'Med shaders'
+              },
+              {
+                loc: [26, 38],
+                title: 'Med shaders'
+              },
+              {
+                loc: [38, 43],
+                title: 'og data'
+              },
+              {
+                loc: [15, 16],
+                title: 'Eksporter fn'
+              }
             ]}
           />
           <CodeSlide
@@ -614,35 +1075,54 @@ class Slides extends Component {
             className="codeslide"
             lang="js"
             code={fs.readFileSync(
-              './webgl-examples/3_multiple/index.js',
+              './webgl-examples/3_multiple/demo-for-slides.js',
               'utf8'
             )}
             ranges={[
-              { loc: [0, 0], title: 'Alt sys sammen' },
-              { loc: [2, 9], title: 'Importer delene' },
-              { loc: [10, 11], title: 'Inne i draw' },
-              { loc: [16, 20], title: 'Kaller vi dem' },
-              { loc: [16, 20], title: 'Nå deles camera' },
-              { loc: [23, 24], title: 'Som vi kan se' }
+              {
+                loc: [0, 0],
+                title: 'Alt sys sammen'
+              },
+              {
+                loc: [2, 9],
+                title: 'Importer delene'
+              },
+              {
+                loc: [10, 11],
+                title: 'Inne i draw'
+              },
+              {
+                loc: [16, 20],
+                title: 'Kaller vi dem'
+              },
+              {
+                loc: [16, 20],
+                title: 'Nå deles camera'
+              },
+              {
+                loc: [23, 24],
+                title: 'Som vi kan se'
+              }
             ]}
           />
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[3]} />
+            <ReglSlide fn={examples[3]} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Image width="80%" src="images/notes.jpg" />
+            <Text>Dette begynner å ligne noe! 💅</Text>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Dette begynner å ligne noe!</Text>
-          </Slide>
-
-          <Slide {...defaultSlideProps}>
-            <Text>Nå kan vi begynne å fikle og eksperimentere.</Text>
+            <Text>Nå kan vi begynne å fikle og eksperimentere 👨‍🔬</Text>
             <AppearingBlock>
-              <Text>Feks med fargene.</Text>
+              <Text>Feks med fargene 🎨</Text>
             </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <SmallHeading>&nbsp;Steg 4&amp;5:&nbsp;</SmallHeading>
+            <Text>Eksperimentering!</Text>
           </Slide>
 
           <CodeSlide
@@ -652,90 +1132,150 @@ class Slides extends Component {
             className="codeslide"
             lang="js"
             code={fs.readFileSync(
-              './webgl-examples/4_glslify/tower.js',
+              './webgl-examples/4_glslify/cube.js',
               'utf8'
             )}
             ranges={[
-              { loc: [0, 0], title: 'tower.js' },
-              { loc: [72, 87], title: 'i fragment shader' },
-              { loc: [79, 84], title: 'Vi fikler litt' },
-              { loc: [79, 82], title: 'Striper' },
-              { loc: [81, 84], title: 'Og litt random' }
+              {
+                loc: [0, 0],
+                title: 'cube.js'
+              },
+              {
+                loc: [72, 87],
+                title: 'i fragment shader'
+              },
+              {
+                loc: [72, 73],
+                title: 'glsl'
+              },
+              {
+                loc: [0, 1],
+                title: 'glsl'
+              },
+              {
+                loc: [74, 75],
+                title: 'glslify'
+              },
+              {
+                loc: [79, 84],
+                title: 'Vi fikler litt'
+              },
+              {
+                loc: [79, 82],
+                title: 'Striper'
+              },
+              {
+                loc: [81, 84],
+                title: 'Og litt random'
+              }
             ]}
           />
 
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[4]} />
+            <ReglSlide fn={examples[4]} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Dette begynner å se fett ut.</Text>
+            <Text>Dette begynner å se fett ut 😎</Text>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <BlockQuote>
-              <Quote>Å fikle er å lære.</Quote>
-              <Cite>Noen</Cite>
-            </BlockQuote>
+            <Text>Et fungerende system er enklere å utforske 👨‍🚀</Text>
+            <Appear>
+              <Text>Det er da du lærer 👨‍🎓</Text>
+            </Appear>
           </Slide>
 
-          <Slide>
-            <Text>Vi kan fikle til noen kule lyseffekter.</Text>
+          <Slide {...defaultSlideProps}>
+            <Text>Vi kan fikle til noen kule lyseffekter 🤹‍♂️</Text>
+            <AppearingBlock>
+              <SmallText>Jeg sparer dere for koden her, men den finner dere i eksempel 5 på github 👍</SmallText>
+            </AppearingBlock>
           </Slide>
 
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[5]} />
-          </Slide>
-
-          <Slide {...defaultSlideProps}>
-            <Text>Jeg skal spare dere for koden til denne lys-effekten.</Text>
+            <ReglSlide fn={examples[5]} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
             <Text>
-              Men dette er et prima eksempel på hvordan et fungerende system
-              hjelper deg til å lære.
+              Dette er et prima eksempel på hvordan et fungerende system
+              hjelper deg med læring 💡
             </Text>
-            <AppearingBlock>
-              <Text>
-                Når du forstår hvordan du kom deg et sted du er kan du alltid
-                komme deg dit igjen.
-              </Text>
-            </AppearingBlock>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>
+              Når du forstår hvordan du kom deg et sted du er kan du alltid
+              komme deg dit igjen 🗺
+            </Text>
           </Slide>
 
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[5]} />
+            <ReglSlide fn={examples[5]} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Image width="80%" src="images/notes.jpg" />
+            <Image width="65%" src="images/notes.jpg" />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Nå er vi nesten der.</Text>
-            <AppearingBlock>
-              <Text>Trenger bare fler tårn</Text>
-              <SmallText>...tappetårn?</SmallText>
-            </AppearingBlock>
+            <Text>Vi må bygge flere bygninger 🏗</Text>
           </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <SmallHeading>&nbsp;Steg 6:&nbsp;</SmallHeading>
+            <Text>Fler ting!</Text>
+          </Slide>
+
           <CodeSlide
             align="top"
             bgColor="#333"
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/6_batch/index.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/6_batch/demo-for-slides.js', 'utf8')}
             ranges={[
-              { loc: [0, 0], title: 'index.js' },
-              { loc: [2, 9], title: 'Importerer som før' },
-              { loc: [4, 9], title: 'Litt annen config' },
-              { loc: [14, 15], title: 'Hvor mange tårn?' },
-              { loc: [16, 22], title: 'Lag litt random' },
-              { loc: [23, 35], title: 'Samle i en liste' },
-              { loc: [38, 39], title: 'Generer data' },
-              { loc: [44, 48], title: 'Tegning' },
-              { loc: [46, 47], title: 'Ett kall per offset' }
+              {
+                loc: [0, 0],
+                title: 'demo.js'
+              },
+              {
+                loc: [2, 9],
+                title: 'Importerer som før'
+              },
+              {
+                loc: [4, 9],
+                title: 'Litt annen config'
+              },
+              {
+                loc: [14, 15],
+                title: 'Hvor mange?'
+              },
+              {
+                loc: [16, 22],
+                title: 'Lag litt random'
+              },
+              {
+                loc: [23, 35],
+                title: 'Samle i en liste'
+              },
+              {
+                loc: [36, 38],
+                title: 'I draw'
+              },
+              {
+                loc: [38, 39],
+                title: 'Generer data'
+              },
+              {
+                loc: [44, 48],
+                title: 'Tegning'
+              },
+              {
+                loc: [46, 47],
+                title: 'Ett kall per offset'
+              }
             ]}
           />
           <CodeSlide
@@ -744,35 +1284,61 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/6_batch/tower.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/6_batch/cube.js', 'utf8')}
             ranges={[
-              { loc: [0, 0], title: 'tower.js' },
-              { loc: [0, 0], title: 'Må fikle litt' },
-              { loc: [150, 155], title: 'Leser inn offsets' },
-              { loc: [122, 123], title: 'Vertext shader' },
-              { loc: [126, 128], title: 'Henter ut verdier' },
-              { loc: [133, 136], title: 'Regner ut ny pos' },
-              { loc: [137, 138], title: 'Setter ny pos' }
+              {
+                loc: [0, 0],
+                title: 'cube.js'
+              },
+              {
+                loc: [150, 155],
+                title: 'Leser inn offsets'
+              },
+              {
+                loc: [122, 123],
+                title: 'Vertext shader'
+              },
+              {
+                loc: [126, 128],
+                title: 'Henter ut verdiene'
+              },
+              {
+                loc: [133, 136],
+                title: 'Regner ut ny pos'
+              },
+              {
+                loc: [137, 138],
+                title: 'Setter ny pos'
+              }
             ]}
           />
+
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[6]} />
+            <ReglSlide fn={examples[6]} />
           </Slide>
+
           <Slide {...defaultSlideProps}>
-            <Text>Nå har vi noe veldig fett!</Text>
+            <Image width="65%" src="images/notes.jpg" />
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Nå har vi noe veldig fett! 😎🤘</Text>
             <AppearingBlock>
-              <Text>Mangler bare en ting...</Text>
+              <Text>Mangler bare en ting&hellip;</Text>
             </AppearingBlock>
           </Slide>
-          <Slide {...defaultSlideProps} align="center center">
-            <SmallHeading>MUSIKK!</SmallHeading>
-            <SmallText>Fordi alt blir bedre med lyd</SmallText>
+
+          <Slide {...defaultSlideProps}>
+            <SmallHeading>&nbsp;Steg 7:&nbsp;</SmallHeading>
+            <Text>Musikk! 🎶</Text>
           </Slide>
+
           <Slide {...defaultSlideProps}>
             <Text>
-              Vi kan bruke WebAudioAPI til å hente ut frekvensdata fra lyd.
+              Vi kan bruke WebAudioAPI til å hente ut data fra lyd med AnalyzerNode 📈
             </Text>
           </Slide>
+
           <CodeSlide
             align="top"
             bgColor="#333"
@@ -781,68 +1347,136 @@ class Slides extends Component {
             lang="js"
             code={fs.readFileSync('./webgl-examples/7_sound/sound.js', 'utf8')}
             ranges={[
-              { loc: [0, 0], title: 'sound.js' },
-              { loc: [0, 2], title: 'Hjelp fra modules' },
-              { loc: [4, 5], title: 'Lager oss en funksjon' },
-              { loc: [5, 6], title: "Som spør mic'en" },
-              { loc: [10, 12], title: 'Vi hooker den opp' },
-              { loc: [13, 14], title: 'Og kaller cb' }
+              {
+                loc: [0, 0],
+                title: 'sound.js'
+              },
+              {
+                loc: [0, 2],
+                title: 'Hjelp fra modules'
+              },
+              {
+                loc: [4, 5],
+                title: 'Lager oss en funksjon'
+              },
+              {
+                loc: [5, 6],
+                title: "Som spør mic'en"
+              },
+              {
+                loc: [10, 12],
+                title: 'Vi hooker den opp'
+              },
+              {
+                loc: [13, 14],
+                title: 'Og kaller cb'
+              }
             ]}
           />
+
+          <Slide {...defaultSlideProps} align="center hack">
+            <Image
+              height="90%"
+              src="https://upload.wikimedia.org/wikipedia/commons/6/61/FFT-Time-Frequency-View.png"
+              alt="FFT Time and Frequency view"
+            />
+            <SmallText>
+              By Phonical (Own work) [CC BY-SA 4.0
+              (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia
+              Commons
+            </SmallText>
+          </Slide>
+
           <CodeSlide
             align="top"
             bgColor="#333"
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/7_sound/index.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/7_sound/demo-for-slides.js', 'utf8')}
             ranges={[
-              { loc: [0, 0], title: 'index.js' },
-              { loc: [9, 10], title: 'Importerer sound' },
-              { loc: [52, 56], title: 'Laster sound' },
-              { loc: [36, 37], title: 'Som kaller draw' },
-              { loc: [38, 39], title: 'Her leser vi freq' },
-              { loc: [39, 40], title: 'sender til offsets' },
-              { loc: [23, 35], title: 'I offsets' },
-              { loc: [29, 30], title: 'Bytter vi ut Y' },
-              { loc: [29, 30], title: 'med frekvens verdi' }
+              {
+                loc: [0, 0],
+                title: 'demo.js'
+              },
+              {
+                loc: [9, 10],
+                title: 'Importerer sound'
+              },
+              {
+                loc: [52, 56],
+                title: 'Laster sound'
+              },
+              {
+                loc: [36, 37],
+                title: 'Som kaller draw'
+              },
+              {
+                loc: [38, 39],
+                title: 'Her leser vi freq'
+              },
+              {
+                loc: [39, 40],
+                title: 'sender til offsets'
+              },
+              {
+                loc: [23, 35],
+                title: 'I offsets'
+              },
+              {
+                loc: [29, 30],
+                title: 'Bytter vi ut Y'
+              },
+              {
+                loc: [29, 30],
+                title: 'med frekvens verdi'
+              }
             ]}
           />
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples[7]} />
+            <ReglSlide fn={examples[7]} />
           </Slide>
+
           <Slide {...defaultSlideProps}>
             <Text>Vi kan tilogmed bytte lydkilde:</Text>
             <AppearingBlock>
-              <Text>Welcome to Metropolis!</Text>
+              <Text>🎶 Welcome to Metropolis 🎶</Text>
             </AppearingBlock>
           </Slide>
 
           <Slide {...defaultSlideProps} align="hack hack">
-            <WebGLSlide fn={examples['final']} />
+            <ReglSlide fn={examples['final']} />
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Og sånn kan du lære deg noe nytt.</Text>
+            <Text>Dette var historien om hvordan jeg lærte meg litt om WebGL 👨‍🎓</Text>
           </Slide>
 
           <Slide {...defaultSlideProps}>
-            <Text>Gøy?</Text>
-            <AppearingBlock>
-              <Text>
-                <a href="https://kortslutning.fun">kortslutning.fun</a>
-              </Text>
-            </AppearingBlock>
+            <Text>regl er akkurat lavnivå nok til at jeg ble tvunget til å skjønne hvordan WebGL henger sammen 🕵️‍♂️</Text>
           </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Jeg hadde det morsomt mens jeg holdt på 🤹‍♂️</Text>
+            <Appear>
+              <Text>&hellip;og jeg fikk litt ekstra kunnskap gjennom gøyale omveier 🔭</Text>
+            </Appear>
+          </Slide>
+
+          <Slide {...defaultSlideProps}>
+            <Text>Alt trenger ikke være praktisk for å ha praktisk nytte 😄</Text>
+          </Slide>
+
           <Slide {...defaultSlideProps}>
             <BigHeading>Takk for meg!</BigHeading>
-            <Text className="slides">
+            <SmallHeading>Stian Veum Møllersen / @mollerse</SmallHeading>
+            <SmallText>
               Slides:{' '}
               <a href="https://mollerse.github.io/regl-vj-presentation">
                 mollerse.github.io/regl-vj-presentation
               </a>
-            </Text>
-            <Text className="slides">Kontakt: @mollerse alle plasser</Text>
+            </SmallText>
+            <SmallText><a href="https://kortslutning.fun">kortslutning.fun</a></SmallText>
           </Slide>
         </Deck>
       </Spectacle>

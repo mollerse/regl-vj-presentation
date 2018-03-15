@@ -1,13 +1,13 @@
-const reglFn = require('regl');
+const regl = require('regl')();
 const mat4 = require('gl-mat4');
 
 function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-function tower([x0, z0], w, h) {
+function cube([x0, z0], w, h) {
   var w2 = w / 2;
-  const vert = [
+  const punkter = [
     [x0 - w2, 0, z0 - w2],
     [x0 + w2, 0, z0 - w2],
     [x0 - w2, 0, z0 + w2],
@@ -39,22 +39,22 @@ function tower([x0, z0], w, h) {
     [x0 + w2, h, z0 + w2]
   ];
 
-  const els = [
+  const elementBuffer = [
     [0, 1, 2],
-    [1, 2, 3], //bottom
+    [1, 2, 3],
     [4, 5, 6],
-    [5, 6, 7], //front
+    [5, 6, 7],
     [8, 9, 10],
-    [9, 10, 11], //right
+    [9, 10, 11],
     [12, 13, 14],
-    [13, 14, 15], //back
+    [13, 14, 15],
     [16, 17, 18],
-    [17, 18, 19], //left
+    [17, 18, 19],
     [20, 21, 22],
-    [21, 22, 23] //top
+    [21, 22, 23]
   ];
 
-  const colors = Array(vert.length / 4)
+  const farger = Array(punkter.length / 4)
     .fill(0)
     .map(() => {
       const c = [rand2(0.0, 1.0), rand2(0.0, 1.0), rand2(0.0, 1.0), 1.0];
@@ -62,14 +62,12 @@ function tower([x0, z0], w, h) {
     })
     .reduce((a, e) => a.concat(e));
 
-  return { vert, els, colors };
+  return { punkter, elementBuffer, farger };
 }
 
-const t = tower([0, 0], 1, 3);
+const aCube = cube([0, 0], 1, 3);
 
-export default function draw(ctx) {
-  const regl = reglFn(ctx);
-
+function draw() {
   regl.clear({
     color: [0.0, 0.0, 0.0, 1]
   });
@@ -78,43 +76,30 @@ export default function draw(ctx) {
     frag: `
       precision mediump float;
 
-      varying vec4 pColor;
+      varying vec4 punktFarge;
 
       void main () {
-        gl_FragColor = pColor;
+        gl_FragColor = punktFarge;
       }
     `,
     vert: `
       precision mediump float;
-      attribute vec4 color;
-      attribute vec3 position;
-      uniform mat4 projection, view;
-      varying lowp vec4 pColor;
+      attribute vec4 farge;
+      attribute vec3 posisjon;
+      varying lowp vec4 punktFarge;
 
       void main() {
-        gl_Position = projection * view * vec4(position, 1);
+        gl_Position = vec4(posisjon, 1);
 
-        pColor = color;
+        punktFarge = farge;
       }
     `,
     attributes: {
-      position: t.vert,
-      color: t.colors
+      posisjon: aCube.punkter,
+      farge: aCube.farger
     },
-    elements: t.els,
-    uniforms: {
-      view: mat4.lookAt([], [0, 0, 8], [0, 0, 0], [0, 1, 0]),
-      projection: function({ viewportWidth, viewportHeight }) {
-        return mat4.perspective(
-          [],
-          Math.PI / 4,
-          viewportWidth / viewportHeight,
-          0.01,
-          100
-        );
-      }
-    }
+    elements: aCube.elementBuffer
   })();
-
-  return regl;
 }
+
+draw();

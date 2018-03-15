@@ -4,9 +4,9 @@ function rand2(l, u) {
   return l + Math.random() * (u - l);
 }
 
-function tower([x0, z0], w, h) {
+function cube([x0, z0], w, h) {
   var w2 = w / 2;
-  const vert = [
+  const punkter = [
     [x0 - w2, 0, z0 - w2],
     [x0 + w2, 0, z0 - w2],
     [x0 - w2, 0, z0 + w2],
@@ -38,7 +38,7 @@ function tower([x0, z0], w, h) {
     [x0 + w2, h, z0 + w2]
   ];
 
-  const els = [
+  const elementBuffer = [
     [0, 1, 2],
     [1, 2, 3], //bottom
     [4, 5, 6],
@@ -53,14 +53,14 @@ function tower([x0, z0], w, h) {
     [21, 22, 23] //top
   ];
 
-  const colors = Array(vert.length).fill([
+  const farger = Array(punkter.length).fill([
     rand2(0.8, 0.9),
     rand2(0.1, 0.2),
     rand2(0.35, 0.45),
     1.0
   ]);
 
-  const normals = [
+  const normaler = [
     [0, -1, 0],
     [0, -1, 0],
     [0, -1, 0],
@@ -87,71 +87,60 @@ function tower([x0, z0], w, h) {
     [0, 1, 0]
   ];
 
-  return { vert, els, colors, normals };
+  return { punkter, elementBuffer, farger, normaler };
 }
 
 module.exports = function(
   regl,
   config = { placement: [0, 0], width: 1, height: 1 }
 ) {
-  const t = tower(config.placement, config.width, config.height);
+  const aCube = cube(config.placement, config.width, config.height);
 
   return regl({
     frag: glsl(`
       precision mediump float;
       #pragma glslify: random = require(glsl-random/lowp)
 
-      varying vec4 pColor;
-      varying vec3 fragNormal, fragPosition;
+      varying vec4 punktFarge;
+      varying vec3 punktNormal, punktPosisjon;
 
       void main () {
-        vec3 normal = normalize(fragNormal);
-        vec3 lightPosition = vec3(0, -10, 0);
-        vec4 lightColor = vec4(1.0, 0.0, 0.0, 0.9);
+        vec3 normal = normalize(punktNormal);
+        vec3 lysPosisjon = vec3(0, -10, 0);
+        vec4 lysFarge = vec4(1.0, 0.0, 0.0, 0.9);
 
-        vec3 lightDir = normalize(lightPosition - fragPosition);
-        float diffuse = max(0.0, dot(lightDir, normal));
+        vec3 lysRetning = normalize(lysPosisjon - punktPosisjon);
+        float diffusjon = max(0.0, dot(lysRetning, normal));
 
         if (mod(gl_FragCoord.y, 1.5) < 1.0) {
-          gl_FragColor = vec4(0, 0, 0, 1) + diffuse*lightColor;
+          gl_FragColor = vec4(0, 0, 0, 1) + diffusjon*lysFarge;
         } else {
-          gl_FragColor = vec4(pColor.x + 0.3*random( gl_FragCoord.xy ), pColor.yzw) + diffuse*lightColor;
+          gl_FragColor = vec4(punktFarge.x + 0.3*random( gl_FragCoord.xy ), punktFarge.yzw) + diffusjon*lysFarge;
         }
 
       }
     `),
     vert: glsl(`
       precision mediump float;
-      attribute vec3 position, normal;
-      attribute vec4 color;
-      uniform float scaleXZ, scaleY;
-      uniform vec2 offsetXZ;
+      attribute vec3 posisjon, normal;
+      attribute vec4 farge;
       uniform mat4 projection, view;
-      varying lowp vec4 pColor;
-      varying vec3 fragNormal, fragPosition;
+      varying lowp vec4 punktFarge;
+      varying vec3 punktNormal, punktPosisjon;
 
       void main() {
-        float posX = position.x*scaleXZ + offsetXZ.x;
-        float posY = position.y*scaleY;
-        float posZ = position.z*scaleXZ + offsetXZ.y;
+        gl_Position = projection * view * vec4(posisjon, 1);
 
-        gl_Position = projection * view * vec4(posX, posY, posZ, 1);
-
-        pColor = color;
-        fragNormal = normal;
-        fragPosition = vec3(posX, posY, posZ);
+        punktFarge = farge;
+        punktNormal = normal;
+        punktPosisjon = posisjon;
       }
     `),
     attributes: {
-      position: t.vert,
-      color: t.colors,
-      normal: t.normals
+      posisjon: aCube.punkter,
+      farge: aCube.farger,
+      normal: aCube.normaler
     },
-    elements: t.els,
-    uniforms: {
-      scaleXZ: regl.prop('scaleXZ'),
-      offsetXZ: regl.prop('offsetXZ'),
-      scaleY: regl.prop('scaleY')
-    }
+    elements: aCube.elementBuffer
   });
 };

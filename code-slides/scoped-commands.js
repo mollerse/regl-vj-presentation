@@ -8,14 +8,14 @@ const cameraProps = {
 };
 const camera = regl(cameraProps);
 
-const towerProps = {
+const cubeProps = {
   frag: '',
   vert: '',
   attributes: {},
   elements: []
 };
-const drawTower = regl(towerProps);
+const drawCube = regl(cubeProps);
 
 camera(function() {
-  drawTower();
+  drawCube();
 });

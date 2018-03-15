@@ -2,7 +2,7 @@ const regl = require('regl')();
 
 const camera = require('./camera')(regl);
 const drawGround = require('./ground')(regl, { width: 8, depth: 5 });
-const drawTower = require('./tower')(regl, {
+const drawCube = require('./cube')(regl, {
   placement: [0, 0],
   width: 1,
   height: 3
@@ -16,7 +16,7 @@ function draw() {
 
     camera(function() {
       drawGround();
-      drawTower();
+      drawCube();
     });
   });
 }
