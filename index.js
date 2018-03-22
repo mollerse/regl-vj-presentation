@@ -75661,6 +75661,34 @@ module.exports = function (regl) {
 };
 
 },{}],473:[function(require,module,exports){
+"use strict";
+
+function ground(w, d) {
+  var punkter = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
+
+  var elementBuffer = [[0, 1, 2], [1, 2, 3]];
+
+  var farger = Array(punkter.length).fill([0.2, 0.2, 0.2, 1.0]);
+
+  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
+}
+
+module.exports = function (regl) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 8, depth: 5 };
+
+  var aGround = ground(config.width, config.depth);
+  return regl({
+    frag: "\n      precision mediump float;\n\n      varying vec4 punktParge;\n      void main () {\n        gl_FragColor = punktParge;\n      }\n    ",
+    vert: "\n      precision mediump float;\n      attribute vec3 posisjon;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktParge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n        punktParge = farge;\n      }\n    ",
+    attributes: {
+      posisjon: aGround.punkter,
+      farge: aGround.farger
+    },
+    elements: aGround.elementBuffer
+  });
+};
+
+},{}],474:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -75693,35 +75721,7 @@ module.exports = function (ctx) {
   return regl;
 };
 
-},{"./camera":471,"./cube":472,"./ground":474,"regl":386}],474:[function(require,module,exports){
-"use strict";
-
-function ground(w, d) {
-  var punkter = [[0 - w / 2, 0.01, 0 - d / 2], [0 + w / 2, 0.01, 0 - d / 2], [0 - w / 2, 0.01, 0 + d / 2], [0 + w / 2, 0.01, 0 + d / 2]];
-
-  var elementBuffer = [[0, 1, 2], [1, 2, 3]];
-
-  var farger = Array(punkter.length).fill([0.2, 0.2, 0.2, 1.0]);
-
-  return { punkter: punkter, elementBuffer: elementBuffer, farger: farger };
-}
-
-module.exports = function (regl) {
-  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 8, depth: 5 };
-
-  var aGround = ground(config.width, config.depth);
-  return regl({
-    frag: "\n      precision mediump float;\n\n      varying vec4 punktParge;\n      void main () {\n        gl_FragColor = punktParge;\n      }\n    ",
-    vert: "\n      precision mediump float;\n      attribute vec3 posisjon;\n      attribute vec4 farge;\n      uniform mat4 projection, view;\n      varying lowp vec4 punktParge;\n\n      void main() {\n        gl_Position = projection * view * vec4(posisjon, 1);\n        punktParge = farge;\n      }\n    ",
-    attributes: {
-      posisjon: aGround.punkter,
-      farge: aGround.farger
-    },
-    elements: aGround.elementBuffer
-  });
-};
-
-},{}],475:[function(require,module,exports){
+},{"./camera":471,"./cube":472,"./ground":473,"regl":386}],475:[function(require,module,exports){
 arguments[4][471][0].apply(exports,arguments)
 },{"dup":471,"gl-mat4":54}],476:[function(require,module,exports){
 'use strict';
@@ -75772,8 +75772,6 @@ module.exports = function (regl) {
 };
 
 },{"glslify":70}],477:[function(require,module,exports){
-arguments[4][473][0].apply(exports,arguments)
-},{"./camera":475,"./cube":476,"./ground":478,"dup":473,"regl":386}],478:[function(require,module,exports){
 'use strict';
 
 var glsl = require('glslify');
@@ -75803,7 +75801,9 @@ module.exports = function (regl) {
   });
 };
 
-},{"glslify":70}],479:[function(require,module,exports){
+},{"glslify":70}],478:[function(require,module,exports){
+arguments[4][474][0].apply(exports,arguments)
+},{"./camera":475,"./cube":476,"./ground":477,"dup":474,"regl":386}],479:[function(require,module,exports){
 arguments[4][471][0].apply(exports,arguments)
 },{"dup":471,"gl-mat4":54}],480:[function(require,module,exports){
 'use strict';
@@ -75857,8 +75857,6 @@ module.exports = function (regl) {
 };
 
 },{"glslify":70}],481:[function(require,module,exports){
-arguments[4][473][0].apply(exports,arguments)
-},{"./camera":479,"./cube":480,"./ground":482,"dup":473,"regl":386}],482:[function(require,module,exports){
 'use strict';
 
 var glsl = require('glslify');
@@ -75888,7 +75886,9 @@ module.exports = function (regl) {
   });
 };
 
-},{"glslify":70}],483:[function(require,module,exports){
+},{"glslify":70}],482:[function(require,module,exports){
+arguments[4][474][0].apply(exports,arguments)
+},{"./camera":479,"./cube":480,"./ground":481,"dup":474,"regl":386}],483:[function(require,module,exports){
 arguments[4][471][0].apply(exports,arguments)
 },{"dup":471,"gl-mat4":54}],484:[function(require,module,exports){
 'use strict';
@@ -75947,6 +75947,8 @@ module.exports = function (regl) {
 };
 
 },{"glslify":70}],485:[function(require,module,exports){
+arguments[4][481][0].apply(exports,arguments)
+},{"dup":481,"glslify":70}],486:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -76011,13 +76013,13 @@ module.exports = function (ctx) {
   return regl;
 };
 
-},{"./camera":483,"./cube":484,"./ground":486,"regl":386}],486:[function(require,module,exports){
-arguments[4][482][0].apply(exports,arguments)
-},{"dup":482,"glslify":70}],487:[function(require,module,exports){
+},{"./camera":483,"./cube":484,"./ground":485,"regl":386}],487:[function(require,module,exports){
 arguments[4][471][0].apply(exports,arguments)
 },{"dup":471,"gl-mat4":54}],488:[function(require,module,exports){
 arguments[4][484][0].apply(exports,arguments)
 },{"dup":484,"glslify":70}],489:[function(require,module,exports){
+arguments[4][481][0].apply(exports,arguments)
+},{"dup":481,"glslify":70}],490:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -76083,9 +76085,7 @@ module.exports = function (ctx) {
   return regl;
 };
 
-},{"./camera":487,"./cube":488,"./ground":490,"./sound":491,"regl":386}],490:[function(require,module,exports){
-arguments[4][482][0].apply(exports,arguments)
-},{"dup":482,"glslify":70}],491:[function(require,module,exports){
+},{"./camera":487,"./cube":488,"./ground":489,"./sound":491,"regl":386}],491:[function(require,module,exports){
 'use strict';
 
 var getUserMedia = require('getusermedia');
@@ -76112,6 +76112,8 @@ arguments[4][471][0].apply(exports,arguments)
 },{"dup":471,"gl-mat4":54}],493:[function(require,module,exports){
 arguments[4][484][0].apply(exports,arguments)
 },{"dup":484,"glslify":70}],494:[function(require,module,exports){
+arguments[4][481][0].apply(exports,arguments)
+},{"dup":481,"glslify":70}],495:[function(require,module,exports){
 'use strict';
 
 var reglFn = require('regl');
@@ -76177,9 +76179,7 @@ module.exports = function (ctx) {
   return regl;
 };
 
-},{"./camera":492,"./cube":493,"./ground":495,"./sound":496,"regl":386}],495:[function(require,module,exports){
-arguments[4][482][0].apply(exports,arguments)
-},{"dup":482,"glslify":70}],496:[function(require,module,exports){
+},{"./camera":492,"./cube":493,"./ground":494,"./sound":496,"regl":386}],496:[function(require,module,exports){
 'use strict';
 
 var soundcloud = require('soundcloud-badge');
@@ -76222,49 +76222,49 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _demo = require('./1_tower/demo.js');
+var _indexForSlide = require('./1_tower/index-for-slide.js');
 
-var _demo2 = _interopRequireDefault(_demo);
+var _indexForSlide2 = _interopRequireDefault(_indexForSlide);
 
-var _demo3 = require('./2_camera/demo.js');
+var _indexForSlide3 = require('./2_camera/index-for-slide.js');
 
-var _demo4 = _interopRequireDefault(_demo3);
+var _indexForSlide4 = _interopRequireDefault(_indexForSlide3);
 
-var _demo5 = require('./3_multiple/demo.js');
+var _indexForSlide5 = require('./3_multiple/index-for-slide.js');
 
-var _demo6 = _interopRequireDefault(_demo5);
+var _indexForSlide6 = _interopRequireDefault(_indexForSlide5);
 
-var _demo7 = require('./4_glslify/demo.js');
+var _indexForSlide7 = require('./4_glslify/index-for-slide.js');
 
-var _demo8 = _interopRequireDefault(_demo7);
+var _indexForSlide8 = _interopRequireDefault(_indexForSlide7);
 
-var _demo9 = require('./5_lighting/demo.js');
+var _indexForSlide9 = require('./5_lighting/index-for-slide.js');
 
-var _demo10 = _interopRequireDefault(_demo9);
+var _indexForSlide10 = _interopRequireDefault(_indexForSlide9);
 
-var _demo11 = require('./6_batch/demo.js');
+var _indexForSlide11 = require('./6_batch/index-for-slide.js');
 
-var _demo12 = _interopRequireDefault(_demo11);
+var _indexForSlide12 = _interopRequireDefault(_indexForSlide11);
 
-var _demo13 = require('./7_sound/demo.js');
+var _indexForSlide13 = require('./7_sound/index-for-slide.js');
 
-var _demo14 = _interopRequireDefault(_demo13);
+var _indexForSlide14 = _interopRequireDefault(_indexForSlide13);
 
-var _demo15 = require('./final/demo.js');
+var _indexForSlide15 = require('./final/index-for-slide.js');
 
-var _demo16 = _interopRequireDefault(_demo15);
+var _indexForSlide16 = _interopRequireDefault(_indexForSlide15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  1: _demo2.default,
-  2: _demo4.default,
-  3: _demo6.default,
-  4: _demo8.default,
-  5: _demo10.default,
-  6: _demo12.default,
-  7: _demo14.default,
-  final: _demo16.default
+  1: _indexForSlide2.default,
+  2: _indexForSlide4.default,
+  3: _indexForSlide6.default,
+  4: _indexForSlide8.default,
+  5: _indexForSlide10.default,
+  6: _indexForSlide12.default,
+  7: _indexForSlide14.default,
+  final: _indexForSlide16.default
 };
 
-},{"./1_tower/demo.js":469,"./2_camera/demo.js":470,"./3_multiple/demo.js":473,"./4_glslify/demo.js":477,"./5_lighting/demo.js":481,"./6_batch/demo.js":485,"./7_sound/demo.js":489,"./final/demo.js":494}]},{},[467]);
+},{"./1_tower/index-for-slide.js":469,"./2_camera/index-for-slide.js":470,"./3_multiple/index-for-slide.js":474,"./4_glslify/index-for-slide.js":478,"./5_lighting/index-for-slide.js":482,"./6_batch/index-for-slide.js":486,"./7_sound/index-for-slide.js":490,"./final/index-for-slide.js":495}]},{},[467]);

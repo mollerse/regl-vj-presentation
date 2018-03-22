@@ -510,7 +510,7 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/1_tower/demo-for-slides.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/1_tower/index.js', 'utf8')}
             ranges={[
               {
                 loc: [0, 0],
@@ -662,7 +662,7 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/1_tower/demo-for-slides.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/1_tower/index.js', 'utf8')}
             ranges={[
               {
                 loc: [84, 96],
@@ -796,7 +796,7 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/2_camera/demo-for-slides.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/2_camera/index.js', 'utf8')}
             ranges={[
               {
                 loc: [0, 0],
@@ -1075,7 +1075,7 @@ class Slides extends Component {
             className="codeslide"
             lang="js"
             code={fs.readFileSync(
-              './webgl-examples/3_multiple/demo-for-slides.js',
+              './webgl-examples/3_multiple/index.js',
               'utf8'
             )}
             ranges={[
@@ -1234,7 +1234,7 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/6_batch/demo-for-slides.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/6_batch/index.js', 'utf8')}
             ranges={[
               {
                 loc: [0, 0],
@@ -1393,7 +1393,7 @@ class Slides extends Component {
             transition={[]}
             className="codeslide"
             lang="js"
-            code={fs.readFileSync('./webgl-examples/7_sound/demo-for-slides.js', 'utf8')}
+            code={fs.readFileSync('./webgl-examples/7_sound/index.js', 'utf8')}
             ranges={[
               {
                 loc: [0, 0],
