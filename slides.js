@@ -31,13 +31,13 @@ import ReglSlide from './regl-slide';
 import examples from './webgl-examples';
 
 const BigHeading = props => (
-  <Heading fit caps lineHeight={1.5} size={1} {...props}>
+  <Heading caps lineHeight={1.5} size={1} {...props}>
     {props.children}
   </Heading>
 );
 
 const SmallHeading = props => (
-  <Heading lineHeight={1.5} fit size={2} {...props}>
+  <Heading lineHeight={1.5} size={2} {...props}>
     {props.children}
   </Heading>
 );

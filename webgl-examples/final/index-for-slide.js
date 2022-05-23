@@ -53,7 +53,7 @@ module.exports = function(ctx) {
   }
 
   loadSound(
-    'https://soundcloud.com/nightcrawlermusic/nightcrawler-metropolis-feat-1',
+    'song.mp3',
     numCubes * 2, //fftSize
     draw //onDone
   );
